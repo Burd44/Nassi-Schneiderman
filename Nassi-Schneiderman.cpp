@@ -3,11 +3,6 @@
 #include "winbgim.h"
 #include <Windows.h>
 #include <cstring>
-
-
-
-// awhdahwda
-
 #pragma comment(lib,"graphics.lib")
 
 using namespace std;
