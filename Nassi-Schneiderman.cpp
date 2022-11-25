@@ -82,13 +82,14 @@ void alegeFisier()
 void start() 
 {
     int x = 0, y = 0;
-    settextstyle(DEFAULT_FONT, 0, 0);
     char word[20] = "Alege fisier text";
     char word2[20] = "Iesire";
+    settextjustify(CENTER_TEXT, CENTER_TEXT);
     rectangle(maxW / 2 - 0.1 * maxW, maxH / 2, maxW / 2 + 0.1 * maxW, maxH / 2 + 0.1 * maxH);
     rectangle(maxW / 2 - 0.1 * maxW, maxH / 2 + 0.2 * maxH, maxW / 2 + 0.1 * maxW, maxH / 2 + 0.3 * maxH);
-    outtextxy(maxW / 2 - 0.045 * maxW, maxH / 2 + 0.03 * maxH, word);
-    outtextxy(maxW / 2 - 0.02 * maxW, maxH / 2 + 0.23 * maxH, word2);
+    outtextxy(maxW / 2, maxH / 2 + 0.05 * maxH, word);
+    outtextxy(maxW / 2, maxH / 2 + 0.25 * maxH, word2);
+    settextjustify(LEFT_TEXT, TOP_TEXT);
     while (1) 
     {
         getmouseclick(WM_LBUTTONUP, x, y);
@@ -106,6 +107,7 @@ void start()
 int main()
 {
     initwindow(maxW, maxH, "Generator de Diagrame Nassi-Schneiderman");
+    settextstyle(DEFAULT_FONT, 0, maxH/maxW);
     start();
     getch();
     closegraph();
