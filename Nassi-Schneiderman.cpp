@@ -109,7 +109,7 @@ int main()
 {
     initwindow(maxW, maxH, "Generator de Diagrame Nassi-Schneiderman");
     settextstyle(4, 0, 0);
-    setusercharsize(maxW/maxH, 2, maxW / maxH, 1);
+    setusercharsize(1, 2, 1, 1);
     start();
     getch();
     closegraph();
