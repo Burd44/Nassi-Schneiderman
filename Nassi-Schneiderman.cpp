@@ -43,7 +43,7 @@ void afisare()
         rectangle(maxW/2-(maxWidthRow /2)-maxW*0.01 + xpoz, maxH*0.1+ypoz,
                   maxW / 2 + (maxWidthRow / 2) + maxW * 0.01 + xpoz, maxH*0.1+(textHeight*(nrRanduri+1))+ypoz);
         while (fgets(rand, sizeof(rand), fptr)) {
-            outtextxy(maxW / 2 - (maxWidthRow / 2) + xpoz, maxH*0.08+ (textHeight * r) + ypoz, rand);
+            outtextxy(maxW / 2 - (maxWidthRow / 2) + xpoz, maxH*0.1+ (textHeight * r) + ypoz, rand);
             r++;
         }
         page = 1 - page;
@@ -56,8 +56,8 @@ void ecranEroare()
     setcolor(4);
     char eroare[50] = "Eroare la deschiderea fisierului.";
     char second[100] = "Apasati orice tasta pentru a inchide aplicatia";
-    outtextxy(maxW / 2 - 0.15 * maxW, maxH / 2 + 0.03 * maxH, eroare);
-    outtextxy(maxW / 2 - 0.2 * maxW, maxH / 2 + 0.1 * maxH, second);
+    outtextxy(maxW / 2 - 0.1 * maxW, maxH / 2 + 0.03 * maxH, eroare);
+    outtextxy(maxW / 2 - 0.128 * maxW, maxH / 2 + 0.1 * maxH, second);
     getch();
     exit(1);
 }
@@ -79,11 +79,10 @@ void alegeFisier()
 void start() 
 {
     int x = 0, y = 0;
-    char word[20] = "Alege fisier text"; // am schimbat textul aici
+    char word[20] = "Alege fisier text";
     char word2[20] = "Iesire";
     rectangle(maxW / 2 - 0.1 * maxW, maxH / 2, maxW / 2 + 0.1 * maxW, maxH / 2 + 0.1 * maxH);
     rectangle(maxW / 2 - 0.1 * maxW, maxH / 2 + 0.2 * maxH, maxW / 2 + 0.1 * maxW, maxH / 2 + 0.3 * maxH);
-    //settextstyle(DEFAULT_FONT, 0, 0);
     outtextxy(maxW / 2 - 0.045 * maxW, maxH / 2 + 0.03 * maxH, word);
     outtextxy(maxW / 2 - 0.02 * maxW, maxH / 2 + 0.23 * maxH, word2);
     while (1) 
