@@ -5,8 +5,6 @@
 #include <cstring>
 #pragma comment(lib,"graphics.lib")
 
-
-// sdjgjsdf
 using namespace std;
 
 char Path[300];
