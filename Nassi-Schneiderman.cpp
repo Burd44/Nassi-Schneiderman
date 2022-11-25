@@ -34,13 +34,13 @@ void afisare()
         cleardevice();
         int r = 1;
         if (GetAsyncKeyState(VK_UP))
-            ypoz+=5;
-        if (GetAsyncKeyState(VK_DOWN))
             ypoz-=5;
+        if (GetAsyncKeyState(VK_DOWN))
+            ypoz+=5;
         if (GetAsyncKeyState(VK_LEFT))
-            xpoz += 5;
-        if (GetAsyncKeyState(VK_RIGHT))
             xpoz -= 5;
+        if (GetAsyncKeyState(VK_RIGHT))
+            xpoz += 5;
         rewind(fptr);
         rectangle(maxW/2-(maxWidthRow /2)-maxW*0.01 + xpoz, maxH*0.1+ypoz,
                   maxW / 2 + (maxWidthRow / 2) + maxW * 0.01 + xpoz, maxH*0.1+(textHeight *(nrRanduri+1))+ypoz);
