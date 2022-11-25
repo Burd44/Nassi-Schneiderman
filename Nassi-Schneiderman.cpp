@@ -15,7 +15,7 @@ void afisare()
     FILE* fptr = fopen(Path, "r");
     cleardevice();
     int nrRanduri = 0, maxRand = 0;
-    char rand[300], maxRandSir[300],auxText[]="I";
+    char rand[300], maxRandSir[300];
     while (fgets(rand, sizeof(rand), fptr)) {
         nrRanduri++;
         if (strlen(rand) > maxRand) {
@@ -25,7 +25,6 @@ void afisare()
     }
     int page = 0, ypoz = 0, xpoz = 0;
     int maxWidthRow = textwidth(maxRandSir);
-    int textHeight = textheight(auxText);
     while (1) {
         setvisualpage(page);
         setactivepage(1 - page);
@@ -41,9 +40,9 @@ void afisare()
             xpoz -= 5;
         rewind(fptr);
         rectangle(maxW/2-(maxWidthRow /2)-maxW*0.01 + xpoz, maxH*0.1+ypoz,
-                  maxW / 2 + (maxWidthRow / 2) + maxW * 0.01 + xpoz, maxH*0.1+(textHeight*(nrRanduri+1))+ypoz);
+                  maxW / 2 + (maxWidthRow / 2) + maxW * 0.01 + xpoz, maxH*0.1+(25*(nrRanduri+1))+ypoz);
         while (fgets(rand, sizeof(rand), fptr)) {
-            outtextxy(maxW / 2 - (maxWidthRow / 2) + xpoz, maxH*0.1+ (textHeight * r) + ypoz, rand);
+            outtextxy(maxW / 2 - (maxWidthRow / 2) + xpoz, maxH*0.1+ (25 * r) + ypoz, rand);
             r++;
         }
         page = 1 - page;
@@ -79,6 +78,7 @@ void alegeFisier()
 void start() 
 {
     int x = 0, y = 0;
+    settextstyle(DEFAULT_FONT, 0, 0);
     char word[20] = "Alege fisier text";
     char word2[20] = "Iesire";
     rectangle(maxW / 2 - 0.1 * maxW, maxH / 2, maxW / 2 + 0.1 * maxW, maxH / 2 + 0.1 * maxH);
