@@ -53,7 +53,7 @@ void ecranEroare()
 {
     cleardevice();
     setcolor(4);
-    char eroare[50] = "Eroare la deschiderea fisierului";
+    char eroare[50] = "Eroare la deschiderea fisierului.";
     char second[100] = "Apasati orice tasta pentru a inchide aplicatia";
     outtextxy(maxW / 2 - 0.15 * maxW, maxH / 2 + 0.03 * maxH, eroare);
     outtextxy(maxW / 2 - 0.2 * maxW, maxH / 2 + 0.1 * maxH, second);
