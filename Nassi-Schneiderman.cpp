@@ -57,10 +57,11 @@ void ecranEroare()
 {
     cleardevice();
     setcolor(4);
+    settextjustify(CENTER_TEXT, CENTER_TEXT);
     char eroare[50] = "Eroare la deschiderea fisierului.";
     char second[100] = "Apasati orice tasta pentru a inchide aplicatia";
-    outtextxy(maxW / 2 - 0.1 * maxW, maxH / 2 + 0.03 * maxH, eroare);
-    outtextxy(maxW / 2 - 0.128 * maxW, maxH / 2 + 0.1 * maxH, second);
+    outtextxy(maxW / 2, maxH / 2 + 0.03 * maxH, eroare);
+    outtextxy(maxW / 2, maxH / 2 + 0.1 * maxH, second);
     getch();
     exit(1);
 }
@@ -108,8 +109,7 @@ void start()
 int main()
 {
     initwindow(maxW, maxH, "Generator de Diagrame Nassi-Schneiderman");
-    settextstyle(4, 0, 0);
-    setusercharsize(1, 2, 1, 1);
+    settextstyle(DEFAULT_FONT, 0, 0);
     start();
     getch();
     closegraph();
