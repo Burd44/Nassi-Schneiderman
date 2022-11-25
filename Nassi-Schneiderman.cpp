@@ -16,9 +16,11 @@ void afisare()
     cleardevice();
     int nrRanduri = 0, maxRand = 0;
     char rand[300], maxRandSir[300];
-    while (fgets(rand, sizeof(rand), fptr)) {
+    while (fgets(rand, sizeof(rand), fptr)) 
+    {
         nrRanduri++;
-        if (strlen(rand) > maxRand) {
+        if (strlen(rand) > maxRand) 
+        {
             maxRand = strlen(rand);
             strcpy(maxRandSir, rand);
         }
@@ -41,9 +43,9 @@ void afisare()
             xpoz -= 5;
         rewind(fptr);
         rectangle(maxW/2-(maxWidthRow /2)-maxW*0.01 + xpoz, maxH*0.1+ypoz,
-                  maxW / 2 + (maxWidthRow / 2) + maxW * 0.01 + xpoz, maxH*0.1+(textHeight*(nrRanduri+1))+ypoz);
+                  maxW / 2 + (maxWidthRow / 2) + maxW * 0.01 + xpoz, maxH*0.1+(25*(nrRanduri+1))+ypoz);
         while (fgets(rand, sizeof(rand), fptr)) {
-            outtextxy(maxW / 2 - (maxWidthRow / 2) + xpoz, maxH*0.1+ (textHeight * r) + ypoz, rand);
+            outtextxy(maxW / 2 - (maxWidthRow / 2) + xpoz, maxH*0.1+ (25 * r) + ypoz, rand);
             r++;
         }
         page = 1 - page;
@@ -70,7 +72,8 @@ void alegeFisier()
     ofn.lpstrFile = Path;
     *(ofn.lpstrFile) = NULL;
     ofn.nMaxFile = sizeof(Path);
-    if (GetOpenFileNameA(&ofn) == 0) {
+    if (GetOpenFileNameA(&ofn) == 0) 
+    {
         ecranEroare();
     }
     afisare();
@@ -89,13 +92,11 @@ void start()
     while (1) 
     {
         getmouseclick(WM_LBUTTONUP, x, y);
-        if (x >= (maxW / 2 - 0.1 * maxW + 1) && x <= (maxW / 2 + 0.1 * maxW - 1) 
-                  && y >= (maxH / 2 + 1) && y <= (maxH / 2 + 0.1 * maxH - 1)) 
+        if (x >= (maxW / 2 - 0.1 * maxW + 1) && x <= (maxW / 2 + 0.1 * maxW - 1) && y >= (maxH / 2 + 1) && y <= (maxH / 2 + 0.1 * maxH - 1)) 
         {
             alegeFisier();
         }
-        else if (x >= (maxW / 2 - 0.1 * maxW + 1) && x <= (maxW / 2 + 0.1 * maxW - 1) 
-                 && y >= (maxH / 2 + 0.2 * maxH + 1) && y <= (maxH / 2 + 0.3 * maxH - 1)) 
+        else if (x >= (maxW / 2 - 0.1 * maxW + 1) && x <= (maxW / 2 + 0.1 * maxW - 1) && y >= (maxH / 2 + 0.2 * maxH + 1) && y <= (maxH / 2 + 0.3 * maxH - 1)) 
         {
             exit(1);
         }
