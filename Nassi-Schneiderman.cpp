@@ -7,10 +7,8 @@
 
 using namespace std;
 
-char Path[300];
-int maxH = getmaxheight() / 1.15, maxW = getmaxwidth() / 1.15;
+///////////// idea
 
-// idea
 struct ifOrElseNod {
     int maxLineLenght;
     char identity;     // i (pt if) sau e (pt else)
@@ -23,22 +21,12 @@ struct ifElseTrees {
 
 int treesCnt = 0;
 
+/////////////
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+char Path[300];
+int maxH = getmaxheight() / 1.15, maxW = getmaxwidth() / 1.15;
 
 void afisare() 
 {
