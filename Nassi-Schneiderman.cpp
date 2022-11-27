@@ -10,6 +10,36 @@ using namespace std;
 char Path[300];
 int maxH = getmaxheight() / 1.15, maxW = getmaxwidth() / 1.15;
 
+// idea
+struct ifOrElseNod {
+    int maxLineLenght;
+    char identity;     // i (pt if) sau e (pt else)
+};
+struct ifElseTrees {
+    ifOrElseNod[100];  // un arbore pentru o amestecatura de if - uri si else - uri
+    int lght = 0;      // lungimea vectorului care reprezinta arborele
+    int arbLine;       // linia la care incepe arborele
+}trees[50];
+
+int treesCnt = 0;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 void afisare() 
 {
     FILE* fptr = fopen(Path, "r");
