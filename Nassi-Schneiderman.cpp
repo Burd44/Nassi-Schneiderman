@@ -14,7 +14,7 @@ struct ifOrElseNod {
     char identity;     // i (pt if) sau e (pt else)
 };
 struct ifElseTrees {
-    ifOrElseNod[100];  // un arbore pentru o amestecatura de if - uri si else - uri
+    ifOrElseNod tree[100];  // un arbore pentru o amestecatura de if - uri si else - uri
     int lght = 0;      // lungimea vectorului care reprezinta arborele
     int arbLine;       // linia la care incepe arborele
 }trees[50];
