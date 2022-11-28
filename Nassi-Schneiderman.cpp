@@ -61,8 +61,7 @@ void afisare()
         if (GetAsyncKeyState(VK_RIGHT))
             xpoz -= 5;
         rewind(fptr);
-        rectangle(maxW/2-(maxWidthRow /2)-maxW*0.01 + xpoz, maxH*0.1+ypoz,
-                  maxW / 2 + (maxWidthRow / 2) + maxW * 0.01 + xpoz, maxH*0.1+(textHeight *(nrRanduri+1))+ypoz);
+        rectangle(maxW/2-(maxWidthRow /2)-maxW*0.01 + xpoz, maxH*0.1+ypoz, maxW / 2 + (maxWidthRow / 2) + maxW * 0.01 + xpoz, maxH*0.1+(textHeight *(nrRanduri+1))+ypoz);
         while (fgets(rand, sizeof(rand), fptr)) {
             outtextxy(maxW / 2 - (maxWidthRow / 2) + xpoz, maxH*0.1+ (textHeight * r) + ypoz, rand);
             r++;
@@ -76,7 +75,7 @@ void ecranEroare()
     cleardevice();
     setcolor(4);
     settextjustify(CENTER_TEXT, CENTER_TEXT);
-    char eroare[50] = "Eroare la deschiderea fisierului.";
+    char eroare[50] = "Eroare la deschiderea fisierului";
     char second[100] = "Apasati orice tasta pentru a inchide aplicatia";
     outtextxy(maxW / 2, maxH / 2 + 0.03 * maxH, eroare);
     outtextxy(maxW / 2, maxH / 2 + 0.1 * maxH, second);
@@ -127,7 +126,8 @@ void start()
 int main()
 {
     initwindow(maxW, maxH, "Generator de Diagrame Nassi-Schneiderman");
-    settextstyle(DEFAULT_FONT, 0, 0);
+    settextstyle(9, HORIZ_DIR, 0);
+    setusercharsize(1, 0.1*maxW, 1, 0.1*maxH);
     start();
     getch();
     closegraph();
