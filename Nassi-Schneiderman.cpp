@@ -43,7 +43,7 @@ void afisare()
             strcpy(maxRandSir, rand);
         }
     }
-    int page = 0, ypoz = 0, xpoz = 0, x = 0, y = 0, xt = 0, yt = 0;
+    int page = 0, ypoz = 0, xpoz = 0, xt = 0, yt = 0;
     int maxWidthRow = textwidth(maxRandSir);
     int textHeight = textheight(rand);
     while (1) 
@@ -67,12 +67,8 @@ void afisare()
         rectangle(maxW - 0.1 * maxW, maxH - 0.05 * maxH, maxW - 0.05 * maxW, maxH - 0.1 * maxH);
         line(maxW - 0.075 * maxW, maxH - 0.05 * maxH, maxW - 0.1 * maxW, maxH - 0.1 * maxH);
         line(maxW - 0.075 * maxW, maxH - 0.05 * maxH, maxW - 0.05 * maxW, maxH - 0.1 * maxH);
-        getmouseclick(WM_LBUTTONDOWN, x, y);
-        if (x != -1 and y != -1)
-        {
-            xt = x;
-            yt = y;
-        }
+        xt = mousex();
+        yt = mousey();
         if (GetAsyncKeyState(VK_LBUTTON))
         {
             if (xt >= (maxW - 0.1 * maxW) && xt <= (maxW - 0.05 * maxW) && yt >= (0.05 * maxH) && yt <= (0.1 * maxH))
@@ -131,7 +127,7 @@ void start()
     settextjustify(LEFT_TEXT, TOP_TEXT);
     while (1) 
     {
-        getmouseclick(WM_LBUTTONDOWN, x, y);
+        getmouseclick(WM_LBUTTONUP, x, y);
         if (x >= (maxW / 2 - 0.1 * maxW + 1) && x <= (maxW / 2 + 0.1 * maxW - 1) && y >= (maxH / 2 + 1) && y <= (maxH / 2 + 0.1 * maxH - 1)) 
         {
             alegeFisier();
