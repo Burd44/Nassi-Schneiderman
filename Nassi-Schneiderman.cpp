@@ -7,8 +7,8 @@
 
 using namespace std;
 
-char Path[300];
-int maxH = getmaxheight() / 1.15, maxW = getmaxwidth() / 1.35;
+char Path[300], img[100];
+int maxH = getmaxheight() / 1.15, maxW = getmaxwidth() / 1.15;
 int diagRowHeight = 0.055 * maxH, diagWidth = 0.8 * maxW, rowsInTotal=0;
 
 char randuri[200][200];
@@ -271,7 +271,7 @@ void diagram() {
     while (1) { 
         setvisualpage(page);
         setactivepage(1 - page);
-        cleardevice();
+        clearviewport();
         int currLine = 1;                                                        // currLine reprezinta nr liniei orizontale la care am ajuns sa desenam
         int currLeft = maxW/2-diagWidth/2, currRight = currLeft+diagWidth;       // row reprezinta randul din vectorul cu pseudocodul
         int rowLimit = 9999, rowLimitIf = 9999, rowLimitElse = 9999;
@@ -334,13 +334,10 @@ void diagram() {
             }
         }
 
-
-        rectangle(maxW - 0.1 * maxW, 0.05 * maxH, maxW - 0.05 * maxW, 0.1 * maxH);
-        //line(maxW - 0.075 * maxW, 0.05 * maxH, maxW - 0.1 * maxW, 0.1 * maxH);
-        //line(maxW - 0.075 * maxW, 0.05 * maxH, maxW - 0.05 * maxW, 0.1 * maxH);
-        rectangle(maxW - 0.1 * maxW, maxH - 0.05 * maxH, maxW - 0.05 * maxW, maxH - 0.1 * maxH);
-        //line(maxW - 0.075 * maxW, maxH - 0.05 * maxH, maxW - 0.1 * maxW, maxH - 0.1 * maxH);
-        //line(maxW - 0.075 * maxW, maxH - 0.05 * maxH, maxW - 0.05 * maxW, maxH - 0.1 * maxH);
+        setfillstyle(BKSLASH_FILL, 1);
+        bar(maxW - 0.1 * maxW, 0.05 * maxH - 0.045 * maxH, maxW - 0.05 * maxW, 0.1 * maxH - 0.045 * maxH);
+        setfillstyle(SLASH_FILL, 1);
+        bar(maxW - 0.1 * maxW, maxH - 0.05 * maxH - 0.123 * maxH, maxW - 0.05 * maxW, maxH - 0.1 * maxH - 0.123 * maxH);
         xt = mousex();
         yt = mousey();
         if (GetAsyncKeyState(VK_UP))
@@ -353,17 +350,19 @@ void diagram() {
             xpoz += 5;
         if (GetAsyncKeyState(VK_RBUTTON))
         {
-            if (xt >= (maxW - 0.1 * maxW) && xt <= (maxW - 0.05 * maxW) && yt >= (0.05 * maxH) && yt <= (0.1 * maxH))
-                diagWidth -= 5;
+            if (xt >= (maxW - 0.1 * maxW) && xt <= (maxW - 0.05 * maxW) && yt >= (0.05 * maxH + 0.077 * maxH) && yt <= (0.1 * maxH + 0.077 * maxH))
+                diagWidth -= 1;
             else if (xt >= (maxW - 0.1 * maxW) && xt <= (maxW - 0.05 * maxW) && yt >= (maxH - 0.1 * maxH) && yt <= (maxH - 0.05 * maxH))
-                diagRowHeight -= 5;
+            {
+                diagRowHeight -= 1;
+            }
         }
         if (GetAsyncKeyState(VK_LBUTTON))
         {
-            if (xt >= (maxW - 0.1 * maxW) && xt <= (maxW - 0.05 * maxW) && yt >= (0.05 * maxH) && yt <= (0.1 * maxH))
-                diagWidth += 5;
+            if (xt >= (maxW - 0.1 * maxW) && xt <= (maxW - 0.05 * maxW) && yt >= (0.05 * maxH + 0.077 * maxH) && yt <= (0.1 * maxH + 0.077 * maxH))
+                diagWidth += 1;
             else if (xt >= (maxW - 0.1 * maxW) && xt <= (maxW - 0.05 * maxW) && yt >= (maxH - 0.1 * maxH) && yt <= (maxH - 0.05 * maxH))
-                diagRowHeight += 5;
+                diagRowHeight += 1;
         }
 
         page = 1 - page;
@@ -373,7 +372,9 @@ void diagram() {
 void afisare() 
 {
     FILE* fptr = fopen(Path, "r");
-    cleardevice();
+    
+    setviewport(0, 0.123*maxH, maxW, maxH-0.045*maxH, 1);
+    clearviewport();
     int nrRanduri = 0, maxRand = 0;
     char rand[300], maxRandSir[300];
     while (fgets(rand, sizeof(rand), fptr)) 
@@ -392,20 +393,20 @@ void afisare()
     {
         setvisualpage(page);
         setactivepage(1 - page);
-        cleardevice();
+        clearviewport();
         int r = 1;
         rewind(fptr);
-        rectangle(maxW - 0.1 * maxW, 0.05 * maxH, maxW - 0.05 * maxW, 0.1 * maxH);
-        line(maxW - 0.075 * maxW, 0.05 * maxH, maxW - 0.1 * maxW, 0.1 * maxH);
-        line(maxW - 0.075 * maxW, 0.05 * maxH, maxW - 0.05 * maxW, 0.1 * maxH);
-        rectangle(maxW - 0.1 * maxW, maxH - 0.05 * maxH, maxW - 0.05 * maxW, maxH - 0.1 * maxH);
-        line(maxW - 0.075 * maxW, maxH - 0.05 * maxH, maxW - 0.1 * maxW, maxH - 0.1 * maxH);
-        line(maxW - 0.075 * maxW, maxH - 0.05 * maxH, maxW - 0.05 * maxW, maxH - 0.1 * maxH);
+        rectangle(maxW - 0.1 * maxW, 0.05 * maxH - 0.045 * maxH, maxW - 0.05 * maxW, 0.1 * maxH - 0.045 * maxH);
+        line(maxW - 0.075 * maxW, 0.05 * maxH - 0.045 * maxH, maxW - 0.1 * maxW, 0.1 * maxH - 0.045 * maxH);
+        line(maxW - 0.075 * maxW, 0.05 * maxH - 0.045 * maxH, maxW - 0.05 * maxW, 0.1 * maxH - 0.045 * maxH);
+        rectangle(maxW - 0.1 * maxW, maxH - 0.05 * maxH - 0.123 * maxH, maxW - 0.05 * maxW, maxH - 0.1 * maxH - 0.123 * maxH);
+        line(maxW - 0.075 * maxW, maxH - 0.05 * maxH - 0.123 * maxH, maxW - 0.1 * maxW, maxH - 0.1 * maxH - 0.123 * maxH);
+        line(maxW - 0.075 * maxW, maxH - 0.05 * maxH - 0.123 * maxH, maxW - 0.05 * maxW, maxH - 0.1 * maxH - 0.123 * maxH);
         xt = mousex();
         yt = mousey();
         if (GetAsyncKeyState(VK_LBUTTON))
         {
-            if (xt >= (maxW - 0.1 * maxW) && xt <= (maxW - 0.05 * maxW) && yt >= (0.05 * maxH) && yt <= (0.1 * maxH))
+            if (xt >= (maxW - 0.1 * maxW) && xt <= (maxW - 0.05 * maxW) && yt >= (0.05 * maxH + 0.077 * maxH) && yt <= (0.1 * maxH + 0.077 * maxH))
                 ypoz += 5;
             else if (xt >= (maxW - 0.1 * maxW) && xt <= (maxW - 0.05 * maxW) && yt >= (maxH - 0.1 * maxH) && yt <= (maxH - 0.05 * maxH))
                 ypoz -= 5;
@@ -426,7 +427,7 @@ void afisare()
 
 void ecranEroare() 
 {
-    cleardevice();
+    clearviewport();
     setcolor(4);
     settextjustify(CENTER_TEXT, CENTER_TEXT);
     char eroare[50] = "Eroare la deschiderea fisierului";
@@ -479,9 +480,16 @@ void start()
 
 int main()
 {
+    int page = 0;
     initwindow(maxW, maxH, "Generator de Diagrame Nassi-Schneiderman");
+    setactivepage(page);
     readimagefile("image.bmp", 0, 0, maxW, maxH);
-    settextstyle(9, HORIZ_DIR, 0);
+    setactivepage(1 - page);
+    readimagefile("image.bmp", 0, 0, maxW, maxH);
+    setvisualpage(1-page);
+    setcolor(1);
+    setbkcolor(WHITE);
+    settextstyle(DEFAULT_FONT, HORIZ_DIR, 0);
     setusercharsize(1, 0.1*maxW, 1, 0.1*maxH);
     start();
     getch();
