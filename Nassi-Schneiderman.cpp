@@ -81,8 +81,8 @@ void printRow(int Left, int Right, int currLine, int rowNumber,int ypoz, int xpo
     outtextxy((Right + Left) / 2 + xpoz, diagRowHeight * currLine + 0.7 * diagRowHeight + ypoz, randuri[rowNumber] + spaces);
 }
 
-void skipElseOrIf(int& row, int& linesToBracket, int &linesToDraw) {
-    row++, linesToBracket++;
+void skipElseOrIf(int& row, int& linesInBrackets, int &linesToDraw) {
+    row++, linesInBrackets++;
     int bracketsStack = 0;
     int linesCntElse = 0;
     int linesCntIf = 0;
@@ -98,14 +98,14 @@ void skipElseOrIf(int& row, int& linesToBracket, int &linesToDraw) {
             bracketsStack++;
         else if (strstr(randuri[row], "}") != 0)
             bracketsStack--;
-        row++, linesToBracket++;
+        row++, linesInBrackets++;
 
     } while (bracketsStack > 0);
     // Right now it skips only else, if more operations are in else than in if, diagram will break
     // TODO    make this function skip either if or else, whichever has less operations to draw  (HINT: traverse both up and down directions)
 }
 
-void lastBracket(int row,int &linesToBracket, int &linesToDraw) {
+void lastBracket(int row,int &linesInBrackets, int &linesToDraw) {
     row++;
     int bracketsStack = 0;
     do {
@@ -117,7 +117,7 @@ void lastBracket(int row,int &linesToBracket, int &linesToDraw) {
             linesToDraw += 2;
         }
         else if (tip == 8) {
-            skipElseOrIf(row, linesToBracket, linesToDraw);
+            skipElseOrIf(row, linesInBrackets, linesToDraw);
             tip = tipOperatie(randuri[row]);
             if (tip >= 2 && tip <= 7) {
                 linesToDraw++;
@@ -132,11 +132,11 @@ void lastBracket(int row,int &linesToBracket, int &linesToDraw) {
         else if (strstr(randuri[row],"}")!=0)
             bracketsStack--;
 
-        row++,linesToBracket++;
+        row++,linesInBrackets++;
     } while (bracketsStack > 0);
 }
 
-void ifAndElseBracket(int row, int &linesToDrawFB, int &linesToFB,int &linesToDrawSecondB,int &linesInElseBrackets, bool &existaElse) {
+void ifAndElseBracket(int row, int &linesToDrawFB, int &linesInIfBrackets,int &linesToDrawSecondB,int &linesInElseBrackets, bool &existaElse) {
     row++;
     int bracketsStack = 0;
     do {
@@ -148,7 +148,7 @@ void ifAndElseBracket(int row, int &linesToDrawFB, int &linesToFB,int &linesToDr
             linesToDrawFB += 2;
         }
         else if (tip == 8) {
-            skipElseOrIf(row, linesToFB, linesToDrawFB);
+            skipElseOrIf(row, linesInIfBrackets, linesToDrawFB);
             tip = tipOperatie(randuri[row]);
             if (tip >= 2 && tip <= 7) {
                 linesToDrawFB++;
@@ -162,7 +162,7 @@ void ifAndElseBracket(int row, int &linesToDrawFB, int &linesToFB,int &linesToDr
             bracketsStack++;
         else if (strstr(randuri[row], "}") != 0)
             bracketsStack--;
-        row++, linesToFB++;
+        row++, linesInIfBrackets++;
 
     } while (bracketsStack > 0);
 
@@ -215,10 +215,10 @@ void drawInstructions(int currLeft, int currRight, int &row,int &currLine,int &x
         }
         else if (tip == 2 || tip == 3) {
             // find last bracket
-            int linesToBracket = 0;  //lines from current row to bracket (the closing bracket)
+            int linesInBrackets = 0;  //lines from current row to bracket (the closing bracket)
             int linesToDraw = 0;
-            lastBracket(row, linesToBracket, linesToDraw);  //lines to draw from first bracket to last
-            rowLimit = row + linesToBracket;
+            lastBracket(row, linesInBrackets, linesToDraw);  //lines to draw from first bracket to last
+            rowLimit = row + linesInBrackets;
 
             rectangle(currLeft + xpoz, diagRowHeight * currLine + ypoz, currRight + xpoz, diagRowHeight * (currLine + linesToDraw + 1) + ypoz);
             printRow(currLeft, currRight, currLine, row, ypoz, xpoz);
@@ -232,13 +232,13 @@ void drawInstructions(int currLeft, int currRight, int &row,int &currLine,int &x
             // find if else exists
             // if else exists find else brackets and limits
             int linesToDrawFirstB = 0;
-            int linesToFirstB = 0;
+            int linesInIfBrackets = 0;
             int linesToDrawSecondB = 0;
             int linesInElseBrackets = 0;
             bool existaElse = 0;
-            ifAndElseBracket(row, linesToDrawFirstB, linesToFirstB, linesToDrawSecondB, linesInElseBrackets, existaElse);
-            rowLimitIf = row + linesToFirstB;
-            rowLimitElse = row + linesToFirstB + linesInElseBrackets;
+            ifAndElseBracket(row, linesToDrawFirstB, linesInIfBrackets, linesToDrawSecondB, linesInElseBrackets, existaElse);
+            rowLimitIf = row + linesInIfBrackets;
+            rowLimitElse = row + linesInIfBrackets + linesInElseBrackets;
 
             //draw the if else box
             char tru[] = "TRUE";
@@ -286,10 +286,10 @@ void diagram() {
                 currLine++;
             }
             else if (tip == 2 || tip == 3) {
-                int linesToBracket =0;                          //lines from current row to bracket (the closing bracket)
+                int linesInBrackets =0;                          //lines from current row to bracket (the closing bracket)
                 int linesToDraw = 0;                            //horizontal lines to draw in while/for
-                lastBracket(row, linesToBracket, linesToDraw);
-                rowLimit = row + linesToBracket;
+                lastBracket(row, linesInBrackets, linesToDraw);
+                rowLimit = row + linesInBrackets;
 
                 rectangle(currLeft + xpoz, diagRowHeight * currLine + ypoz, currRight + xpoz, diagRowHeight * (currLine + linesToDraw + 1) + ypoz);
                 printRow(currLeft, currRight, currLine, row, ypoz, xpoz);
@@ -303,13 +303,13 @@ void diagram() {
                 // find if else exists
                 // if else exists find else brackets and row limit for current if else
                 int linesToDrawFirstB = 0;               // "B" stands for Bracket/Brackets
-                int linesToFirstB = 0;
+                int linesInIfBrackets = 0;
                 int linesToDrawSecondB = 0;
                 int linesInElseBrackets = 0;
                 bool existaElse = 0;
-                ifAndElseBracket(row, linesToDrawFirstB, linesToFirstB, linesToDrawSecondB, linesInElseBrackets, existaElse);
-                rowLimitIf = row + linesToFirstB;
-                rowLimitElse = row + linesToFirstB + linesInElseBrackets;
+                ifAndElseBracket(row, linesToDrawFirstB, linesInIfBrackets, linesToDrawSecondB, linesInElseBrackets, existaElse);
+                rowLimitIf = row + linesInIfBrackets;
+                rowLimitElse = row + linesInIfBrackets + linesInElseBrackets;
                  
                 //draw the if else box
                 char tru[] = "TRUE";
@@ -327,7 +327,7 @@ void diagram() {
 
 
                 // drawInstructions recursively for every if and else
-                row++; currLine += 2;
+                row++; currLine += 2;          // currLine is incremented by 2 because if box has double height compared to the others
                 int currLineElse = currLine;   // because if and else start from same height
                 drawInstructions(currLeft, (currRight+currLeft) / 2, row, currLine, xpoz, ypoz, rowLimitIf);
                 drawInstructions((currRight + currLeft) / 2, currRight, row, currLineElse, xpoz, ypoz, rowLimitElse);
