@@ -37,9 +37,9 @@ int tipOperatie(char rand[]) {
     if (strcmp(cuvInceput, "if(") == 0) {
         return 1;
     }
-    strncpy(cuvInceput, rand + spaces, 4);
-    cuvInceput[4] = 0;
-    if (strcmp(cuvInceput, "for(") == 0) {
+    strncpy(cuvInceput, rand + spaces, 3);
+    cuvInceput[3] = 0;
+    if (strcmp(cuvInceput, "for") == 0) {
         return 2;
     }
     strncpy(cuvInceput, rand + spaces, 6);
@@ -351,7 +351,7 @@ void diagram() {
         if (GetAsyncKeyState(VK_RBUTTON))
         {
             if (xt >= (maxW - 0.1 * maxW) && xt <= (maxW - 0.05 * maxW) && yt >= (0.05 * maxH + 0.077 * maxH) && yt <= (0.1 * maxH + 0.077 * maxH))
-                diagWidth -= 1;
+                diagWidth -= 4;
             else if (xt >= (maxW - 0.1 * maxW) && xt <= (maxW - 0.05 * maxW) && yt >= (maxH - 0.1 * maxH) && yt <= (maxH - 0.05 * maxH))
             {
                 diagRowHeight -= 1;
@@ -360,7 +360,7 @@ void diagram() {
         if (GetAsyncKeyState(VK_LBUTTON))
         {
             if (xt >= (maxW - 0.1 * maxW) && xt <= (maxW - 0.05 * maxW) && yt >= (0.05 * maxH + 0.077 * maxH) && yt <= (0.1 * maxH + 0.077 * maxH))
-                diagWidth += 1;
+                diagWidth += 4;
             else if (xt >= (maxW - 0.1 * maxW) && xt <= (maxW - 0.05 * maxW) && yt >= (maxH - 0.1 * maxH) && yt <= (maxH - 0.05 * maxH))
                 diagRowHeight += 1;
         }
