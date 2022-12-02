@@ -491,6 +491,7 @@ int main()
     setbkcolor(WHITE);
     settextstyle(DEFAULT_FONT, HORIZ_DIR, 0);
     setusercharsize(1, 0.1*maxW, 1, 0.1*maxH);
+    setlinestyle(SOLID_LINE, 1, 3);
     start();
     getch();
     closegraph();
