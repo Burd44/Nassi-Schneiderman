@@ -480,6 +480,7 @@ void start()
 int main()
 {
     initwindow(maxW, maxH, "Generator de Diagrame Nassi-Schneiderman");
+    readimagefile("image.bmp", 0, 0, maxW, maxH);
     settextstyle(9, HORIZ_DIR, 0);
     setusercharsize(1, 0.1*maxW, 1, 0.1*maxH);
     start();
