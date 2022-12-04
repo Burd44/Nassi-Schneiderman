@@ -377,7 +377,7 @@ void diagram() {
             else if (xt >= (maxW - 0.1 * maxW) && xt <= (maxW - 0.05 * maxW) && yt >= (maxH - 0.1 * maxH) && yt <= (maxH - 0.05 * maxH))
                 diagRowHeight += 1;
             else if ((xt >= 0.05 * maxW) && (xt <= 0.15 * maxW) && (yt > 0.85 * maxH) && (yt < 0.9 * maxH)) {
-                delay(100);
+                delay(200);
                 afisare();
             }
         }
@@ -435,7 +435,7 @@ void afisare()
             else if (xt >= (maxW - 0.1 * maxW) && xt <= (maxW - 0.05 * maxW) && yt >= (maxH - 0.1 * maxH) && yt <= (maxH - 0.05 * maxH))
                 ypoz -= 5;
             else if ((xt >= 0.05 * maxW) && (xt <= 0.15 * maxW) && (yt > 0.85 * maxH) && (yt < 0.9 * maxH)) {
-                delay(100);
+                delay(200);
                 start();
             }
         }
