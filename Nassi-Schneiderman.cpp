@@ -7,6 +7,9 @@
 
 using namespace std;
 
+void start();
+void afisare();
+
 char Path[300], img[100];
 int maxH = getmaxheight() / 1.15, maxW = getmaxwidth() / 1.15;
 int diagRowHeight = 0.055 * maxH, diagWidth = 0.8 * maxW, rowsInTotal=0;
@@ -267,7 +270,8 @@ void drawInstructions(int currLeft, int currRight, int &row,int &currLine,int &x
 }
 
 void diagram() {
-    int page = 0, ypoz = 0, xpoz = 0, xt = 0, yt = 0;   
+    int page = 0, ypoz = 0, xpoz = 0, xt = 0, yt = 0; 
+    char word3[] = "Inapoi";
     while (1) { 
         setvisualpage(page);
         setactivepage(1 - page);
@@ -296,7 +300,7 @@ void diagram() {
                 row++,currLine++;
 
                 // paint instructionss this with left this right until last bracket (that is what rowLimit is for)
-                drawInstructions(currLeft + maxW * 0.06, currRight, row, currLine,xpoz,ypoz, rowLimit);
+                drawInstructions(currLeft + maxW * 0.06, currRight, row, currLine,xpoz,ypoz, rowLimit);               
             }
             else if (tip == 1) {
                 // Find first bracket limit
@@ -338,6 +342,15 @@ void diagram() {
         bar(maxW - 0.1 * maxW, 0.05 * maxH - 0.045 * maxH, maxW - 0.05 * maxW, 0.1 * maxH - 0.045 * maxH);
         setfillstyle(SLASH_FILL, 1);
         bar(maxW - 0.1 * maxW, maxH - 0.05 * maxH - 0.123 * maxH, maxW - 0.05 * maxW, maxH - 0.1 * maxH - 0.123 * maxH);
+
+        settextjustify(CENTER_TEXT, CENTER_TEXT);
+        setbkcolor(COLOR(79, 129, 188));
+        setfillstyle(SOLID_FILL, COLOR(79, 129, 188));
+        bar(0.05 * maxW, 0.85 * maxH - 0.123 * maxH, 0.15 * maxW, 0.9 * maxH - 0.123 * maxH);
+        outtextxy((0.05 * maxW + 0.15 * maxW) / 2, (0.85 * maxH + 0.9 * maxH) / 2 + 0.005 * maxH - 0.123 * maxH, word3);
+        setbkcolor(WHITE);
+        settextjustify(LEFT_TEXT, TOP_TEXT);
+
         xt = mousex();
         yt = mousey();
         if (GetAsyncKeyState(VK_UP))
@@ -363,6 +376,10 @@ void diagram() {
                 diagWidth += 4;
             else if (xt >= (maxW - 0.1 * maxW) && xt <= (maxW - 0.05 * maxW) && yt >= (maxH - 0.1 * maxH) && yt <= (maxH - 0.05 * maxH))
                 diagRowHeight += 1;
+            else if ((xt >= 0.05 * maxW) && (xt <= 0.15 * maxW) && (yt > 0.85 * maxH) && (yt < 0.9 * maxH)) {
+                delay(100);
+                afisare();
+            }
         }
 
         page = 1 - page;
@@ -372,8 +389,6 @@ void diagram() {
 void afisare() 
 {
     FILE* fptr = fopen(Path, "r");
-    
-    setviewport(0, 0.123*maxH, maxW, maxH-0.045*maxH, 1);
     clearviewport();
     int nrRanduri = 0, maxRand = 0;
     char rand[300], maxRandSir[300];
@@ -389,6 +404,8 @@ void afisare()
     int page = 0, ypoz = 0, xpoz = 0, xt = 0, yt = 0;
     int maxWidthRow = textwidth(maxRandSir);
     int textHeight = textheight(rand);
+    char word3[] = "Inapoi";
+
     while (1) 
     {
         setvisualpage(page);
@@ -402,6 +419,13 @@ void afisare()
         rectangle(maxW - 0.1 * maxW, maxH - 0.05 * maxH - 0.123 * maxH, maxW - 0.05 * maxW, maxH - 0.1 * maxH - 0.123 * maxH);
         line(maxW - 0.075 * maxW, maxH - 0.05 * maxH - 0.123 * maxH, maxW - 0.1 * maxW, maxH - 0.1 * maxH - 0.123 * maxH);
         line(maxW - 0.075 * maxW, maxH - 0.05 * maxH - 0.123 * maxH, maxW - 0.05 * maxW, maxH - 0.1 * maxH - 0.123 * maxH);
+        settextjustify(CENTER_TEXT, CENTER_TEXT);
+        setbkcolor(COLOR(79, 129, 188));
+        setfillstyle(SOLID_FILL, COLOR(79, 129, 188));
+        bar(0.05 * maxW, 0.85 * maxH-0.123*maxH, 0.15 * maxW, 0.9 * maxH-0.123*maxH);
+        outtextxy((0.05 * maxW + 0.15 * maxW) / 2, (0.85 * maxH + 0.9 * maxH) / 2 + 0.005 * maxH - 0.123 * maxH, word3);
+        setbkcolor(WHITE);
+        settextjustify(LEFT_TEXT,TOP_TEXT);
         xt = mousex();
         yt = mousey();
         if (GetAsyncKeyState(VK_LBUTTON))
@@ -410,6 +434,10 @@ void afisare()
                 ypoz += 5;
             else if (xt >= (maxW - 0.1 * maxW) && xt <= (maxW - 0.05 * maxW) && yt >= (maxH - 0.1 * maxH) && yt <= (maxH - 0.05 * maxH))
                 ypoz -= 5;
+            else if ((xt >= 0.05 * maxW) && (xt <= 0.15 * maxW) && (yt > 0.85 * maxH) && (yt < 0.9 * maxH)) {
+                delay(100);
+                start();
+            }
         }
         rectangle(maxW/2-(maxWidthRow /2)-maxW*0.01 + xpoz, maxH*0.1+ypoz, maxW / 2 + (maxWidthRow / 2) + maxW * 0.01 + xpoz, maxH*0.1+(textHeight *(nrRanduri+1))+ypoz);
         while (fgets(rand, sizeof(rand), fptr)) 
@@ -455,26 +483,33 @@ void alegeFisier()
 
 void start() 
 {
-    int x = 0, y = 0;
+    int x = 0, y = 0, page = 0;
     char word[20] = "Alege fisier text";
     char word2[20] = "Iesire";
-    settextjustify(CENTER_TEXT, CENTER_TEXT);
-    rectangle(maxW / 2 - 0.1 * maxW, maxH / 2, maxW / 2 + 0.1 * maxW, maxH / 2 + 0.1 * maxH);
-    rectangle(maxW / 2 - 0.1 * maxW, maxH / 2 + 0.2 * maxH, maxW / 2 + 0.1 * maxW, maxH / 2 + 0.3 * maxH);
-    outtextxy(maxW / 2, maxH / 2 + 0.06 * maxH, word);
-    outtextxy(maxW / 2, maxH / 2 + 0.26 * maxH, word2);
-    settextjustify(LEFT_TEXT, TOP_TEXT);
     while (1) 
     {
-        getmouseclick(WM_LBUTTONUP, x, y);
-        if (x >= (maxW / 2 - 0.1 * maxW + 1) && x <= (maxW / 2 + 0.1 * maxW - 1) && y >= (maxH / 2 + 1) && y <= (maxH / 2 + 0.1 * maxH - 1)) 
-        {
-            alegeFisier();
+        setactivepage(page);
+        setvisualpage(1 - page);
+        clearviewport();
+        settextjustify(CENTER_TEXT, CENTER_TEXT);
+        rectangle(maxW / 2 - 0.1 * maxW, maxH / 2 - 0.123 * maxH, maxW / 2 + 0.1 * maxW, maxH / 2 + 0.1 * maxH - 0.123 * maxH);
+        rectangle(maxW / 2 - 0.1 * maxW, maxH / 2 + 0.2 * maxH - 0.123 * maxH, maxW / 2 + 0.1 * maxW, maxH / 2 + 0.3 * maxH - 0.123 * maxH);
+        outtextxy(maxW / 2, maxH / 2 + 0.06 * maxH - 0.123 * maxH, word);
+        outtextxy(maxW / 2, maxH / 2 + 0.26 * maxH - 0.123 * maxH, word2);
+        settextjustify(LEFT_TEXT, TOP_TEXT);
+        x = mousex();
+        y = mousey();
+        if (GetAsyncKeyState(VK_LBUTTON)) {
+            if (x >= (maxW / 2 - 0.1 * maxW + 1) && x <= (maxW / 2 + 0.1 * maxW - 1) && y >= (maxH / 2 + 1) && y <= (maxH / 2 + 0.1 * maxH - 1))
+            {
+                alegeFisier();
+            }
+            else if (x >= (maxW / 2 - 0.1 * maxW + 1) && x <= (maxW / 2 + 0.1 * maxW - 1) && y >= (maxH / 2 + 0.2 * maxH + 1) && y <= (maxH / 2 + 0.3 * maxH - 1))
+            {
+                exit(1);
+            }
         }
-        else if (x >= (maxW / 2 - 0.1 * maxW + 1) && x <= (maxW / 2 + 0.1 * maxW - 1) && y >= (maxH / 2 + 0.2 * maxH + 1) && y <= (maxH / 2 + 0.3 * maxH - 1)) 
-        {
-            exit(1);
-        }
+        page = 1 - page;
     }
 }
 
@@ -492,6 +527,7 @@ int main()
     settextstyle(DEFAULT_FONT, HORIZ_DIR, 0);
     setusercharsize(1, 0.1*maxW, 1, 0.1*maxH);
     setlinestyle(SOLID_LINE, 1, 3);
+    setviewport(0, 0.123 * maxH, maxW, maxH - 0.045 * maxH, 1);
     start();
     getch();
     closegraph();
