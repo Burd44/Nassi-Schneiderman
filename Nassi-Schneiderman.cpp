@@ -75,7 +75,7 @@ int tipOperatie(char rand[]) {
     if (strcmp(cuvInceput, "else") == 0) {
         return 8;
     }
-    return 0;  // something else
+    return 0;
 }
 
 void printRow(int Left, int Right, int currLine, int rowNumber,int ypoz, int xpoz) {
@@ -104,8 +104,6 @@ void skipElseOrIf(int& row, int& linesInBrackets, int &linesToDraw) {
         row++, linesInBrackets++;
 
     } while (bracketsStack > 0);
-    // Right now it skips only else, if more operations are in else than in if, diagram will break
-    // TODO    make this function skip either if or else, whichever has less operations to draw  (HINT: traverse both up and down directions)
 }
 
 void lastBracket(int row,int &linesInBrackets, int &linesToDraw) {
@@ -516,7 +514,7 @@ void start()
 int main()
 {
     int page = 0;
-    initwindow(maxW, maxH, "Generator de Diagrame Nassi-Schneiderman");
+    initwindow(maxW, maxH, "Generator de Diagrame Nassi-Shneiderman");
     setactivepage(page);
     readimagefile("image.bmp", 0, 0, maxW, maxH);
     setactivepage(1 - page);
