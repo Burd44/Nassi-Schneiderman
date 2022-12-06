@@ -104,6 +104,8 @@ void skipElseOrIf(int& row, int& linesInBrackets, int &linesToDraw) {
         row++, linesInBrackets++;
 
     } while (bracketsStack > 0);
+    // Right now it skips only else, if more operations are in else than in if, diagram will break
+    // TODO    make this function skip either if or else, whichever has less operations to draw  (HINT: traverse both up and down directions)
 }
 
 void lastBracket(int row,int &linesInBrackets, int &linesToDraw) {
