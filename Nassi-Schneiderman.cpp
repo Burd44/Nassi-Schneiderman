@@ -11,7 +11,7 @@ void start();
 void afisare();
 
 char Path[300], img[100];
-int maxH = getmaxheight() / 1.15, maxW = getmaxwidth() / 1.15;
+int maxH = getmaxheight() / 1.15, maxW = getmaxwidth() / 1.25;
 int diagRowHeight = 0.055 * maxH, diagWidth = 0.8 * maxW, rowsInTotal=0;
 
 char randuri[200][200];
@@ -85,10 +85,10 @@ void printRow(int Left, int Right, int currLine, int rowNumber,int ypoz, int xpo
 }
 
 void skipElseOrIf(int& row, int& linesInBrackets, int &linesToDraw) {
+    int rowAux = row;
     row++, linesInBrackets++;
     int bracketsStack = 0;
     int linesCntElse = 0;
-    int linesCntIf = 0;
     do {
         int tip = tipOperatie(randuri[row]);
         if (tip >= 2 && tip <= 7) {
@@ -104,8 +104,27 @@ void skipElseOrIf(int& row, int& linesInBrackets, int &linesToDraw) {
         row++, linesInBrackets++;
 
     } while (bracketsStack > 0);
-    // Right now it skips only else, if more operations are in else than in if, diagram will break
-    // TODO    make this function skip either if or else, whichever has less operations to draw  (HINT: traverse both up and down directions)
+    rowAux--;
+    bracketsStack = 0;
+    int linesCntIf = 0;
+    do {
+        int tip = tipOperatie(randuri[rowAux]);
+        if (tip >= 2 && tip <= 7) {
+            linesCntIf++;
+        }
+        else if (tip == 1) {
+            linesCntIf += 2;
+        }
+        if (strstr(randuri[rowAux], "{") != 0)
+            bracketsStack++;
+        else if (strstr(randuri[rowAux], "}") != 0)
+            bracketsStack--;
+        rowAux--;
+    } while (bracketsStack < 0);
+    //important part:
+    if (linesCntElse > linesCntIf) {
+        linesToDraw = linesToDraw + linesCntElse - linesCntIf;
+    }
 }
 
 void lastBracket(int row,int &linesInBrackets, int &linesToDraw) {
@@ -476,7 +495,7 @@ void alegeFisier()
     ofn.nMaxFile = sizeof(Path);
     if (GetOpenFileNameA(&ofn) == 0) 
     {
-        ecranEroare();
+        start();
     }
     afisare();
 }
