@@ -84,11 +84,13 @@ void printRow(int Left, int Right, int currLine, int rowNumber,int ypoz, int xpo
     outtextxy((Right + Left) / 2 + xpoz, diagRowHeight * currLine + 0.7 * diagRowHeight + ypoz, randuri[rowNumber] + spaces);
 }
 
-void skipElseOrIf(int& row, int& linesInBrackets, int &linesToDraw) {
-    int rowAux = row;
+void skipElseOrIf(int& row, int& linesInBrackets, int& linesToDraw) {
+    int rowAux = row - 1;
     row++, linesInBrackets++;
     int bracketsStack = 0;
     int linesCntElse = 0;
+    int linesCntIf = 0;
+    // find lines to draw in else
     do {
         int tip = tipOperatie(randuri[row]);
         if (tip >= 2 && tip <= 7) {
@@ -97,6 +99,17 @@ void skipElseOrIf(int& row, int& linesInBrackets, int &linesToDraw) {
         else if (tip == 1) {
             linesCntElse += 2;
         }
+        else if (tip == 8) {
+            skipElseOrIf(row, linesInBrackets, linesCntElse);
+            tip = tipOperatie(randuri[row]);
+            if (tip >= 2 && tip <= 7) {
+                linesCntElse++;
+            }
+            else if (tip == 1) {
+                linesCntElse += 2;
+            }
+        }
+
         if (strstr(randuri[row], "{") != 0)
             bracketsStack++;
         else if (strstr(randuri[row], "}") != 0)
@@ -104,9 +117,22 @@ void skipElseOrIf(int& row, int& linesInBrackets, int &linesToDraw) {
         row++, linesInBrackets++;
 
     } while (bracketsStack > 0);
-    rowAux--;
+
+    // find if starting line
     bracketsStack = 0;
-    int linesCntIf = 0;
+    int ifPosition = 0;
+    do {
+        if (strstr(randuri[rowAux], "{") != 0)
+            bracketsStack++;
+        else if (strstr(randuri[rowAux], "}") != 0)
+            bracketsStack--;
+        rowAux--;
+    } while (bracketsStack < 0);
+    ifPosition = rowAux;
+
+    // find number of lines to draw in if
+    rowAux++, bracketsStack = 0;
+    int notUsed = 0;
     do {
         int tip = tipOperatie(randuri[rowAux]);
         if (tip >= 2 && tip <= 7) {
@@ -115,13 +141,26 @@ void skipElseOrIf(int& row, int& linesInBrackets, int &linesToDraw) {
         else if (tip == 1) {
             linesCntIf += 2;
         }
+        else if (tip == 8) {
+            skipElseOrIf(rowAux, notUsed, linesCntIf);
+            tip = tipOperatie(randuri[rowAux]);
+            if (tip >= 2 && tip <= 7) {
+                linesCntIf++;
+            }
+            else if (tip == 1) {
+                linesCntElse += 2;
+            }
+        }
+
         if (strstr(randuri[rowAux], "{") != 0)
             bracketsStack++;
         else if (strstr(randuri[rowAux], "}") != 0)
             bracketsStack--;
-        rowAux--;
-    } while (bracketsStack < 0);
-    //important part:
+        rowAux++;
+
+    } while (bracketsStack > 0);
+
+    //if lines in else > lines in if, consider else number of lines to draw
     if (linesCntElse > linesCntIf) {
         linesToDraw = linesToDraw + linesCntElse - linesCntIf;
     }
