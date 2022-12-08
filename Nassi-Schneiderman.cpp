@@ -148,7 +148,7 @@ void skipElseOrIf(int& row, int& linesInBrackets, int& linesToDraw) {
                 linesCntIf++;
             }
             else if (tip == 1) {
-                linesCntElse += 2;
+                linesCntIf += 2;
             }
         }
 
