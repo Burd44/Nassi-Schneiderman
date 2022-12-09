@@ -482,6 +482,8 @@ void afisare()
     int maxWidthRow = textwidth(maxRandSir);
     int textHeight = textheight(rand);
     char word3[] = "Inapoi";
+    char word4[] = "PRESS ENTER";
+    char word5[] = "TO GENERATE DIAGRAM";
     while (1) 
     {
         setvisualpage(page);
@@ -489,6 +491,10 @@ void afisare()
         clearviewport();
         int r = 1;
         rewind(fptr);
+        settextstyle(6, HORIZ_DIR, 3);
+        outtextxy(0.01 * maxW, 0.02 * maxH, word4);
+        outtextxy(0.01 * maxW, 0.06 * maxH, word5);
+        settextstyle(DEFAULT_FONT, HORIZ_DIR, 0);
         rectangle(maxW - 0.1 * maxW, 0.05 * maxH - 0.045 * maxH, maxW - 0.05 * maxW, 0.1 * maxH - 0.045 * maxH);
         line(maxW - 0.075 * maxW, 0.05 * maxH - 0.045 * maxH, maxW - 0.1 * maxW, 0.1 * maxH - 0.045 * maxH);
         line(maxW - 0.075 * maxW, 0.05 * maxH - 0.045 * maxH, maxW - 0.05 * maxW, 0.1 * maxH - 0.045 * maxH);
