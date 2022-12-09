@@ -509,11 +509,13 @@ void afisare()
         yt = mousey();
         if (xt >= (maxW - 0.1 * maxW) && xt <= (maxW - 0.05 * maxW) && yt >= (0.05 * maxH + 0.077 * maxH) && yt <= (0.1 * maxH + 0.077 * maxH))
         {
-            ColorBtn(maxW - 0.1 * maxW, 0.05 * maxH - 0.045 * maxH, maxW - 0.05 * maxW, 0.1 * maxH - 0.045 * maxH, COLOR(79, 129, 188));
+            setfillstyle(SOLID_FILL, COLOR(79, 129, 188));
+            floodfill(maxW - 0.1 * maxW + 0.02 * maxW, 0.1 * maxH - 0.045 * maxH - 2, 1);
         }
         if (xt >= (maxW - 0.1 * maxW) && xt <= (maxW - 0.05 * maxW) && yt >= (maxH - 0.1 * maxH) && yt <= (maxH - 0.05 * maxH))
         {
-            ColorBtn(maxW - 0.1 * maxW, maxH - 0.1 * maxH - 0.123 * maxH, maxW - 0.05 * maxW, maxH - 0.05 * maxH - 0.123 * maxH, COLOR(79, 129, 188));
+            setfillstyle(SOLID_FILL, COLOR(79, 129, 188));
+            floodfill(maxW - 0.1 * maxW + 0.02 * maxW, maxH - 0.1 * maxH - 0.123 * maxH + 2, 1);
         }
         if ((xt >= 0.05 * maxW) && (xt <= 0.15 * maxW) && (yt > 0.85 * maxH) && (yt < 0.9 * maxH))
         {
