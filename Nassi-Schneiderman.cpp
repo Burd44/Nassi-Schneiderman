@@ -351,7 +351,7 @@ void diagram() {
             }
             else if (tip == 2 || tip == 3) 
             {
-                int linesInBrackets =0;                          //lines from current row to bracket (the closing bracket)
+                int linesInBrackets =0;                         //lines from current row to bracket (the closing bracket)
                 int linesToDraw = 0;                            //horizontal lines to draw in while/for
                 lastBracket(row, linesInBrackets, linesToDraw);
                 rowLimit = row + linesInBrackets;
@@ -365,7 +365,7 @@ void diagram() {
                 int linesToDrawFirstB = 0;               // Find first bracket limit
                 int linesInIfBrackets = 0;               // find if else exists
                 int linesToDrawSecondB = 0;              // if else exists find else brackets and row limit for current if else
-                int linesInElseBrackets = 0;            // "B" stands for Bracket/Brackets
+                int linesInElseBrackets = 0;             // "B" stands for Bracket/Brackets
                 bool existaElse = 0;
                 ifAndElseBracket(row, linesToDrawFirstB, linesInIfBrackets, linesToDrawSecondB, linesInElseBrackets, existaElse);
                 rowLimitIf = row + linesInIfBrackets;
