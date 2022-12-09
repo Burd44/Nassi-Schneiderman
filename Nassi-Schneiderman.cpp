@@ -434,8 +434,8 @@ void diagram() {
         {
             ColorBtn(maxW - 0.1 * maxW, maxH - 0.1 * maxH - 0.123 * maxH, maxW - 0.05 * maxW, maxH - 0.05 * maxH - 0.123 * maxH, COLOR(79, 129, 188));
             setfillstyle(SOLID_FILL, COLOR(128, 212, 255));
-            floodfill(maxW - 0.1 * maxW + 2, maxH - 0.05 * maxH - 0.123 * maxH + 5, 1);
-            floodfill(maxW - 0.05 * maxW - 2, maxH - 0.05 * maxH - 0.123 * maxH + 5, 1);
+            floodfill(maxW - 0.1 * maxW + 2, maxH - 0.1 * maxH - 0.123 * maxH + 10, 1);
+            floodfill(maxW - 0.05 * maxW - 2, maxH - 0.1 * maxH - 0.123 * maxH + 10, 1);
         }
         if ((xt >= 0.05 * maxW) && (xt <= 0.15 * maxW) && (yt > 0.85 * maxH) && (yt < 0.9 * maxH))
         {
