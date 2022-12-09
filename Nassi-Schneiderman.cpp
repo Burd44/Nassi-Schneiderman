@@ -14,6 +14,16 @@ int maxH = getmaxheight() / 1.15, maxW = getmaxwidth() / 1.25;
 int diagRowHeight = 0.055 * maxH, diagWidth = 0.8 * maxW, rowsInTotal=0;
 char randuri[200][200];
 
+void ColorBtn(int x, int y, int xt, int yt, int c)
+{
+    setfillstyle(SOLID_FILL, c);
+    for(int i=x+1; i < xt; i = i + 10)
+        for (int j = y + 1; j < yt; j = j + 10)
+        {
+            floodfill(i, j, 1);
+        }
+}
+
 void copiereRanduri() 
 {
     int cnt = 0;
@@ -378,14 +388,19 @@ void diagram() {
                 drawInstructions((currRight + currLeft) / 2, currRight, row, currLineElse, xpoz, ypoz, rowLimitElse);
             }
         }
-        setfillstyle(BKSLASH_FILL, 1);
-        bar(maxW - 0.1 * maxW, 0.05 * maxH - 0.045 * maxH, maxW - 0.05 * maxW, 0.1 * maxH - 0.045 * maxH);
-        setfillstyle(SLASH_FILL, 1);
-        bar(maxW - 0.1 * maxW, maxH - 0.05 * maxH - 0.123 * maxH, maxW - 0.05 * maxW, maxH - 0.1 * maxH - 0.123 * maxH);
+        rectangle(maxW - 0.1 * maxW, 0.05 * maxH - 0.045 * maxH, maxW - 0.05 * maxW, 0.1 * maxH - 0.045 * maxH);  
+        line(maxW - 0.1 * maxW, 0.05 * maxH - 0.045 * maxH, maxW - 0.05 * maxW, 0.1 * maxH - 0.045 * maxH);
+        line(maxW - 0.05 * maxW, 0.05 * maxH - 0.045 * maxH, maxW - 0.1 * maxW, 0.1 * maxH - 0.045 * maxH);
+        rectangle(maxW - 0.1 * maxW, maxH - 0.05 * maxH - 0.123 * maxH, maxW - 0.05 * maxW, maxH - 0.1 * maxH - 0.123 * maxH);
+        line(maxW - 0.1 * maxW, maxH - 0.05 * maxH - 0.123 * maxH, maxW - 0.05 * maxW, maxH - 0.1 * maxH - 0.123 * maxH);
+        line(maxW - 0.05 * maxW, maxH - 0.05 * maxH - 0.123 * maxH, maxW - 0.1 * maxW, maxH - 0.1 * maxH - 0.123 * maxH);
+        ColorBtn(maxW - 0.1 * maxW, 0.05 * maxH - 0.045 * maxH, maxW - 0.05 * maxW, 0.1 * maxH - 0.045 * maxH, COLOR(128, 212, 255));
+        ColorBtn(maxW - 0.1 * maxW, maxH - 0.1 * maxH - 0.123 * maxH, maxW - 0.05 * maxW, maxH - 0.05 * maxH - 0.123 * maxH, COLOR(128, 212, 255));
         settextjustify(CENTER_TEXT, CENTER_TEXT);
-        setbkcolor(COLOR(79, 129, 188));
-        setfillstyle(SOLID_FILL, COLOR(79, 129, 188));
-        bar(0.05 * maxW, 0.85 * maxH - 0.123 * maxH, 0.15 * maxW, 0.9 * maxH - 0.123 * maxH);
+        setbkcolor(COLOR(128, 212, 255));
+        setfillstyle(SOLID_FILL, COLOR(128, 212, 255));
+        rectangle(0.05 * maxW, 0.85 * maxH - 0.123 * maxH, 0.15 * maxW, 0.9 * maxH - 0.123 * maxH);
+        ColorBtn(0.05 * maxW, 0.85 * maxH - 0.123 * maxH, 0.15 * maxW, 0.9 * maxH - 0.123 * maxH, COLOR(128, 212, 255));
         outtextxy((0.05 * maxW + 0.15 * maxW) / 2, (0.85 * maxH + 0.9 * maxH) / 2 + 0.005 * maxH - 0.123 * maxH, word3);
         setbkcolor(WHITE);
         settextjustify(LEFT_TEXT, TOP_TEXT);
@@ -408,6 +423,29 @@ void diagram() {
                 diagRowHeight -= 1;
             }
         }
+        if (xt >= (maxW - 0.1 * maxW) && xt <= (maxW - 0.05 * maxW) && yt >= (0.05 * maxH + 0.077 * maxH) && yt <= (0.1 * maxH + 0.077 * maxH))
+        {
+            ColorBtn(maxW - 0.1 * maxW, 0.05 * maxH - 0.045 * maxH, maxW - 0.05 * maxW, 0.1 * maxH - 0.045 * maxH, COLOR(79, 129, 188));
+            setfillstyle(SOLID_FILL, COLOR(128, 212, 255));
+            floodfill(maxW - 0.1 * maxW + 10, 0.05 * maxH - 0.045 * maxH + 2, 1);
+            floodfill(maxW - 0.1 * maxW + 10, 0.1 * maxH - 0.045 * maxH - 2, 1);
+        }
+        if (xt >= (maxW - 0.1 * maxW) && xt <= (maxW - 0.05 * maxW) && yt >= (maxH - 0.1 * maxH) && yt <= (maxH - 0.05 * maxH))
+        {
+            ColorBtn(maxW - 0.1 * maxW, maxH - 0.1 * maxH - 0.123 * maxH, maxW - 0.05 * maxW, maxH - 0.05 * maxH - 0.123 * maxH, COLOR(79, 129, 188));
+            setfillstyle(SOLID_FILL, COLOR(128, 212, 255));
+            floodfill(maxW - 0.1 * maxW + 2, maxH - 0.05 * maxH - 0.123 * maxH + 5, 1);
+            floodfill(maxW - 0.05 * maxW - 2, maxH - 0.05 * maxH - 0.123 * maxH + 5, 1);
+        }
+        if ((xt >= 0.05 * maxW) && (xt <= 0.15 * maxW) && (yt > 0.85 * maxH) && (yt < 0.9 * maxH))
+        {
+            ColorBtn(0.05 * maxW, 0.85 * maxH - 0.123 * maxH, 0.15 * maxW, 0.9 * maxH - 0.123 * maxH, COLOR(79, 129, 188));
+            setbkcolor(COLOR(79, 129, 188));
+            settextjustify(CENTER_TEXT, CENTER_TEXT);
+            outtextxy((0.05 * maxW + 0.15 * maxW) / 2, (0.85 * maxH + 0.9 * maxH) / 2 + 0.005 * maxH - 0.123 * maxH, word3);
+            setbkcolor(WHITE);
+            settextjustify(LEFT_TEXT, TOP_TEXT);
+        }
         if (GetAsyncKeyState(VK_LBUTTON))
         {
             if (xt >= (maxW - 0.1 * maxW) && xt <= (maxW - 0.05 * maxW) && yt >= (0.05 * maxH + 0.077 * maxH) && yt <= (0.1 * maxH + 0.077 * maxH))
@@ -423,14 +461,6 @@ void diagram() {
 
         page = 1 - page;
     }
-}
-
-void ColorBtn(int x, int y)
-{
-    setfillstyle(SOLID_FILL, COLOR(79, 129, 188));
-    floodfill(x + 10, y + 10 + 0.02 * maxH, 1);
-    floodfill(x + 10 + 0.02 * maxW, y + 0.02 * maxH + 10, 1);
-    floodfill(x + 10 + 0.04 * maxW, y + 0.02 * maxH + 10, 1);
 }
 
 void afisare() 
@@ -465,10 +495,13 @@ void afisare()
         rectangle(maxW - 0.1 * maxW, maxH - 0.05 * maxH - 0.123 * maxH, maxW - 0.05 * maxW, maxH - 0.1 * maxH - 0.123 * maxH);
         line(maxW - 0.075 * maxW, maxH - 0.05 * maxH - 0.123 * maxH, maxW - 0.1 * maxW, maxH - 0.1 * maxH - 0.123 * maxH);
         line(maxW - 0.075 * maxW, maxH - 0.05 * maxH - 0.123 * maxH, maxW - 0.05 * maxW, maxH - 0.1 * maxH - 0.123 * maxH);
+        ColorBtn(maxW - 0.1 * maxW, 0.05 * maxH - 0.045 * maxH, maxW - 0.05 * maxW, 0.1 * maxH - 0.045 * maxH, COLOR(128, 212, 255));
+        ColorBtn(maxW - 0.1 * maxW, maxH - 0.1 * maxH - 0.123 * maxH, maxW - 0.05 * maxW, maxH - 0.05 * maxH - 0.123 * maxH, COLOR(128, 212, 255));
         settextjustify(CENTER_TEXT, CENTER_TEXT);
-        setbkcolor(COLOR(79, 129, 188));
-        setfillstyle(SOLID_FILL, COLOR(79, 129, 188));
-        bar(0.05 * maxW, 0.85 * maxH-0.123*maxH, 0.15 * maxW, 0.9 * maxH-0.123*maxH);
+        setbkcolor(COLOR(128, 212, 255));
+        setfillstyle(SOLID_FILL, COLOR(128, 212, 255));
+        rectangle(0.05 * maxW, 0.85 * maxH-0.123*maxH, 0.15 * maxW, 0.9 * maxH-0.123*maxH);
+        ColorBtn(0.05 * maxW, 0.85 * maxH - 0.123 * maxH, 0.15 * maxW, 0.9 * maxH - 0.123 * maxH, COLOR(128, 212, 255));
         outtextxy((0.05 * maxW + 0.15 * maxW) / 2, (0.85 * maxH + 0.9 * maxH) / 2 + 0.005 * maxH - 0.123 * maxH, word3);
         setbkcolor(WHITE);
         settextjustify(LEFT_TEXT,TOP_TEXT);
@@ -476,11 +509,20 @@ void afisare()
         yt = mousey();
         if (xt >= (maxW - 0.1 * maxW) && xt <= (maxW - 0.05 * maxW) && yt >= (0.05 * maxH + 0.077 * maxH) && yt <= (0.1 * maxH + 0.077 * maxH))
         {
-            ColorBtn(maxW - 0.1 * maxW, 0.05 * maxH - 0.045 * maxH);
+            ColorBtn(maxW - 0.1 * maxW, 0.05 * maxH - 0.045 * maxH, maxW - 0.05 * maxW, 0.1 * maxH - 0.045 * maxH, COLOR(79, 129, 188));
         }
         if (xt >= (maxW - 0.1 * maxW) && xt <= (maxW - 0.05 * maxW) && yt >= (maxH - 0.1 * maxH) && yt <= (maxH - 0.05 * maxH))
         {
-            ColorBtn(maxW - 0.1 * maxW, maxH - 0.1 * maxH - 0.123 * maxH);
+            ColorBtn(maxW - 0.1 * maxW, maxH - 0.1 * maxH - 0.123 * maxH, maxW - 0.05 * maxW, maxH - 0.05 * maxH - 0.123 * maxH, COLOR(79, 129, 188));
+        }
+        if ((xt >= 0.05 * maxW) && (xt <= 0.15 * maxW) && (yt > 0.85 * maxH) && (yt < 0.9 * maxH))
+        {
+            ColorBtn(0.05 * maxW, 0.85 * maxH - 0.123 * maxH, 0.15 * maxW, 0.9 * maxH - 0.123 * maxH, COLOR(79, 129, 188));
+            setbkcolor(COLOR(79, 129, 188));
+            settextjustify(CENTER_TEXT, CENTER_TEXT);
+            outtextxy((0.05 * maxW + 0.15 * maxW) / 2, (0.85 * maxH + 0.9 * maxH) / 2 + 0.005 * maxH - 0.123 * maxH, word3);
+            setbkcolor(WHITE);
+            settextjustify(LEFT_TEXT, TOP_TEXT);
         }
         if (GetAsyncKeyState(VK_LBUTTON))
         {
