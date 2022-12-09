@@ -18,11 +18,11 @@ char randuri[200][200];
 void ColorBtn(int x, int y, int xt, int yt, int c)
 {
     setfillstyle(SOLID_FILL, c);
-    for(int i=x+1; i < xt; i = i + 10)
-        for (int j = y + 1; j < yt; j = j + 10)
-        {
-            floodfill(i, j, 1);
-        }
+    int mediumH = (yt - y) / 2;
+    for (int i = x + 3; i < xt - 10; i = i + 10)
+    {
+        floodfill(i, y + mediumH, 1);
+    }
 }
 
 void copiereRanduri() 
