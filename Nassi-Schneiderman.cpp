@@ -425,6 +425,14 @@ void diagram() {
     }
 }
 
+void ColorBtn(int x, int y)
+{
+    setfillstyle(SOLID_FILL, COLOR(79, 129, 188));
+    floodfill(x + 10, y + 10 + 0.02 * maxH, 1);
+    floodfill(x + 10 + 0.03 * maxW, y + 0.02 * maxH + 10, 1);
+    floodfill(x + 10 + 0.04 * maxW, y + 0.02 * maxH + 10, 1);
+}
+
 void afisare() 
 {
     FILE* fptr = fopen(Path, "r");
@@ -466,6 +474,15 @@ void afisare()
         settextjustify(LEFT_TEXT,TOP_TEXT);
         xt = mousex();
         yt = mousey();
+        if (xt >= (maxW - 0.1 * maxW) && xt <= (maxW - 0.05 * maxW) && yt >= (0.05 * maxH + 0.077 * maxH) && yt <= (0.1 * maxH + 0.077 * maxH))
+        {
+            ColorBtn(maxW - 0.1 * maxW, 0.05 * maxH - 0.045 * maxH);
+        }
+        if (xt >= (maxW - 0.1 * maxW) && xt <= (maxW - 0.05 * maxW) && yt >= (maxH - 0.1 * maxH) && yt <= (maxH - 0.05 * maxH))
+        {
+            setfillstyle(SOLID_FILL, COLOR(79, 129, 188));
+            floodfill(xt, yt, 4);
+        }
         if (GetAsyncKeyState(VK_LBUTTON))
         {
             if (xt >= (maxW - 0.1 * maxW) && xt <= (maxW - 0.05 * maxW) && yt >= (0.05 * maxH + 0.077 * maxH) && yt <= (0.1 * maxH + 0.077 * maxH))
@@ -523,7 +540,7 @@ void alegeFisier()
 
 void start() 
 {
-    int x = 0, y = 0, page = 0;
+    int x = 0, y = 0, page = 0, c=1;
     char word[20] = "Alege fisier text";
     char word2[20] = "Iesire";
     while (1) 
@@ -533,12 +550,34 @@ void start()
         clearviewport();
         settextjustify(CENTER_TEXT, CENTER_TEXT);
         rectangle(maxW / 2 - 0.1 * maxW, maxH / 2 - 0.123 * maxH, maxW / 2 + 0.1 * maxW, maxH / 2 + 0.1 * maxH - 0.123 * maxH);
-        rectangle(maxW / 2 - 0.1 * maxW, maxH / 2 + 0.2 * maxH - 0.123 * maxH, maxW / 2 + 0.1 * maxW, maxH / 2 + 0.3 * maxH - 0.123 * maxH);
+        outtextxy(maxW / 2, maxH / 2 + 0.06 * maxH - 0.123 * maxH, word);
+        setcolor(1);
+        rectangle(maxW / 2 - 0.1 * maxW, maxH / 2 + 0.2 * maxH - 0.123 * maxH, maxW / 2 + 0.1 * maxW, maxH / 2 + 0.3 * maxH - 0.123 * maxH);  
+        setbkcolor(COLOR(128, 212, 255));
+        setfillstyle(SOLID_FILL, COLOR(128, 212, 255));
+        floodfill(maxW / 2 - 0.1 * maxW + 10, maxH / 2 - 0.123 * maxH + 10,1);
+        floodfill(maxW / 2 - 0.1 * maxW + 10, maxH / 2 + 0.2 * maxH - 0.123 * maxH + 10, 1);
         outtextxy(maxW / 2, maxH / 2 + 0.06 * maxH - 0.123 * maxH, word);
         outtextxy(maxW / 2, maxH / 2 + 0.26 * maxH - 0.123 * maxH, word2);
-        settextjustify(LEFT_TEXT, TOP_TEXT);
+        setbkcolor(WHITE);
         x = mousex();
         y = mousey();
+        if (x >= (maxW / 2 - 0.1 * maxW + 1) && x <= (maxW / 2 + 0.1 * maxW - 1) && y >= (maxH / 2 + 1) && y <= (maxH / 2 + 0.1 * maxH - 1))
+        {
+            setbkcolor(COLOR(79, 129, 188));
+            setfillstyle(SOLID_FILL, COLOR(79, 129, 188));
+            floodfill(maxW / 2 - 0.1 * maxW + 10, maxH / 2 - 0.123 * maxH + 10, 1);
+            outtextxy(maxW / 2, maxH / 2 + 0.06 * maxH - 0.123 * maxH, word);
+            setbkcolor(WHITE);
+        }
+        else if (x >= (maxW / 2 - 0.1 * maxW + 1) && x <= (maxW / 2 + 0.1 * maxW - 1) && y >= (maxH / 2 + 0.2 * maxH + 1) && y <= (maxH / 2 + 0.3 * maxH - 1))
+        {
+            setbkcolor(COLOR(79, 129, 188));
+            setfillstyle(SOLID_FILL, COLOR(79, 129, 188));
+            floodfill(maxW / 2 - 0.1 * maxW + 10, maxH / 2 + 0.2 * maxH - 0.123 * maxH + 10, 1);
+            outtextxy(maxW / 2, maxH / 2 + 0.26 * maxH - 0.123 * maxH, word2);
+            setbkcolor(WHITE);
+        }
         if (GetAsyncKeyState(VK_LBUTTON)) 
         {
             if (x >= (maxW / 2 - 0.1 * maxW + 1) && x <= (maxW / 2 + 0.1 * maxW - 1) && y >= (maxH / 2 + 1) && y <= (maxH / 2 + 0.1 * maxH - 1))
@@ -550,6 +589,7 @@ void start()
                 exit(1);
             }
         }
+        settextjustify(LEFT_TEXT, TOP_TEXT);
         page = 1 - page;
     }
 }
