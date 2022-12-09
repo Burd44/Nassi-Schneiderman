@@ -9,23 +9,24 @@ using namespace std;
 
 void start();
 void afisare();
-
 char Path[300], img[100];
 int maxH = getmaxheight() / 1.15, maxW = getmaxwidth() / 1.25;
 int diagRowHeight = 0.055 * maxH, diagWidth = 0.8 * maxW, rowsInTotal=0;
-
 char randuri[200][200];
 
-void copiereRanduri() {
+void copiereRanduri() 
+{
     int cnt = 0;
     FILE* fptr = fopen(Path, "r");
-    while (fgets(randuri[cnt], 199, fptr)) {
+    while (fgets(randuri[cnt], 199, fptr))
+    {
         cnt++;
     }
     rowsInTotal = cnt;
 }
 
-int howManySpaces(char rand[]) {
+int howManySpaces(char rand[]) 
+{
     int spaces=0;
     while (rand[spaces] == 32)
         spaces++;
@@ -78,20 +79,21 @@ int tipOperatie(char rand[]) {
     return 0;
 }
 
-void printRow(int Left, int Right, int currLine, int rowNumber,int ypoz, int xpoz) {
+void printRow(int Left, int Right, int currLine, int rowNumber,int ypoz, int xpoz) 
+{
     settextjustify(CENTER_TEXT, CENTER_TEXT);
     int spaces = howManySpaces(randuri[rowNumber]);
     outtextxy((Right + Left) / 2 + xpoz, diagRowHeight * currLine + 0.7 * diagRowHeight + ypoz, randuri[rowNumber] + spaces);
 }
 
-void skipElseOrIf(int& row, int& linesInBrackets, int& linesToDraw) {
+void skipElseOrIf(int& row, int& linesInBrackets, int& linesToDraw) 
+{
     int rowAux = row - 1;
     row++, linesInBrackets++;
     int bracketsStack = 0;
     int linesCntElse = 0;
     int linesCntIf = 0;
-    // find lines to draw in else
-    do {
+    do {        // find lines to draw in else
         int tip = tipOperatie(randuri[row]);
         if (tip >= 2 && tip <= 7) {
             linesCntElse++;
@@ -102,24 +104,22 @@ void skipElseOrIf(int& row, int& linesInBrackets, int& linesToDraw) {
         else if (tip == 8) {
             skipElseOrIf(row, linesInBrackets, linesCntElse);
             tip = tipOperatie(randuri[row]);
-            if (tip >= 2 && tip <= 7) {
+            if (tip >= 2 && tip <= 7) 
+            {
                 linesCntElse++;
             }
-            else if (tip == 1) {
+            else if (tip == 1) 
+            {
                 linesCntElse += 2;
             }
         }
-
         if (strstr(randuri[row], "{") != 0)
             bracketsStack++;
         else if (strstr(randuri[row], "}") != 0)
             bracketsStack--;
         row++, linesInBrackets++;
-
     } while (bracketsStack > 0);
-
-    // find if starting line
-    bracketsStack = 0;
+    bracketsStack = 0;// find if starting line
     int ifPosition = 0;
     do {
         if (strstr(randuri[rowAux], "{") != 0)
@@ -129,9 +129,7 @@ void skipElseOrIf(int& row, int& linesInBrackets, int& linesToDraw) {
         rowAux--;
     } while (bracketsStack < 0);
     ifPosition = rowAux;
-
-    // find number of lines to draw in if
-    rowAux++, bracketsStack = 0;
+    rowAux++, bracketsStack = 0;   // find number of lines to draw in if
     int notUsed = 0;
     do {
         int tip = tipOperatie(randuri[rowAux]);
@@ -144,104 +142,111 @@ void skipElseOrIf(int& row, int& linesInBrackets, int& linesToDraw) {
         else if (tip == 8) {
             skipElseOrIf(rowAux, notUsed, linesCntIf);
             tip = tipOperatie(randuri[rowAux]);
-            if (tip >= 2 && tip <= 7) {
+            if (tip >= 2 && tip <= 7) 
+            {
                 linesCntIf++;
             }
-            else if (tip == 1) {
+            else if (tip == 1) 
+            {
                 linesCntIf += 2;
             }
         }
-
         if (strstr(randuri[rowAux], "{") != 0)
             bracketsStack++;
         else if (strstr(randuri[rowAux], "}") != 0)
             bracketsStack--;
         rowAux++;
-
     } while (bracketsStack > 0);
-
-    //if lines in else > lines in if, consider else number of lines to draw
-    if (linesCntElse > linesCntIf) {
+    if (linesCntElse > linesCntIf) //if lines in else > lines in if, consider else number of lines to draw
+    {
         linesToDraw = linesToDraw + linesCntElse - linesCntIf;
     }
 }
 
-void lastBracket(int row,int &linesInBrackets, int &linesToDraw) {
+void lastBracket(int row,int &linesInBrackets, int &linesToDraw) 
+{
     row++;
     int bracketsStack = 0;
     do {
         int tip = tipOperatie(randuri[row]);
-        if (tip >= 2 && tip <= 7) {
+        if (tip >= 2 && tip <= 7) 
+        {
             linesToDraw++;
         }
-        else if (tip == 1) {
+        else if (tip == 1) 
+        {
             linesToDraw += 2;
         }
-        else if (tip == 8) {
+        else if (tip == 8) 
+        {
             skipElseOrIf(row, linesInBrackets, linesToDraw);
             tip = tipOperatie(randuri[row]);
-            if (tip >= 2 && tip <= 7) {
+            if (tip >= 2 && tip <= 7) 
+            {
                 linesToDraw++;
             }
-            else if (tip == 1) {
+            else if (tip == 1) 
+            {
                 linesToDraw += 2;
             }
         }
-
         if (strstr(randuri[row],"{")!=0)
             bracketsStack++;
         else if (strstr(randuri[row],"}")!=0)
             bracketsStack--;
-
         row++,linesInBrackets++;
     } while (bracketsStack > 0);
 }
 
-void ifAndElseBracket(int row, int &linesToDrawFB, int &linesInIfBrackets,int &linesToDrawSecondB,int &linesInElseBrackets, bool &existaElse) {
+void ifAndElseBracket(int row, int &linesToDrawFB, int &linesInIfBrackets,int &linesToDrawSecondB,int &linesInElseBrackets, bool &existaElse) 
+{
     row++;
     int bracketsStack = 0;
     do {
         int tip = tipOperatie(randuri[row]);
-        if (tip >= 2 && tip <= 7) {
+        if (tip >= 2 && tip <= 7) 
+        {
             linesToDrawFB++;
         }
-        else if (tip == 1) {
+        else if (tip == 1) 
+        {
             linesToDrawFB += 2;
         }
         else if (tip == 8) {
             skipElseOrIf(row, linesInIfBrackets, linesToDrawFB);
             tip = tipOperatie(randuri[row]);
-            if (tip >= 2 && tip <= 7) {
+            if (tip >= 2 && tip <= 7) 
+            {
                 linesToDrawFB++;
             }
-            else if (tip == 1) {
+            else if (tip == 1) 
+            {
                 linesToDrawFB += 2;
             }
         }
-
         if (strstr(randuri[row], "{") != 0)
             bracketsStack++;
         else if (strstr(randuri[row], "}") != 0)
             bracketsStack--;
         row++, linesInIfBrackets++;
-
     } while (bracketsStack > 0);
-
     if (tipOperatie(randuri[row]) == 8)
         existaElse = TRUE;
-
     if (existaElse) {
         row++;
         bracketsStack = 0;
         do {
             int tip = tipOperatie(randuri[row]);
-            if (tip >= 2 && tip <= 7) {
+            if (tip >= 2 && tip <= 7) 
+            {
                 linesToDrawSecondB++;
             }
-            else if (tip == 1) {
+            else if (tip == 1) 
+            {
                 linesToDrawSecondB += 2;
             }
-            else if (tip == 8) {
+            else if (tip == 8) 
+            {
                 skipElseOrIf(row, linesInElseBrackets, linesToDrawSecondB);
                 tip = tipOperatie(randuri[row]);
                 if (tip >= 2 && tip <= 7) {
@@ -251,58 +256,49 @@ void ifAndElseBracket(int row, int &linesToDrawFB, int &linesInIfBrackets,int &l
                     linesToDrawSecondB += 2;
                 }
             }
-
             if (strstr(randuri[row], "{") != 0)
                 bracketsStack++;
             else if (strstr(randuri[row], "}") != 0)
                 bracketsStack--;
             row++, linesInElseBrackets++;
-
         } while (bracketsStack > 0);
     }
 }
 
-void drawInstructions(int currLeft, int currRight, int &row,int &currLine,int &xpoz,int &ypoz,int rowLimFromPrev) {
+void drawInstructions(int currLeft, int currRight, int &row,int &currLine,int &xpoz,int &ypoz,int rowLimFromPrev) 
+{
     int rowLimit = 9999, rowLimitIf = 9999, rowLimitElse = 9999;
-
-    for (; row < rowsInTotal; row++) {
+    for (; row < rowsInTotal; row++) 
+    {
         int tip = tipOperatie(randuri[row]);
-
-
-        if (tip >= 4 && tip <= 7) {
+        if (tip >= 4 && tip <= 7) 
+        {
             rectangle(currLeft + xpoz, diagRowHeight * currLine + ypoz, currRight + xpoz, diagRowHeight * (currLine + 1) + ypoz);
             printRow(currLeft, currRight, currLine, row, ypoz, xpoz);
             currLine++;
         }
-        else if (tip == 2 || tip == 3) {
-            // find last bracket
+        else if (tip == 2 || tip == 3) 
+        {
             int linesInBrackets = 0;  //lines from current row to bracket (the closing bracket)
             int linesToDraw = 0;
             lastBracket(row, linesInBrackets, linesToDraw);  //lines to draw from first bracket to last
             rowLimit = row + linesInBrackets;
-
             rectangle(currLeft + xpoz, diagRowHeight * currLine + ypoz, currRight + xpoz, diagRowHeight * (currLine + linesToDraw + 1) + ypoz);
             printRow(currLeft, currRight, currLine, row, ypoz, xpoz);
             row++,currLine++;
-
-            // paint instructionss with this left this right until last bracket (that is what rowLimit is for)
-            drawInstructions(currLeft + maxW * 0.06, currRight, row, currLine, xpoz, ypoz, rowLimit);
+            drawInstructions(currLeft + maxW * 0.06, currRight, row, currLine, xpoz, ypoz, rowLimit);  // paint instructionss with this left this right until last bracket (that is what rowLimit is for)
         }
-        else if (tip == 1) {
-            // Find first bracket limit
-            // find if else exists
-            // if else exists find else brackets and limits
-            int linesToDrawFirstB = 0;
-            int linesInIfBrackets = 0;
-            int linesToDrawSecondB = 0;
+        else if (tip == 1) 
+        { 
+            int linesToDrawFirstB = 0;             // Find first bracket limit
+            int linesInIfBrackets = 0;             // find if else exists
+            int linesToDrawSecondB = 0;            // if else exists find else brackets and limits
             int linesInElseBrackets = 0;
             bool existaElse = 0;
             ifAndElseBracket(row, linesToDrawFirstB, linesInIfBrackets, linesToDrawSecondB, linesInElseBrackets, existaElse);
             rowLimitIf = row + linesInIfBrackets;
-            rowLimitElse = row + linesInIfBrackets + linesInElseBrackets;
-
-            //draw the if else box
-            char tru[] = "TRUE";
+            rowLimitElse = row + linesInIfBrackets + linesInElseBrackets;   
+            char tru[] = "TRUE";     //draw the if else box
             char fals[] = "FALSE";
             int linesInRectangle = max(linesToDrawFirstB, linesToDrawSecondB);
             rectangle(currLeft + xpoz, diagRowHeight * currLine + ypoz, currRight + xpoz, diagRowHeight * (currLine + linesInRectangle + 2) + ypoz);
@@ -314,11 +310,7 @@ void drawInstructions(int currLeft, int currRight, int &row,int &currLine,int &x
             outtextxy(currLeft + 0.01 * maxW + xpoz, diagRowHeight * (currLine + 2) - 0.01 * maxH + ypoz, tru);
             settextjustify(RIGHT_TEXT, BOTTOM_TEXT);
             outtextxy(currRight - 0.01 * maxW + xpoz, diagRowHeight * (currLine + 2) - 0.01 * maxH + ypoz, fals);
-
-
-            // 
-            // drawInstructions recursively for every if and else
-            row++; currLine += 2;
+            row++; currLine += 2;               // drawInstructions recursively for every if and else
             int currLineElse = currLine;
             drawInstructions(currLeft, (currRight + currLeft) / 2, row, currLine, xpoz, ypoz, rowLimitIf);
             drawInstructions((currRight + currLeft) / 2, currRight, row, currLineElse, xpoz, ypoz, rowLimitElse);
@@ -330,51 +322,45 @@ void drawInstructions(int currLeft, int currRight, int &row,int &currLine,int &x
 void diagram() {
     int page = 0, ypoz = 0, xpoz = 0, xt = 0, yt = 0; 
     char word3[] = "Inapoi";
-    while (1) { 
+    while (1) 
+    { 
         setvisualpage(page);
         setactivepage(1 - page);
         clearviewport();
         int currLine = 1;                                                        // currLine reprezinta nr liniei orizontale la care am ajuns sa desenam
         int currLeft = maxW/2-diagWidth/2, currRight = currLeft+diagWidth;       // row reprezinta randul din vectorul cu pseudocodul
         int rowLimit = 9999, rowLimitIf = 9999, rowLimitElse = 9999;
-
-        for (int row = 0; row < rowsInTotal; row++) {
+        for (int row = 0; row < rowsInTotal; row++) 
+        {
             int tip = tipOperatie(randuri[row]);
-
-            
-            if (tip >= 4 && tip <= 7) {
+            if (tip >= 4 && tip <= 7) 
+            {
                 rectangle(currLeft + xpoz, diagRowHeight * currLine + ypoz, currRight + xpoz, diagRowHeight * (currLine + 1) + ypoz);
                 printRow(currLeft, currRight, currLine, row, ypoz, xpoz);
                 currLine++;
             }
-            else if (tip == 2 || tip == 3) {
+            else if (tip == 2 || tip == 3) 
+            {
                 int linesInBrackets =0;                          //lines from current row to bracket (the closing bracket)
                 int linesToDraw = 0;                            //horizontal lines to draw in while/for
                 lastBracket(row, linesInBrackets, linesToDraw);
                 rowLimit = row + linesInBrackets;
-
                 rectangle(currLeft + xpoz, diagRowHeight * currLine + ypoz, currRight + xpoz, diagRowHeight * (currLine + linesToDraw + 1) + ypoz);
                 printRow(currLeft, currRight, currLine, row, ypoz, xpoz);
                 row++,currLine++;
-
-                // paint instructionss this with left this right until last bracket (that is what rowLimit is for)
-                drawInstructions(currLeft + maxW * 0.06, currRight, row, currLine,xpoz,ypoz, rowLimit);               
+                drawInstructions(currLeft + maxW * 0.06, currRight, row, currLine,xpoz,ypoz, rowLimit);   // paint instructionss this with left this right until last bracket (that is what rowLimit is for)            
             }
-            else if (tip == 1) {
-                // Find first bracket limit
-                // find if else exists
-                // if else exists find else brackets and row limit for current if else
-                int linesToDrawFirstB = 0;               // "B" stands for Bracket/Brackets
-                int linesInIfBrackets = 0;
-                int linesToDrawSecondB = 0;
-                int linesInElseBrackets = 0;
+            else if (tip == 1) 
+            {
+                int linesToDrawFirstB = 0;               // Find first bracket limit
+                int linesInIfBrackets = 0;               // find if else exists
+                int linesToDrawSecondB = 0;              // if else exists find else brackets and row limit for current if else
+                int linesInElseBrackets = 0;            // "B" stands for Bracket/Brackets
                 bool existaElse = 0;
                 ifAndElseBracket(row, linesToDrawFirstB, linesInIfBrackets, linesToDrawSecondB, linesInElseBrackets, existaElse);
                 rowLimitIf = row + linesInIfBrackets;
-                rowLimitElse = row + linesInIfBrackets + linesInElseBrackets;
-                 
-                //draw the if else box
-                char tru[] = "TRUE";
+                rowLimitElse = row + linesInIfBrackets + linesInElseBrackets; 
+                char tru[] = "TRUE";  //draw the if else box
                 char fals[] = "FALSE";
                 int linesInRectangle = max(linesToDrawFirstB, linesToDrawSecondB);
                 rectangle(currLeft + xpoz, diagRowHeight * currLine + ypoz, currRight + xpoz, diagRowHeight * (currLine + linesInRectangle + 2) + ypoz);
@@ -386,21 +372,16 @@ void diagram() {
                 outtextxy(currLeft + 0.01 * maxW + xpoz, diagRowHeight * (currLine + 2) - 0.01 * maxH + ypoz, tru);
                 settextjustify(RIGHT_TEXT, BOTTOM_TEXT);
                 outtextxy(currRight - 0.01 * maxW + xpoz, diagRowHeight * (currLine + 2) - 0.01 * maxH + ypoz, fals);
-
-
-                // drawInstructions recursively for every if and else
                 row++; currLine += 2;          // currLine is incremented by 2 because if box has double height compared to the others
                 int currLineElse = currLine;   // because if and else start from same height
                 drawInstructions(currLeft, (currRight+currLeft) / 2, row, currLine, xpoz, ypoz, rowLimitIf);
                 drawInstructions((currRight + currLeft) / 2, currRight, row, currLineElse, xpoz, ypoz, rowLimitElse);
             }
         }
-
         setfillstyle(BKSLASH_FILL, 1);
         bar(maxW - 0.1 * maxW, 0.05 * maxH - 0.045 * maxH, maxW - 0.05 * maxW, 0.1 * maxH - 0.045 * maxH);
         setfillstyle(SLASH_FILL, 1);
         bar(maxW - 0.1 * maxW, maxH - 0.05 * maxH - 0.123 * maxH, maxW - 0.05 * maxW, maxH - 0.1 * maxH - 0.123 * maxH);
-
         settextjustify(CENTER_TEXT, CENTER_TEXT);
         setbkcolor(COLOR(79, 129, 188));
         setfillstyle(SOLID_FILL, COLOR(79, 129, 188));
@@ -408,7 +389,6 @@ void diagram() {
         outtextxy((0.05 * maxW + 0.15 * maxW) / 2, (0.85 * maxH + 0.9 * maxH) / 2 + 0.005 * maxH - 0.123 * maxH, word3);
         setbkcolor(WHITE);
         settextjustify(LEFT_TEXT, TOP_TEXT);
-
         xt = mousex();
         yt = mousey();
         if (GetAsyncKeyState(VK_UP))
@@ -434,7 +414,8 @@ void diagram() {
                 diagWidth += 4;
             else if (xt >= (maxW - 0.1 * maxW) && xt <= (maxW - 0.05 * maxW) && yt >= (maxH - 0.1 * maxH) && yt <= (maxH - 0.05 * maxH))
                 diagRowHeight += 1;
-            else if ((xt >= 0.05 * maxW) && (xt <= 0.15 * maxW) && (yt > 0.85 * maxH) && (yt < 0.9 * maxH)) {
+            else if ((xt >= 0.05 * maxW) && (xt <= 0.15 * maxW) && (yt > 0.85 * maxH) && (yt < 0.9 * maxH)) 
+            {
                 delay(200);
                 afisare();
             }
@@ -463,7 +444,6 @@ void afisare()
     int maxWidthRow = textwidth(maxRandSir);
     int textHeight = textheight(rand);
     char word3[] = "Inapoi";
-
     while (1) 
     {
         setvisualpage(page);
@@ -492,7 +472,8 @@ void afisare()
                 ypoz += 5;
             else if (xt >= (maxW - 0.1 * maxW) && xt <= (maxW - 0.05 * maxW) && yt >= (maxH - 0.1 * maxH) && yt <= (maxH - 0.05 * maxH))
                 ypoz -= 5;
-            else if ((xt >= 0.05 * maxW) && (xt <= 0.15 * maxW) && (yt > 0.85 * maxH) && (yt < 0.9 * maxH)) {
+            else if ((xt >= 0.05 * maxW) && (xt <= 0.15 * maxW) && (yt > 0.85 * maxH) && (yt < 0.9 * maxH)) 
+            {
                 delay(200);
                 start();
             }
@@ -504,7 +485,8 @@ void afisare()
             r++;
         }
         page = 1 - page;
-        if (GetAsyncKeyState(VK_RETURN)) {
+        if (GetAsyncKeyState(VK_RETURN)) 
+        {
             copiereRanduri();
             diagram();
         }
@@ -557,7 +539,8 @@ void start()
         settextjustify(LEFT_TEXT, TOP_TEXT);
         x = mousex();
         y = mousey();
-        if (GetAsyncKeyState(VK_LBUTTON)) {
+        if (GetAsyncKeyState(VK_LBUTTON)) 
+        {
             if (x >= (maxW / 2 - 0.1 * maxW + 1) && x <= (maxW / 2 + 0.1 * maxW - 1) && y >= (maxH / 2 + 1) && y <= (maxH / 2 + 0.1 * maxH - 1))
             {
                 alegeFisier();
