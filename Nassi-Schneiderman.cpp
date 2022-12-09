@@ -491,10 +491,10 @@ void afisare()
         clearviewport();
         int r = 1;
         rewind(fptr);
-        settextstyle(6, HORIZ_DIR, 3);
+        settextstyle(3, HORIZ_DIR, 3);
         setcolor(COLOR(45, 65, 196));
-        outtextxy(0.01 * maxW, 0.02 * maxH, word4);
-        outtextxy(0.01 * maxW, 0.06 * maxH, word5);
+        outtextxy(0.05 * maxW, 0.06 * maxH, word4);
+        outtextxy(0.05 * maxW, 0.09 * maxH, word5);
         settextstyle(DEFAULT_FONT, HORIZ_DIR, 0);
         setcolor(1);
         rectangle(maxW - 0.1 * maxW, 0.05 * maxH - 0.045 * maxH, maxW - 0.05 * maxW, 0.1 * maxH - 0.045 * maxH);
