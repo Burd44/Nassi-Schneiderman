@@ -17,7 +17,7 @@ Structura While: while(//////) do
                      /////
                  }
 
-Structura For:   for //// <- //// to //// do
+Structura For:   for //// <- //// to/down to //// do
                  {
                      /////
                  }
@@ -26,7 +26,7 @@ Citire :         read(////)
 
 Afisare:         print(////)
 
-Return:          return[////]
+Return:          return(////)
 
   Aceste reguli respecta urmatoarele conditii:
 
