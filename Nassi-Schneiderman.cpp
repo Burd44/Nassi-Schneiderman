@@ -289,7 +289,9 @@ void drawInstructions(int currLeft, int currRight, int &row,int &currLine,int &x
         if (tip >= 4 && tip <= 7) 
         {
             rectangle(currLeft + xpoz, diagRowHeight * currLine + ypoz, currRight + xpoz, diagRowHeight * (currLine + 1) + ypoz);
-            bar(currLeft + xpoz + 1, diagRowHeight * currLine + ypoz + 1, currRight + xpoz - 1, diagRowHeight * (currLine + 1) + ypoz - 1);
+            setfillstyle(SOLID_FILL, COLOR(166, 252, 255));
+            bar(currLeft + xpoz + 2, diagRowHeight * currLine + ypoz + 2, currRight + xpoz - 1, diagRowHeight * (currLine + 1) + ypoz - 1);
+            setbkcolor(COLOR(166, 252, 255));
             printRow(currLeft, currRight, currLine, row, ypoz, xpoz);
             currLine++;
         }
@@ -299,9 +301,25 @@ void drawInstructions(int currLeft, int currRight, int &row,int &currLine,int &x
             int linesToDraw = 0;
             lastBracket(row, linesInBrackets, linesToDraw);  //lines to draw from first bracket to last
             rowLimit = row + linesInBrackets;
-            rectangle(currLeft + xpoz, diagRowHeight * currLine + ypoz, currRight + xpoz, diagRowHeight * (currLine + linesToDraw + 1) + ypoz);
-            printRow(currLeft, currRight, currLine, row, ypoz, xpoz);
-            row++,currLine++;
+
+            //draw
+            if (tip == 2) {
+                setfillstyle(SOLID_FILL, COLOR(248, 255, 117));
+                rectangle(currLeft + xpoz, diagRowHeight * currLine + ypoz, currRight + xpoz, diagRowHeight * (currLine + linesToDraw + 1) + ypoz);
+                bar(currLeft + xpoz + 2, diagRowHeight * currLine + ypoz + 2, currRight + xpoz - 1, diagRowHeight * (currLine + linesToDraw + 1) + ypoz - 1);
+                setbkcolor(COLOR(248, 255, 117));
+                printRow(currLeft, currRight, currLine, row, ypoz, xpoz);
+            }
+            else {
+                setfillstyle(SOLID_FILL, COLOR(255, 187, 115));
+                rectangle(currLeft + xpoz, diagRowHeight * currLine + ypoz, currRight + xpoz, diagRowHeight * (currLine + linesToDraw + 1) + ypoz);
+                bar(currLeft + xpoz + 2, diagRowHeight * currLine + ypoz + 2, currRight + xpoz - 1, diagRowHeight * (currLine + linesToDraw + 1) + ypoz - 1);
+                setbkcolor(COLOR(255, 187, 115));
+                printRow(currLeft, currRight, currLine, row, ypoz, xpoz);
+            }
+
+            //recursion
+            row++, currLine++;
             drawInstructions(currLeft + maxW * 0.06, currRight, row, currLine, xpoz, ypoz, rowLimit);  // paint instructionss with this left this right until last bracket (that is what rowLimit is for)
         }
         else if (tip == 1) 
@@ -314,18 +332,34 @@ void drawInstructions(int currLeft, int currRight, int &row,int &currLine,int &x
             ifAndElseBracket(row, linesToDrawFirstB, linesInIfBrackets, linesToDrawSecondB, linesInElseBrackets, existaElse);
             rowLimitIf = row + linesInIfBrackets;
             rowLimitElse = row + linesInIfBrackets + linesInElseBrackets;   
-            char tru[] = "TRUE";     //draw the if else box
+
+            //draw
+            char tru[] = "TRUE";
             char fals[] = "FALSE";
             int linesInRectangle = max(linesToDrawFirstB, linesToDrawSecondB);
+            setfillstyle(SOLID_FILL, COLOR(128, 212, 255));
+            bar(currLeft + xpoz + 2, diagRowHeight * currLine + ypoz + 2, currRight + xpoz - 1, diagRowHeight * (currLine + linesInRectangle + 2) + ypoz - 1);
+            setfillstyle(SOLID_FILL, COLOR(160, 255, 105));
+            int firstTriangle[6]{ currLeft + xpoz, diagRowHeight * currLine + ypoz, (currRight + currLeft) / 2 + xpoz, diagRowHeight * (currLine + 2) + ypoz,
+                                  currLeft + xpoz, diagRowHeight * (currLine + 2) + ypoz };
+            int secondTriangle[6]{ (currRight + currLeft) / 2 + xpoz, diagRowHeight * (currLine + 2) + ypoz, currRight + xpoz, diagRowHeight * currLine + ypoz,
+                                  currRight + xpoz, diagRowHeight * (currLine + 2) + ypoz };
+            fillpoly(3, firstTriangle);
+            setfillstyle(SOLID_FILL, COLOR(255, 161, 161));
+            fillpoly(3, secondTriangle);
             rectangle(currLeft + xpoz, diagRowHeight * currLine + ypoz, currRight + xpoz, diagRowHeight * (currLine + linesInRectangle + 2) + ypoz);
             line(currLeft + xpoz, diagRowHeight * (currLine + 2) + ypoz, currRight + xpoz, diagRowHeight * (currLine + 2) + ypoz);
-            line(currLeft + xpoz, diagRowHeight * currLine + ypoz, (currRight + currLeft) / 2 + xpoz, diagRowHeight * (currLine + 2) + ypoz);
-            line((currRight + currLeft) / 2 + xpoz, diagRowHeight * (currLine + 2) + ypoz, currRight + xpoz, diagRowHeight * currLine + ypoz);
+            //line((currRight + currLeft) / 2 + xpoz, diagRowHeight * (currLine + 2) + ypoz, currRight + xpoz, diagRowHeight * currLine + ypoz);
+            setbkcolor(COLOR(128, 212, 255));
             printRow(currLeft, currRight, currLine, row, ypoz, xpoz);
+            setbkcolor(COLOR(160, 255, 105));
             settextjustify(BOTTOM_TEXT, LEFT_TEXT);
             outtextxy(currLeft + 0.01 * maxW + xpoz, diagRowHeight * (currLine + 2) - 0.01 * maxH + ypoz, tru);
+            setbkcolor(COLOR(255, 161, 161));
             settextjustify(RIGHT_TEXT, BOTTOM_TEXT);
             outtextxy(currRight - 0.01 * maxW + xpoz, diagRowHeight * (currLine + 2) - 0.01 * maxH + ypoz, fals);
+
+            //recursion
             row++; currLine += 2;               // drawInstructions recursively for every if and else
             int currLineElse = currLine;
             drawInstructions(currLeft, (currRight + currLeft) / 2, row, currLine, xpoz, ypoz, rowLimitIf);
@@ -352,7 +386,9 @@ void diagram() {
             if (tip >= 4 && tip <= 7) 
             {
                 rectangle(currLeft + xpoz, diagRowHeight * currLine + ypoz, currRight + xpoz, diagRowHeight * (currLine + 1) + ypoz);
-                bar(currLeft + xpoz+1, diagRowHeight * currLine + ypoz+1, currRight + xpoz-1, diagRowHeight * (currLine + 1) + ypoz-1);
+                setfillstyle(SOLID_FILL, COLOR(128, 212, 255));
+                bar(currLeft + xpoz + 2, diagRowHeight * currLine + ypoz + 2, currRight + xpoz - 1, diagRowHeight * (currLine + 1) + ypoz - 1);
+                setbkcolor(COLOR(128, 212, 255));
                 printRow(currLeft, currRight, currLine, row, ypoz, xpoz);
                 currLine++;
             }
@@ -362,9 +398,25 @@ void diagram() {
                 int linesToDraw = 0;                            //horizontal lines to draw in while/for
                 lastBracket(row, linesInBrackets, linesToDraw);
                 rowLimit = row + linesInBrackets;
-                rectangle(currLeft + xpoz, diagRowHeight * currLine + ypoz, currRight + xpoz, diagRowHeight * (currLine + linesToDraw + 1) + ypoz);
-                printRow(currLeft, currRight, currLine, row, ypoz, xpoz);
-                row++,currLine++;
+
+                //draw
+                if (tip == 2) {
+                    setfillstyle(SOLID_FILL, COLOR(248, 255, 117));
+                    rectangle(currLeft + xpoz, diagRowHeight * currLine + ypoz, currRight + xpoz, diagRowHeight * (currLine + linesToDraw + 1) + ypoz);
+                    bar(currLeft + xpoz + 2, diagRowHeight * currLine + ypoz + 2, currRight + xpoz - 1, diagRowHeight * (currLine + linesToDraw + 1) + ypoz - 1);
+                    setbkcolor(COLOR(248, 255, 117));
+                    printRow(currLeft, currRight, currLine, row, ypoz, xpoz);
+                }
+                else {
+                    setfillstyle(SOLID_FILL, COLOR(255, 187, 115));
+                    rectangle(currLeft + xpoz, diagRowHeight * currLine + ypoz, currRight + xpoz, diagRowHeight * (currLine + linesToDraw + 1) + ypoz);
+                    bar(currLeft + xpoz + 2, diagRowHeight * currLine + ypoz + 2, currRight + xpoz - 1, diagRowHeight * (currLine + linesToDraw + 1) + ypoz - 1);
+                    setbkcolor(COLOR(255, 187, 115));
+                    printRow(currLeft, currRight, currLine, row, ypoz, xpoz);
+                }
+
+                //recursion
+                row++, currLine++;
                 drawInstructions(currLeft + maxW * 0.06, currRight, row, currLine,xpoz,ypoz, rowLimit);   // paint instructionss this with left this right until last bracket (that is what rowLimit is for)            
             }
             else if (tip == 1) 
@@ -377,18 +429,34 @@ void diagram() {
                 ifAndElseBracket(row, linesToDrawFirstB, linesInIfBrackets, linesToDrawSecondB, linesInElseBrackets, existaElse);
                 rowLimitIf = row + linesInIfBrackets;
                 rowLimitElse = row + linesInIfBrackets + linesInElseBrackets; 
-                char tru[] = "TRUE";  //draw the if else box
+
+                //draw
+                char tru[] = "TRUE";
                 char fals[] = "FALSE";
                 int linesInRectangle = max(linesToDrawFirstB, linesToDrawSecondB);
+                setfillstyle(SOLID_FILL, COLOR(166, 252, 255));
+                bar(currLeft + xpoz + 2, diagRowHeight * currLine + ypoz + 2, currRight + xpoz - 1, diagRowHeight * (currLine + linesInRectangle + 2) + ypoz - 1);
+                setfillstyle(SOLID_FILL, COLOR(160, 255, 105));
+                int firstTriangle[6]{ currLeft + xpoz, diagRowHeight * currLine + ypoz, (currRight + currLeft) / 2 + xpoz, diagRowHeight * (currLine + 2) + ypoz,
+                                      currLeft + xpoz, diagRowHeight * (currLine + 2) + ypoz };
+                int secondTriangle[6]{ (currRight + currLeft) / 2 + xpoz, diagRowHeight * (currLine + 2) + ypoz, currRight + xpoz, diagRowHeight * currLine + ypoz,
+                                      currRight + xpoz, diagRowHeight * (currLine + 2) + ypoz };
+                fillpoly(3, firstTriangle);
+                setfillstyle(SOLID_FILL, COLOR(255, 84, 84));
+                fillpoly(3, secondTriangle);
                 rectangle(currLeft + xpoz, diagRowHeight * currLine + ypoz, currRight + xpoz, diagRowHeight * (currLine + linesInRectangle + 2) + ypoz);
                 line(currLeft + xpoz, diagRowHeight * (currLine + 2) + ypoz, currRight + xpoz, diagRowHeight * (currLine + 2) + ypoz);
-                line(currLeft + xpoz, diagRowHeight * currLine + ypoz, (currRight+currLeft)/2+xpoz, diagRowHeight * (currLine + 2) + ypoz);
-                line((currRight + currLeft) / 2 + xpoz, diagRowHeight * (currLine + 2) + ypoz, currRight + xpoz, diagRowHeight * currLine + ypoz);
+                //line((currRight + currLeft) / 2 + xpoz, diagRowHeight * (currLine + 2) + ypoz, currRight + xpoz, diagRowHeight * currLine + ypoz);
+                setbkcolor(COLOR(166, 252, 255));
                 printRow(currLeft, currRight, currLine, row, ypoz, xpoz);
+                setbkcolor(COLOR(160, 255, 105));
                 settextjustify(BOTTOM_TEXT, LEFT_TEXT);
                 outtextxy(currLeft + 0.01 * maxW + xpoz, diagRowHeight * (currLine + 2) - 0.01 * maxH + ypoz, tru);
+                setbkcolor(COLOR(255, 84, 84));
                 settextjustify(RIGHT_TEXT, BOTTOM_TEXT);
                 outtextxy(currRight - 0.01 * maxW + xpoz, diagRowHeight * (currLine + 2) - 0.01 * maxH + ypoz, fals);
+
+                //recursion
                 row++; currLine += 2;          // currLine is incremented by 2 because if box has double height compared to the others
                 int currLineElse = currLine;   // because if and else start from same height
                 drawInstructions(currLeft, (currRight+currLeft) / 2, row, currLine, xpoz, ypoz, rowLimitIf);
@@ -397,19 +465,18 @@ void diagram() {
         }
         setfillstyle(SOLID_FILL, COLOR(128, 212, 255));
         rectangle(maxW - 0.1 * maxW, 0.05 * maxH - 0.045 * maxH, maxW - 0.05 * maxW, 0.1 * maxH - 0.045 * maxH);
-        bar(maxW - 0.1 * maxW+1, 0.05 * maxH - 0.045 * maxH+1, maxW - 0.05 * maxW-1, 0.1 * maxH - 0.045 * maxH-1);
+        bar(maxW - 0.1 * maxW+2, 0.05 * maxH - 0.045 * maxH+2, maxW - 0.05 * maxW-1, 0.1 * maxH - 0.045 * maxH-1);
         line(maxW - 0.1 * maxW, 0.05 * maxH - 0.045 * maxH, maxW - 0.05 * maxW, 0.1 * maxH - 0.045 * maxH);
         line(maxW - 0.05 * maxW, 0.05 * maxH - 0.045 * maxH, maxW - 0.1 * maxW, 0.1 * maxH - 0.045 * maxH);
-        rectangle(maxW - 0.1 * maxW, maxH - 0.05 * maxH - 0.123 * maxH, maxW - 0.05 * maxW, maxH - 0.1 * maxH - 0.123 * maxH);
-        bar(maxW - 0.1 * maxW + 1, maxH - 0.05 * maxH - 0.123 * maxH - 1, maxW - 0.05 * maxW - 1, maxH - 0.1 * maxH - 0.123 * maxH + 1);
+        rectangle(maxW - 0.05 * maxW, maxH - 0.1 * maxH - 0.123 * maxH, maxW - 0.1 * maxW, maxH - 0.05 * maxH - 0.123 * maxH);
+        bar(maxW - 0.1 * maxW +2, maxH - 0.1 * maxH - 0.123 * maxH+2, maxW - 0.05 * maxW -1, maxH - 0.05 * maxH - 0.123 * maxH-1);
         line(maxW - 0.1 * maxW, maxH - 0.05 * maxH - 0.123 * maxH, maxW - 0.05 * maxW, maxH - 0.1 * maxH - 0.123 * maxH);
         line(maxW - 0.05 * maxW, maxH - 0.05 * maxH - 0.123 * maxH, maxW - 0.1 * maxW, maxH - 0.1 * maxH - 0.123 * maxH);
-        
         settextjustify(CENTER_TEXT, CENTER_TEXT);
         setbkcolor(COLOR(128, 212, 255));
         setfillstyle(SOLID_FILL, COLOR(128, 212, 255));
         rectangle(0.05 * maxW, 0.85 * maxH - 0.123 * maxH, 0.15 * maxW, 0.9 * maxH - 0.123 * maxH);
-        bar(0.05 * maxW + 1, 0.85 * maxH - 0.123 * maxH + 1, 0.15 * maxW - 1, 0.9 * maxH - 0.123 * maxH - 1);
+        bar(0.05 * maxW + 2, 0.85 * maxH - 0.123 * maxH + 2, 0.15 * maxW - 1, 0.9 * maxH - 0.123 * maxH - 1);
         outtextxy((0.05 * maxW + 0.15 * maxW) / 2, (0.85 * maxH + 0.9 * maxH) / 2 + 0.005 * maxH - 0.123 * maxH, word3);
         setbkcolor(WHITE);
         settextjustify(LEFT_TEXT, TOP_TEXT);
@@ -446,7 +513,7 @@ void diagram() {
         }
         if ((xt >= 0.05 * maxW) && (xt <= 0.15 * maxW) && (yt > 0.85 * maxH) && (yt < 0.9 * maxH))
         {
-            //ColorBtn(0.05 * maxW, 0.85 * maxH - 0.123 * maxH, 0.15 * maxW, 0.9 * maxH - 0.123 * maxH, COLOR(79, 129, 188));
+            setfillstyle(SOLID_FILL, COLOR(79, 129, 188));
             floodfill(0.05 * maxW + 10, 0.85 * maxH - 0.123 * maxH+ 10, 1);
             setbkcolor(COLOR(79, 129, 188));
             settextjustify(CENTER_TEXT, CENTER_TEXT);
@@ -755,6 +822,9 @@ int main()
     setlinestyle(SOLID_LINE, 1, 3);
     setviewport(0, 0.123 * maxH, maxW, maxH - 0.045 * maxH, 1);
     start();
+    setfillstyle(SOLID_FILL, 4);
+    int a[6]{ 200,200,400,400,200,400 };
+    fillpoly(6, a);
     getch();
     closegraph();
     return 0;
