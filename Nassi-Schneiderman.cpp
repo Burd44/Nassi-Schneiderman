@@ -581,22 +581,24 @@ void start()
     int x = 0, y = 0, page = 0, c=1;
     char word[20] = "Alege fisier text";
     char word2[20] = "Iesire";
+    char word3[20] = "Reguli de sintaxa";
     while (1) 
     {
         setactivepage(page);
         setvisualpage(1 - page);
         clearviewport();
         settextjustify(CENTER_TEXT, CENTER_TEXT);
+        rectangle(maxW / 2 - 0.1 * maxW, maxH / 2 - 0.123 * maxH - 0.2 * maxH, maxW / 2 + 0.1 * maxW, maxH / 2 + 0.1 * maxH - 0.123 * maxH - 0.2 * maxH);
         rectangle(maxW / 2 - 0.1 * maxW, maxH / 2 - 0.123 * maxH, maxW / 2 + 0.1 * maxW, maxH / 2 + 0.1 * maxH - 0.123 * maxH);
-        outtextxy(maxW / 2, maxH / 2 + 0.06 * maxH - 0.123 * maxH, word);
-        setcolor(1);
         rectangle(maxW / 2 - 0.1 * maxW, maxH / 2 + 0.2 * maxH - 0.123 * maxH, maxW / 2 + 0.1 * maxW, maxH / 2 + 0.3 * maxH - 0.123 * maxH);  
         setbkcolor(COLOR(128, 212, 255));
         setfillstyle(SOLID_FILL, COLOR(128, 212, 255));
+        floodfill(maxW / 2 - 0.1 * maxW + 10, maxH / 2 - 0.123 * maxH - 0.2 * maxH + 10, 1);
         floodfill(maxW / 2 - 0.1 * maxW + 10, maxH / 2 - 0.123 * maxH + 10,1);
         floodfill(maxW / 2 - 0.1 * maxW + 10, maxH / 2 + 0.2 * maxH - 0.123 * maxH + 10, 1);
         outtextxy(maxW / 2, maxH / 2 + 0.06 * maxH - 0.123 * maxH, word);
         outtextxy(maxW / 2, maxH / 2 + 0.26 * maxH - 0.123 * maxH, word2);
+        outtextxy(maxW / 2, maxH / 2 + 0.06 * maxH - 0.123 * maxH - 0.2 * maxH, word3);
         setbkcolor(WHITE);
         x = mousex();
         y = mousey();
@@ -608,12 +610,20 @@ void start()
             outtextxy(maxW / 2, maxH / 2 + 0.06 * maxH - 0.123 * maxH, word);
             setbkcolor(WHITE);
         }
-        else if (x >= (maxW / 2 - 0.1 * maxW + 1) && x <= (maxW / 2 + 0.1 * maxW - 1) && y >= (maxH / 2 + 0.2 * maxH + 1) && y <= (maxH / 2 + 0.3 * maxH - 1))
+        if (x >= (maxW / 2 - 0.1 * maxW + 1) && x <= (maxW / 2 + 0.1 * maxW - 1) && y >= (maxH / 2 + 0.2 * maxH + 1) && y <= (maxH / 2 + 0.3 * maxH - 1))
         {
             setbkcolor(COLOR(79, 129, 188));
             setfillstyle(SOLID_FILL, COLOR(79, 129, 188));
             floodfill(maxW / 2 - 0.1 * maxW + 10, maxH / 2 + 0.2 * maxH - 0.123 * maxH + 10, 1);
             outtextxy(maxW / 2, maxH / 2 + 0.26 * maxH - 0.123 * maxH, word2);
+            setbkcolor(WHITE);
+        }
+        if (x >= (maxW / 2 - 0.1 * maxW + 1) && x <= (maxW / 2 + 0.1 * maxW - 1) && y >= (maxH / 2 - 0.1 * maxH - 0.1 * maxH + 1) && y <= (maxH / 2 + 0.1 * maxH - 0.1 * maxH - 0.1 * maxH - 1))
+        {
+            setbkcolor(COLOR(79, 129, 188));
+            setfillstyle(SOLID_FILL, COLOR(79, 129, 188));
+            floodfill(maxW / 2 - 0.1 * maxW + 10, maxH / 2 - 0.123 * maxH - 0.2 * maxH + 10, 1);
+            outtextxy(maxW / 2, maxH / 2 + 0.06 * maxH - 0.123 * maxH - 0.2 * maxH, word3);
             setbkcolor(WHITE);
         }
         if (GetAsyncKeyState(VK_LBUTTON)) 
