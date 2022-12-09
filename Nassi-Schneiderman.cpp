@@ -7,6 +7,7 @@
 
 using namespace std;
 
+FILE* reg = fopen("Reguli_De_Sintaxa.txt", "r");
 void start();
 void afisare();
 char Path[300], img[100];
@@ -482,8 +483,8 @@ void afisare()
     int maxWidthRow = textwidth(maxRandSir);
     int textHeight = textheight(rand);
     char word3[] = "Inapoi";
-    char word4[] = "PRESS ENTER";
-    char word5[] = "TO GENERATE DIAGRAM";
+    char word4[] = "APASATI ENTER";
+    char word5[] = "PENTRU GENERAREA DIAGRAMEI";
     while (1) 
     {
         setvisualpage(page);
@@ -576,6 +577,91 @@ void alegeFisier()
     afisare();
 }
 
+void reguli()
+{
+    clearviewport();
+    int nrRanduri = 0, maxRand = 0;
+    char rand[300], maxRandSir[300];
+    while (fgets(rand, sizeof(rand), reg))
+    {
+        nrRanduri++;
+        if (strlen(rand) > maxRand)
+        {
+            maxRand = strlen(rand);
+            strcpy(maxRandSir, rand);
+        }
+    }
+    int page = 0, ypoz = 0, xpoz = 0, xt = 0, yt = 0;
+    int maxWidthRow = textwidth(maxRandSir);
+    int textHeight = textheight(rand);
+    char word3[] = "Inapoi";
+    while (1)
+    {
+        setvisualpage(page);
+        setactivepage(1 - page);
+        clearviewport();
+        int r = 1;
+        rewind(reg);
+        setcolor(1);
+        rectangle(maxW - 0.1 * maxW, 0.05 * maxH - 0.045 * maxH, maxW - 0.05 * maxW, 0.1 * maxH - 0.045 * maxH);
+        line(maxW - 0.075 * maxW, 0.05 * maxH - 0.045 * maxH, maxW - 0.1 * maxW, 0.1 * maxH - 0.045 * maxH);
+        line(maxW - 0.075 * maxW, 0.05 * maxH - 0.045 * maxH, maxW - 0.05 * maxW, 0.1 * maxH - 0.045 * maxH);
+        rectangle(maxW - 0.1 * maxW, maxH - 0.05 * maxH - 0.123 * maxH, maxW - 0.05 * maxW, maxH - 0.1 * maxH - 0.123 * maxH);
+        line(maxW - 0.075 * maxW, maxH - 0.05 * maxH - 0.123 * maxH, maxW - 0.1 * maxW, maxH - 0.1 * maxH - 0.123 * maxH);
+        line(maxW - 0.075 * maxW, maxH - 0.05 * maxH - 0.123 * maxH, maxW - 0.05 * maxW, maxH - 0.1 * maxH - 0.123 * maxH);
+        ColorBtn(maxW - 0.1 * maxW, 0.05 * maxH - 0.045 * maxH, maxW - 0.05 * maxW, 0.1 * maxH - 0.045 * maxH, COLOR(128, 212, 255));
+        ColorBtn(maxW - 0.1 * maxW, maxH - 0.1 * maxH - 0.123 * maxH, maxW - 0.05 * maxW, maxH - 0.05 * maxH - 0.123 * maxH, COLOR(128, 212, 255));
+        settextjustify(CENTER_TEXT, CENTER_TEXT);
+        setbkcolor(COLOR(128, 212, 255));
+        setfillstyle(SOLID_FILL, COLOR(128, 212, 255));
+        rectangle(0.05 * maxW, 0.85 * maxH - 0.123 * maxH, 0.15 * maxW, 0.9 * maxH - 0.123 * maxH);
+        ColorBtn(0.05 * maxW, 0.85 * maxH - 0.123 * maxH, 0.15 * maxW, 0.9 * maxH - 0.123 * maxH, COLOR(128, 212, 255));
+        outtextxy((0.05 * maxW + 0.15 * maxW) / 2, (0.85 * maxH + 0.9 * maxH) / 2 + 0.005 * maxH - 0.123 * maxH, word3);
+        setbkcolor(WHITE);
+        settextjustify(LEFT_TEXT, TOP_TEXT);
+        xt = mousex();
+        yt = mousey();
+        if (xt >= (maxW - 0.1 * maxW) && xt <= (maxW - 0.05 * maxW) && yt >= (0.05 * maxH + 0.077 * maxH) && yt <= (0.1 * maxH + 0.077 * maxH))
+        {
+            setfillstyle(SOLID_FILL, COLOR(79, 129, 188));
+            floodfill(maxW - 0.1 * maxW + 0.02 * maxW, 0.1 * maxH - 0.045 * maxH - 2, 1);
+        }
+        if (xt >= (maxW - 0.1 * maxW) && xt <= (maxW - 0.05 * maxW) && yt >= (maxH - 0.1 * maxH) && yt <= (maxH - 0.05 * maxH))
+        {
+            setfillstyle(SOLID_FILL, COLOR(79, 129, 188));
+            floodfill(maxW - 0.1 * maxW + 0.02 * maxW, maxH - 0.1 * maxH - 0.123 * maxH + 2, 1);
+        }
+        if ((xt >= 0.05 * maxW) && (xt <= 0.15 * maxW) && (yt > 0.85 * maxH) && (yt < 0.9 * maxH))
+        {
+            ColorBtn(0.05 * maxW, 0.85 * maxH - 0.123 * maxH, 0.15 * maxW, 0.9 * maxH - 0.123 * maxH, COLOR(79, 129, 188));
+            setbkcolor(COLOR(79, 129, 188));
+            settextjustify(CENTER_TEXT, CENTER_TEXT);
+            outtextxy((0.05 * maxW + 0.15 * maxW) / 2, (0.85 * maxH + 0.9 * maxH) / 2 + 0.005 * maxH - 0.123 * maxH, word3);
+            setbkcolor(WHITE);
+            settextjustify(LEFT_TEXT, TOP_TEXT);
+        }
+        if (GetAsyncKeyState(VK_LBUTTON))
+        {
+            if (xt >= (maxW - 0.1 * maxW) && xt <= (maxW - 0.05 * maxW) && yt >= (0.05 * maxH + 0.077 * maxH) && yt <= (0.1 * maxH + 0.077 * maxH))
+                ypoz += 5;
+            else if (xt >= (maxW - 0.1 * maxW) && xt <= (maxW - 0.05 * maxW) && yt >= (maxH - 0.1 * maxH) && yt <= (maxH - 0.05 * maxH))
+                ypoz -= 5;
+            else if ((xt >= 0.05 * maxW) && (xt <= 0.15 * maxW) && (yt > 0.85 * maxH) && (yt < 0.9 * maxH))
+            {
+                delay(200);
+                start();
+            }
+        }
+        rectangle(maxW / 2 - (maxWidthRow / 2) - maxW * 0.01 + xpoz, maxH * 0.1 + ypoz, maxW / 2 + (maxWidthRow / 2) + maxW * 0.01 + xpoz, maxH * 0.1 + (textHeight * (nrRanduri + 1)) + ypoz);
+        while (fgets(rand, sizeof(rand), reg))
+        {
+            outtextxy(maxW / 2 - (maxWidthRow / 2) + xpoz, maxH * 0.1 + (textHeight * r) + ypoz, rand);
+            r++;
+        }
+        page = 1 - page;
+    }
+}
+
 void start() 
 {
     int x = 0, y = 0, page = 0, c=1;
@@ -635,6 +721,10 @@ void start()
             else if (x >= (maxW / 2 - 0.1 * maxW + 1) && x <= (maxW / 2 + 0.1 * maxW - 1) && y >= (maxH / 2 + 0.2 * maxH + 1) && y <= (maxH / 2 + 0.3 * maxH - 1))
             {
                 exit(1);
+            }
+            else if (x >= (maxW / 2 - 0.1 * maxW + 1) && x <= (maxW / 2 + 0.1 * maxW - 1) && y >= (maxH / 2 - 0.1 * maxH - 0.1 * maxH + 1) && y <= (maxH / 2 + 0.1 * maxH - 0.1 * maxH - 0.1 * maxH - 1))
+            {
+                reguli();
             }
         }
         settextjustify(LEFT_TEXT, TOP_TEXT);
