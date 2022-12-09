@@ -429,7 +429,7 @@ void ColorBtn(int x, int y)
 {
     setfillstyle(SOLID_FILL, COLOR(79, 129, 188));
     floodfill(x + 10, y + 10 + 0.02 * maxH, 1);
-    floodfill(x + 10 + 0.03 * maxW, y + 0.02 * maxH + 10, 1);
+    floodfill(x + 10 + 0.02 * maxW, y + 0.02 * maxH + 10, 1);
     floodfill(x + 10 + 0.04 * maxW, y + 0.02 * maxH + 10, 1);
 }
 
@@ -480,8 +480,7 @@ void afisare()
         }
         if (xt >= (maxW - 0.1 * maxW) && xt <= (maxW - 0.05 * maxW) && yt >= (maxH - 0.1 * maxH) && yt <= (maxH - 0.05 * maxH))
         {
-            setfillstyle(SOLID_FILL, COLOR(79, 129, 188));
-            floodfill(xt, yt, 4);
+            ColorBtn(maxW - 0.1 * maxW, maxH - 0.1 * maxH - 0.123 * maxH);
         }
         if (GetAsyncKeyState(VK_LBUTTON))
         {
@@ -508,19 +507,6 @@ void afisare()
             diagram();
         }
     }
-}
-
-void ecranEroare() 
-{
-    clearviewport();
-    setcolor(4);
-    settextjustify(CENTER_TEXT, CENTER_TEXT);
-    char eroare[50] = "Eroare la deschiderea fisierului";
-    char second[100] = "Apasati orice tasta pentru a inchide aplicatia";
-    outtextxy(maxW / 2, maxH / 2 + 0.03 * maxH, eroare);
-    outtextxy(maxW / 2, maxH / 2 + 0.1 * maxH, second);
-    getch();
-    exit(1);
 }
 
 void alegeFisier() 
