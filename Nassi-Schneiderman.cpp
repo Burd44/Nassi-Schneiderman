@@ -276,6 +276,10 @@ void ifAndElseBracket(int row, int &linesToDrawFB, int &linesInIfBrackets,int &l
     }
 }
 
+void fill() {
+
+}
+
 void drawInstructions(int currLeft, int currRight, int &row,int &currLine,int &xpoz,int &ypoz,int rowLimFromPrev) 
 {
     int rowLimit = 9999, rowLimitIf = 9999, rowLimitElse = 9999;
@@ -285,6 +289,7 @@ void drawInstructions(int currLeft, int currRight, int &row,int &currLine,int &x
         if (tip >= 4 && tip <= 7) 
         {
             rectangle(currLeft + xpoz, diagRowHeight * currLine + ypoz, currRight + xpoz, diagRowHeight * (currLine + 1) + ypoz);
+            bar(currLeft + xpoz + 1, diagRowHeight * currLine + ypoz + 1, currRight + xpoz - 1, diagRowHeight * (currLine + 1) + ypoz - 1);
             printRow(currLeft, currRight, currLine, row, ypoz, xpoz);
             currLine++;
         }
@@ -347,6 +352,7 @@ void diagram() {
             if (tip >= 4 && tip <= 7) 
             {
                 rectangle(currLeft + xpoz, diagRowHeight * currLine + ypoz, currRight + xpoz, diagRowHeight * (currLine + 1) + ypoz);
+                bar(currLeft + xpoz+1, diagRowHeight * currLine + ypoz+1, currRight + xpoz-1, diagRowHeight * (currLine + 1) + ypoz-1);
                 printRow(currLeft, currRight, currLine, row, ypoz, xpoz);
                 currLine++;
             }
@@ -389,19 +395,21 @@ void diagram() {
                 drawInstructions((currRight + currLeft) / 2, currRight, row, currLineElse, xpoz, ypoz, rowLimitElse);
             }
         }
-        rectangle(maxW - 0.1 * maxW, 0.05 * maxH - 0.045 * maxH, maxW - 0.05 * maxW, 0.1 * maxH - 0.045 * maxH);  
+        setfillstyle(SOLID_FILL, COLOR(128, 212, 255));
+        rectangle(maxW - 0.1 * maxW, 0.05 * maxH - 0.045 * maxH, maxW - 0.05 * maxW, 0.1 * maxH - 0.045 * maxH);
+        bar(maxW - 0.1 * maxW+1, 0.05 * maxH - 0.045 * maxH+1, maxW - 0.05 * maxW-1, 0.1 * maxH - 0.045 * maxH-1);
         line(maxW - 0.1 * maxW, 0.05 * maxH - 0.045 * maxH, maxW - 0.05 * maxW, 0.1 * maxH - 0.045 * maxH);
         line(maxW - 0.05 * maxW, 0.05 * maxH - 0.045 * maxH, maxW - 0.1 * maxW, 0.1 * maxH - 0.045 * maxH);
         rectangle(maxW - 0.1 * maxW, maxH - 0.05 * maxH - 0.123 * maxH, maxW - 0.05 * maxW, maxH - 0.1 * maxH - 0.123 * maxH);
+        bar(maxW - 0.1 * maxW + 1, maxH - 0.05 * maxH - 0.123 * maxH - 1, maxW - 0.05 * maxW - 1, maxH - 0.1 * maxH - 0.123 * maxH + 1);
         line(maxW - 0.1 * maxW, maxH - 0.05 * maxH - 0.123 * maxH, maxW - 0.05 * maxW, maxH - 0.1 * maxH - 0.123 * maxH);
         line(maxW - 0.05 * maxW, maxH - 0.05 * maxH - 0.123 * maxH, maxW - 0.1 * maxW, maxH - 0.1 * maxH - 0.123 * maxH);
-        ColorBtn(maxW - 0.1 * maxW, 0.05 * maxH - 0.045 * maxH, maxW - 0.05 * maxW, 0.1 * maxH - 0.045 * maxH, COLOR(128, 212, 255));
-        ColorBtn(maxW - 0.1 * maxW, maxH - 0.1 * maxH - 0.123 * maxH, maxW - 0.05 * maxW, maxH - 0.05 * maxH - 0.123 * maxH, COLOR(128, 212, 255));
+        
         settextjustify(CENTER_TEXT, CENTER_TEXT);
         setbkcolor(COLOR(128, 212, 255));
         setfillstyle(SOLID_FILL, COLOR(128, 212, 255));
         rectangle(0.05 * maxW, 0.85 * maxH - 0.123 * maxH, 0.15 * maxW, 0.9 * maxH - 0.123 * maxH);
-        ColorBtn(0.05 * maxW, 0.85 * maxH - 0.123 * maxH, 0.15 * maxW, 0.9 * maxH - 0.123 * maxH, COLOR(128, 212, 255));
+        bar(0.05 * maxW + 1, 0.85 * maxH - 0.123 * maxH + 1, 0.15 * maxW - 1, 0.9 * maxH - 0.123 * maxH - 1);
         outtextxy((0.05 * maxW + 0.15 * maxW) / 2, (0.85 * maxH + 0.9 * maxH) / 2 + 0.005 * maxH - 0.123 * maxH, word3);
         setbkcolor(WHITE);
         settextjustify(LEFT_TEXT, TOP_TEXT);
@@ -426,21 +434,20 @@ void diagram() {
         }
         if (xt >= (maxW - 0.1 * maxW) && xt <= (maxW - 0.05 * maxW) && yt >= (0.05 * maxH + 0.077 * maxH) && yt <= (0.1 * maxH + 0.077 * maxH))
         {
-            ColorBtn(maxW - 0.1 * maxW, 0.05 * maxH - 0.045 * maxH, maxW - 0.05 * maxW, 0.1 * maxH - 0.045 * maxH, COLOR(79, 129, 188));
-            setfillstyle(SOLID_FILL, COLOR(128, 212, 255));
-            floodfill(maxW - 0.1 * maxW + 10, 0.05 * maxH - 0.045 * maxH + 2, 1);
-            floodfill(maxW - 0.1 * maxW + 10, 0.1 * maxH - 0.045 * maxH - 2, 1);
+            setfillstyle(SOLID_FILL, COLOR(79, 129, 188));
+            floodfill(maxW - 0.1 * maxW + 10, 0.05 * maxH - 0.045 * maxH + 0.01*maxH, 1);
+            floodfill(maxW - 0.05 * maxW - 10, 0.1 * maxH - 0.045 * maxH - 0.01*maxH, 1);
         }
         if (xt >= (maxW - 0.1 * maxW) && xt <= (maxW - 0.05 * maxW) && yt >= (maxH - 0.1 * maxH) && yt <= (maxH - 0.05 * maxH))
         {
-            ColorBtn(maxW - 0.1 * maxW, maxH - 0.1 * maxH - 0.123 * maxH, maxW - 0.05 * maxW, maxH - 0.05 * maxH - 0.123 * maxH, COLOR(79, 129, 188));
-            setfillstyle(SOLID_FILL, COLOR(128, 212, 255));
-            floodfill(maxW - 0.1 * maxW + 2, maxH - 0.1 * maxH - 0.123 * maxH + 10, 1);
-            floodfill(maxW - 0.05 * maxW - 2, maxH - 0.1 * maxH - 0.123 * maxH + 10, 1);
+            setfillstyle(SOLID_FILL, COLOR(79, 129, 188));
+            floodfill(maxW - 0.1 * maxW + 0.02 * maxW, maxH - 0.1 * maxH - 0.123 * maxH + 10, 1);
+            floodfill(maxW - 0.1 * maxW + 0.02 * maxW, maxH - 0.05 * maxH - 0.123 * maxH - 10, 1);
         }
         if ((xt >= 0.05 * maxW) && (xt <= 0.15 * maxW) && (yt > 0.85 * maxH) && (yt < 0.9 * maxH))
         {
-            ColorBtn(0.05 * maxW, 0.85 * maxH - 0.123 * maxH, 0.15 * maxW, 0.9 * maxH - 0.123 * maxH, COLOR(79, 129, 188));
+            //ColorBtn(0.05 * maxW, 0.85 * maxH - 0.123 * maxH, 0.15 * maxW, 0.9 * maxH - 0.123 * maxH, COLOR(79, 129, 188));
+            floodfill(0.05 * maxW + 10, 0.85 * maxH - 0.123 * maxH+ 10, 1);
             setbkcolor(COLOR(79, 129, 188));
             settextjustify(CENTER_TEXT, CENTER_TEXT);
             outtextxy((0.05 * maxW + 0.15 * maxW) / 2, (0.85 * maxH + 0.9 * maxH) / 2 + 0.005 * maxH - 0.123 * maxH, word3);
