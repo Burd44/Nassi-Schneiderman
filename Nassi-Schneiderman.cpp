@@ -517,23 +517,23 @@ void diagram() {
             {
                 diagRowHeight -= 1;
             }
-        }
+        }//rectangle(maxW - 0.1 * maxW, 0.05 * maxH - 0.045 * maxH, maxW - 0.05 * maxW, 0.1 * maxH - 0.045 * maxH);
         if (xt >= (maxW - 0.1 * maxW) && xt <= (maxW - 0.05 * maxW) && yt >= (0.05 * maxH + 0.077 * maxH) && yt <= (0.1 * maxH + 0.077 * maxH))
         {
             setfillstyle(SOLID_FILL, COLOR(79, 129, 188));
-            floodfill(maxW - 0.1 * maxW + 10, 0.05 * maxH - 0.045 * maxH + 0.01*maxH, 1);
-            floodfill(maxW - 0.05 * maxW - 10, 0.1 * maxH - 0.045 * maxH - 0.01*maxH, 1);
+            floodfill(maxW - 0.1 * maxW + 4, 0.05 * maxH - 0.045 * maxH + 0.01*maxH, 1);
+            floodfill(maxW - 0.05 * maxW - 4, 0.1 * maxH - 0.045 * maxH - 0.01*maxH, 1);
         }
         if (xt >= (maxW - 0.1 * maxW) && xt <= (maxW - 0.05 * maxW) && yt >= (maxH - 0.1 * maxH) && yt <= (maxH - 0.05 * maxH))
         {
             setfillstyle(SOLID_FILL, COLOR(79, 129, 188));
-            floodfill(maxW - 0.1 * maxW + 0.02 * maxW, maxH - 0.1 * maxH - 0.123 * maxH + 10, 1);
-            floodfill(maxW - 0.1 * maxW + 0.02 * maxW, maxH - 0.05 * maxH - 0.123 * maxH - 10, 1);
+            floodfill(maxW - 0.1 * maxW + 0.02 * maxW, maxH - 0.1 * maxH - 0.123 * maxH + 4, 1);
+            floodfill(maxW - 0.1 * maxW + 0.02 * maxW, maxH - 0.05 * maxH - 0.123 * maxH - 4, 1);
         }
         if ((xt >= 0.05 * maxW) && (xt <= 0.15 * maxW) && (yt > 0.85 * maxH) && (yt < 0.9 * maxH))
         {
             setfillstyle(SOLID_FILL, COLOR(79, 129, 188));
-            floodfill(0.05 * maxW + 10, 0.85 * maxH - 0.123 * maxH+ 10, 1);
+            floodfill(0.05 * maxW + 4, 0.85 * maxH - 0.123 * maxH+ 10, 1);
             setbkcolor(COLOR(79, 129, 188));
             settextjustify(CENTER_TEXT, CENTER_TEXT);
             outtextxy((0.05 * maxW + 0.15 * maxW) / 2, (0.85 * maxH + 0.9 * maxH) / 2 + 0.005 * maxH - 0.123 * maxH, word3);
