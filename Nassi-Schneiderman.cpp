@@ -440,20 +440,20 @@ void diagram() {
             }
             else if (tip == 1) 
             {
-                int linesToDrawFirstB = 0;               // Find first bracket limit
-                int linesInIfBrackets = 0;               // find if else exists
-                int linesToDrawSecondB = 0;              // if else exists find else brackets and row limit for current if else
-                int linesInElseBrackets = 0;             // "B" stands for Bracket/Brackets
+                int linesToDrawFirstB = 0;             // Find first bracket limit
+                int linesInIfBrackets = 0;             // find if else exists
+                int linesToDrawSecondB = 0;            // if else exists find else brackets and limits
+                int linesInElseBrackets = 0;
                 bool existaElse = 0;
                 ifAndElseBracket(row, linesToDrawFirstB, linesInIfBrackets, linesToDrawSecondB, linesInElseBrackets, existaElse);
                 rowLimitIf = row + linesInIfBrackets;
-                rowLimitElse = row + linesInIfBrackets + linesInElseBrackets; 
+                rowLimitElse = row + linesInIfBrackets + linesInElseBrackets;
 
                 //draw
                 char tru[] = "TRUE";
                 char fals[] = "FALSE";
                 int linesInRectangle = max(linesToDrawFirstB, linesToDrawSecondB);
-                setfillstyle(SOLID_FILL, COLOR(166, 252, 255));
+                setfillstyle(SOLID_FILL, COLOR(128, 212, 255));
                 bar(currLeft + xpoz + 2, diagRowHeight * currLine + ypoz + 2, currRight + xpoz - 1, diagRowHeight * (currLine + linesInRectangle + 2) + ypoz - 1);
                 setfillstyle(SOLID_FILL, COLOR(160, 255, 105));
                 int firstTriangle[6]{ currLeft + xpoz, diagRowHeight * currLine + ypoz, (currRight + currLeft) / 2 + xpoz, diagRowHeight * (currLine + 2) + ypoz,
@@ -461,24 +461,24 @@ void diagram() {
                 int secondTriangle[6]{ (currRight + currLeft) / 2 + xpoz, diagRowHeight * (currLine + 2) + ypoz, currRight + xpoz, diagRowHeight * currLine + ypoz,
                                       currRight + xpoz, diagRowHeight * (currLine + 2) + ypoz };
                 fillpoly(3, firstTriangle);
-                setfillstyle(SOLID_FILL, COLOR(255, 84, 84));
+                setfillstyle(SOLID_FILL, COLOR(255, 161, 161));
                 fillpoly(3, secondTriangle);
                 rectangle(currLeft + xpoz, diagRowHeight * currLine + ypoz, currRight + xpoz, diagRowHeight * (currLine + linesInRectangle + 2) + ypoz);
                 line(currLeft + xpoz, diagRowHeight * (currLine + 2) + ypoz, currRight + xpoz, diagRowHeight * (currLine + 2) + ypoz);
                 //line((currRight + currLeft) / 2 + xpoz, diagRowHeight * (currLine + 2) + ypoz, currRight + xpoz, diagRowHeight * currLine + ypoz);
-                setbkcolor(COLOR(166, 252, 255));
+                setbkcolor(COLOR(128, 212, 255));
                 printRow(currLeft, currRight, currLine, row, ypoz, xpoz);
                 setbkcolor(COLOR(160, 255, 105));
                 settextjustify(BOTTOM_TEXT, LEFT_TEXT);
                 outtextxy(currLeft + 0.01 * maxW + xpoz, diagRowHeight * (currLine + 2) - 0.01 * maxH + ypoz, tru);
-                setbkcolor(COLOR(255, 84, 84));
+                setbkcolor(COLOR(255, 161, 161));
                 settextjustify(RIGHT_TEXT, BOTTOM_TEXT);
                 outtextxy(currRight - 0.01 * maxW + xpoz, diagRowHeight * (currLine + 2) - 0.01 * maxH + ypoz, fals);
 
                 //recursion
-                row++; currLine += 2;          // currLine is incremented by 2 because if box has double height compared to the others
-                int currLineElse = currLine;   // because if and else start from same height
-                drawInstructions(currLeft, (currRight+currLeft) / 2, row, currLine, xpoz, ypoz, rowLimitIf);
+                row++; currLine += 2;               // drawInstructions recursively for every if and else
+                int currLineElse = currLine;
+                drawInstructions(currLeft, (currRight + currLeft) / 2, row, currLine, xpoz, ypoz, rowLimitIf);
                 drawInstructions((currRight + currLeft) / 2, currRight, row, currLineElse, xpoz, ypoz, rowLimitElse);
             }
         }
@@ -517,7 +517,7 @@ void diagram() {
             {
                 diagRowHeight -= 1;
             }
-        }//rectangle(maxW - 0.1 * maxW, 0.05 * maxH - 0.045 * maxH, maxW - 0.05 * maxW, 0.1 * maxH - 0.045 * maxH);
+        }
         if (xt >= (maxW - 0.1 * maxW) && xt <= (maxW - 0.05 * maxW) && yt >= (0.05 * maxH + 0.077 * maxH) && yt <= (0.1 * maxH + 0.077 * maxH))
         {
             setfillstyle(SOLID_FILL, COLOR(79, 129, 188));
