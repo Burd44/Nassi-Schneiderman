@@ -691,11 +691,11 @@ void afisare()
         clearviewport();
         int r = 1;
         rewind(fptr);                           //Mutam citirea din fisier inapoi la (0,0)
-        settextstyle(3, HORIZ_DIR, 3);
+        //settextstyle(3, HORIZ_DIR, 3);                                                          !!! Memory Leak
         setcolor(COLOR(45, 65, 196));
         outtextxy(0.05 * maxW, 0.06 * maxH, word4);
         outtextxy(0.05 * maxW, 0.09 * maxH, word5);             //Text cu instructiuni
-        settextstyle(DEFAULT_FONT, HORIZ_DIR, 0);
+        //settextstyle(DEFAULT_FONT, HORIZ_DIR, 0);                                               !!! Memory Leak
         setcolor(1);
         rectangle(maxW - 0.1 * maxW, 0.05 * maxH - 0.045 * maxH, maxW - 0.05 * maxW, 0.1 * maxH - 0.045 * maxH);           //Butonul de scroll in sus
         line(maxW - 0.075 * maxW, 0.05 * maxH - 0.045 * maxH, maxW - 0.1 * maxW, 0.1 * maxH - 0.045 * maxH);
