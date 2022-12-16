@@ -385,27 +385,48 @@ void drawInstructions(int currLeft, int currRight, int &row,int &currLine,int &x
             char tru[] = "TRUE";
             char fals[] = "FALSE";
             int linesInRectangle = max(linesToDrawFirstB, linesToDrawSecondB);
-            setfillstyle(SOLID_FILL, COLOR(128, 212, 255));
-            bar(currLeft + xpoz + 2, diagRowHeight * currLine + ypoz + 2, currRight + xpoz - 1, diagRowHeight * (currLine + linesInRectangle + 2) + ypoz - 1);
-            setfillstyle(SOLID_FILL, COLOR(160, 255, 105));
             int firstTriangle[6]{ currLeft + xpoz, diagRowHeight * currLine + ypoz, (currRight + currLeft) / 2 + xpoz, diagRowHeight * (currLine + 2) + ypoz,
                                   currLeft + xpoz, diagRowHeight * (currLine + 2) + ypoz };
             int secondTriangle[6]{ (currRight + currLeft) / 2 + xpoz, diagRowHeight * (currLine + 2) + ypoz, currRight + xpoz, diagRowHeight * currLine + ypoz,
                                   currRight + xpoz, diagRowHeight * (currLine + 2) + ypoz };
-            fillpoly(3, firstTriangle);
-            setfillstyle(SOLID_FILL, COLOR(255, 161, 161));
-            fillpoly(3, secondTriangle);
-            rectangle(currLeft + xpoz, diagRowHeight * currLine + ypoz, currRight + xpoz, diagRowHeight * (currLine + linesInRectangle + 2) + ypoz);
-            line(currLeft + xpoz, diagRowHeight * (currLine + 2) + ypoz, currRight + xpoz, diagRowHeight * (currLine + 2) + ypoz);
-            //line((currRight + currLeft) / 2 + xpoz, diagRowHeight * (currLine + 2) + ypoz, currRight + xpoz, diagRowHeight * currLine + ypoz);
-            setbkcolor(COLOR(128, 212, 255));
-            printRow(currLeft, currRight, currLine, row, ypoz, xpoz);
-            setbkcolor(COLOR(160, 255, 105));
-            settextjustify(BOTTOM_TEXT, LEFT_TEXT);
-            outtextxy(currLeft + 0.01 * maxW + xpoz, diagRowHeight * (currLine + 2) - 0.01 * maxH + ypoz, tru);
-            setbkcolor(COLOR(255, 161, 161));
-            settextjustify(RIGHT_TEXT, BOTTOM_TEXT);
-            outtextxy(currRight - 0.01 * maxW + xpoz, diagRowHeight * (currLine + 2) - 0.01 * maxH + ypoz, fals);
+            int xMouse = mousex(), yMouse = mousey();
+            if ((xMouse >= currLeft + xpoz + 2) && (xMouse <= currRight + xpoz - 1) && (yMouse >= diagRowHeight * currLine + ypoz + 2 + 0.123 * maxH)
+                && (yMouse <= diagRowHeight * (currLine + linesInRectangle + 2) + ypoz - 1 + 0.123 * maxH)) {
+                setfillstyle(SOLID_FILL, COLOR(100, 127, 250));
+                bar(currLeft + xpoz + 2, diagRowHeight * currLine + ypoz + 2, currRight + xpoz - 1, diagRowHeight * (currLine + linesInRectangle + 2) + ypoz - 1);
+                setfillstyle(SOLID_FILL, COLOR(66, 219, 20));
+                fillpoly(3, firstTriangle);
+                setfillstyle(SOLID_FILL, COLOR(240, 48, 38));
+                fillpoly(3, secondTriangle);
+                rectangle(currLeft + xpoz, diagRowHeight * currLine + ypoz, currRight + xpoz, diagRowHeight * (currLine + linesInRectangle + 2) + ypoz);
+                line(currLeft + xpoz, diagRowHeight * (currLine + 2) + ypoz, currRight + xpoz, diagRowHeight * (currLine + 2) + ypoz);
+                setbkcolor(COLOR(100, 127, 250));
+                printRow(currLeft, currRight, currLine, row, ypoz, xpoz);
+                setbkcolor(COLOR(66, 219, 20));
+                settextjustify(BOTTOM_TEXT, LEFT_TEXT);
+                outtextxy(currLeft + 0.01 * maxW + xpoz, diagRowHeight * (currLine + 2) - 0.01 * maxH + ypoz, tru);
+                setbkcolor(COLOR(240, 48, 38));
+                settextjustify(RIGHT_TEXT, BOTTOM_TEXT);
+                outtextxy(currRight - 0.01 * maxW + xpoz, diagRowHeight * (currLine + 2) - 0.01 * maxH + ypoz, fals);
+            }
+            else {
+                setfillstyle(SOLID_FILL, COLOR(128, 212, 255));
+                bar(currLeft + xpoz + 2, diagRowHeight * currLine + ypoz + 2, currRight + xpoz - 1, diagRowHeight * (currLine + linesInRectangle + 2) + ypoz - 1);
+                setfillstyle(SOLID_FILL, COLOR(160, 255, 105));
+                fillpoly(3, firstTriangle);
+                setfillstyle(SOLID_FILL, COLOR(255, 161, 161));
+                fillpoly(3, secondTriangle);
+                rectangle(currLeft + xpoz, diagRowHeight * currLine + ypoz, currRight + xpoz, diagRowHeight * (currLine + linesInRectangle + 2) + ypoz);
+                line(currLeft + xpoz, diagRowHeight * (currLine + 2) + ypoz, currRight + xpoz, diagRowHeight * (currLine + 2) + ypoz);
+                setbkcolor(COLOR(128, 212, 255));
+                printRow(currLeft, currRight, currLine, row, ypoz, xpoz);
+                setbkcolor(COLOR(160, 255, 105));
+                settextjustify(BOTTOM_TEXT, LEFT_TEXT);
+                outtextxy(currLeft + 0.01 * maxW + xpoz, diagRowHeight * (currLine + 2) - 0.01 * maxH + ypoz, tru);
+                setbkcolor(COLOR(255, 161, 161));
+                settextjustify(RIGHT_TEXT, BOTTOM_TEXT);
+                outtextxy(currRight - 0.01 * maxW + xpoz, diagRowHeight * (currLine + 2) - 0.01 * maxH + ypoz, fals);
+            }
 
             //recursion
             row++; currLine += 2;               // drawInstructions recursively for every if and else
@@ -522,24 +543,41 @@ void diagram() {
                 int xMouse = mousex(), yMouse = mousey();
                 if ((xMouse >= currLeft + xpoz + 2) && (xMouse <= currRight + xpoz - 1) && (yMouse >= diagRowHeight * currLine + ypoz + 2 + 0.123 * maxH)
                     && (yMouse <= diagRowHeight * (currLine + linesInRectangle + 2) + ypoz - 1 + 0.123 * maxH)) {
-                    
+                    setfillstyle(SOLID_FILL, COLOR(100, 127, 250));
+                    bar(currLeft + xpoz + 2, diagRowHeight * currLine + ypoz + 2, currRight + xpoz - 1, diagRowHeight * (currLine + linesInRectangle + 2) + ypoz - 1);
+                    setfillstyle(SOLID_FILL, COLOR(66, 219, 20));
+                    fillpoly(3, firstTriangle);
+                    setfillstyle(SOLID_FILL, COLOR(240, 48, 38));
+                    fillpoly(3, secondTriangle);
+                    rectangle(currLeft + xpoz, diagRowHeight * currLine + ypoz, currRight + xpoz, diagRowHeight * (currLine + linesInRectangle + 2) + ypoz);
+                    line(currLeft + xpoz, diagRowHeight * (currLine + 2) + ypoz, currRight + xpoz, diagRowHeight * (currLine + 2) + ypoz);
+                    setbkcolor(COLOR(100, 127, 250));
+                    printRow(currLeft, currRight, currLine, row, ypoz, xpoz);
+                    setbkcolor(COLOR(66, 219, 20));
+                    settextjustify(BOTTOM_TEXT, LEFT_TEXT);
+                    outtextxy(currLeft + 0.01 * maxW + xpoz, diagRowHeight * (currLine + 2) - 0.01 * maxH + ypoz, tru);
+                    setbkcolor(COLOR(240, 48, 38));
+                    settextjustify(RIGHT_TEXT, BOTTOM_TEXT);
+                    outtextxy(currRight - 0.01 * maxW + xpoz, diagRowHeight * (currLine + 2) - 0.01 * maxH + ypoz, fals);
                 }
-                setfillstyle(SOLID_FILL, COLOR(128, 212, 255));
-                bar(currLeft + xpoz + 2, diagRowHeight * currLine + ypoz + 2, currRight + xpoz - 1, diagRowHeight * (currLine + linesInRectangle + 2) + ypoz - 1);
-                setfillstyle(SOLID_FILL, COLOR(160, 255, 105));
-                fillpoly(3, firstTriangle);
-                setfillstyle(SOLID_FILL, COLOR(255, 161, 161));
-                fillpoly(3, secondTriangle);
-                rectangle(currLeft + xpoz, diagRowHeight * currLine + ypoz, currRight + xpoz, diagRowHeight * (currLine + linesInRectangle + 2) + ypoz);
-                line(currLeft + xpoz, diagRowHeight * (currLine + 2) + ypoz, currRight + xpoz, diagRowHeight * (currLine + 2) + ypoz);
-                setbkcolor(COLOR(128, 212, 255));
-                printRow(currLeft, currRight, currLine, row, ypoz, xpoz);
-                setbkcolor(COLOR(160, 255, 105));
-                settextjustify(BOTTOM_TEXT, LEFT_TEXT);
-                outtextxy(currLeft + 0.01 * maxW + xpoz, diagRowHeight * (currLine + 2) - 0.01 * maxH + ypoz, tru);
-                setbkcolor(COLOR(255, 161, 161));
-                settextjustify(RIGHT_TEXT, BOTTOM_TEXT);
-                outtextxy(currRight - 0.01 * maxW + xpoz, diagRowHeight * (currLine + 2) - 0.01 * maxH + ypoz, fals);
+                else {
+                    setfillstyle(SOLID_FILL, COLOR(128, 212, 255));
+                    bar(currLeft + xpoz + 2, diagRowHeight * currLine + ypoz + 2, currRight + xpoz - 1, diagRowHeight * (currLine + linesInRectangle + 2) + ypoz - 1);
+                    setfillstyle(SOLID_FILL, COLOR(160, 255, 105));
+                    fillpoly(3, firstTriangle);
+                    setfillstyle(SOLID_FILL, COLOR(255, 161, 161));
+                    fillpoly(3, secondTriangle);
+                    rectangle(currLeft + xpoz, diagRowHeight * currLine + ypoz, currRight + xpoz, diagRowHeight * (currLine + linesInRectangle + 2) + ypoz);
+                    line(currLeft + xpoz, diagRowHeight * (currLine + 2) + ypoz, currRight + xpoz, diagRowHeight * (currLine + 2) + ypoz);
+                    setbkcolor(COLOR(128, 212, 255));
+                    printRow(currLeft, currRight, currLine, row, ypoz, xpoz);
+                    setbkcolor(COLOR(160, 255, 105));
+                    settextjustify(BOTTOM_TEXT, LEFT_TEXT);
+                    outtextxy(currLeft + 0.01 * maxW + xpoz, diagRowHeight * (currLine + 2) - 0.01 * maxH + ypoz, tru);
+                    setbkcolor(COLOR(255, 161, 161));
+                    settextjustify(RIGHT_TEXT, BOTTOM_TEXT);
+                    outtextxy(currRight - 0.01 * maxW + xpoz, diagRowHeight * (currLine + 2) - 0.01 * maxH + ypoz, fals);
+                }
 
                 //recursion
                 row++; currLine += 2;               // drawInstructions recursively for every if and else
