@@ -306,10 +306,21 @@ void drawInstructions(int currLeft, int currRight, int &row,int &currLine,int &x
         if (tip >= 4 && tip <= 7) 
         {
             rectangle(currLeft + xpoz, diagRowHeight * currLine + ypoz, currRight + xpoz, diagRowHeight * (currLine + 1) + ypoz);
-            setfillstyle(SOLID_FILL, COLOR(166, 252, 255));
-            bar(currLeft + xpoz + 2, diagRowHeight * currLine + ypoz + 2, currRight + xpoz - 1, diagRowHeight * (currLine + 1) + ypoz - 1);
-            setbkcolor(COLOR(166, 252, 255));
-            printRow(currLeft, currRight, currLine, row, ypoz, xpoz);
+            // the next if is for hover effect
+            int xMouse = mousex(), yMouse = mousey();
+            if ((xMouse >= currLeft + xpoz + 2) && (xMouse <= currRight + xpoz - 1) && (yMouse >= diagRowHeight * currLine + ypoz + 2 + 0.123 * maxH)
+                && (yMouse <= diagRowHeight * (currLine + 1) + ypoz - 1 + 0.123 * maxH)) {
+                setfillstyle(SOLID_FILL, COLOR(124, 171, 230));
+                bar(currLeft + xpoz + 2, diagRowHeight * currLine + ypoz + 2, currRight + xpoz - 1, diagRowHeight * (currLine + 1) + ypoz - 1);
+                setbkcolor(COLOR(124, 171, 230));
+                printRow(currLeft, currRight, currLine, row, ypoz, xpoz);
+            }
+            else {
+                setfillstyle(SOLID_FILL, COLOR(166, 252, 255));
+                bar(currLeft + xpoz + 2, diagRowHeight * currLine + ypoz + 2, currRight + xpoz - 1, diagRowHeight * (currLine + 1) + ypoz - 1);
+                setbkcolor(COLOR(166, 252, 255));
+                printRow(currLeft, currRight, currLine, row, ypoz, xpoz);
+            }
             currLine++;
         }
         else if (tip == 2 || tip == 3) 
@@ -321,18 +332,38 @@ void drawInstructions(int currLeft, int currRight, int &row,int &currLine,int &x
 
             //draw
             if (tip == 2) {
-                setfillstyle(SOLID_FILL, COLOR(248, 255, 117));
                 rectangle(currLeft + xpoz, diagRowHeight * currLine + ypoz, currRight + xpoz, diagRowHeight * (currLine + linesToDraw + 1) + ypoz);
-                bar(currLeft + xpoz + 2, diagRowHeight * currLine + ypoz + 2, currRight + xpoz - 1, diagRowHeight * (currLine + linesToDraw + 1) + ypoz - 1);
-                setbkcolor(COLOR(248, 255, 117));
-                printRow(currLeft, currRight, currLine, row, ypoz, xpoz);
+                int xMouse = mousex(), yMouse = mousey();
+                if ((xMouse >= currLeft + xpoz + 2) && (xMouse <= currRight + xpoz - 1) && (yMouse >= diagRowHeight * currLine + ypoz + 2 + 0.123 * maxH)
+                    && (yMouse <= diagRowHeight * (currLine + linesToDraw + 1) + ypoz - 1 + 0.123 * maxH)) {
+                    setfillstyle(SOLID_FILL, COLOR(255, 213, 0));
+                    bar(currLeft + xpoz + 2, diagRowHeight * currLine + ypoz + 2, currRight + xpoz - 1, diagRowHeight * (currLine + linesToDraw + 1) + ypoz - 1);
+                    setbkcolor(COLOR(255, 213, 0));
+                    printRow(currLeft, currRight, currLine, row, ypoz, xpoz);
+                }
+                else {
+                    setfillstyle(SOLID_FILL, COLOR(248, 255, 117));
+                    bar(currLeft + xpoz + 2, diagRowHeight * currLine + ypoz + 2, currRight + xpoz - 1, diagRowHeight * (currLine + linesToDraw + 1) + ypoz - 1);
+                    setbkcolor(COLOR(248, 255, 117));
+                    printRow(currLeft, currRight, currLine, row, ypoz, xpoz);
+                }
             }
             else {
-                setfillstyle(SOLID_FILL, COLOR(255, 187, 115));
                 rectangle(currLeft + xpoz, diagRowHeight * currLine + ypoz, currRight + xpoz, diagRowHeight * (currLine + linesToDraw + 1) + ypoz);
-                bar(currLeft + xpoz + 2, diagRowHeight * currLine + ypoz + 2, currRight + xpoz - 1, diagRowHeight * (currLine + linesToDraw + 1) + ypoz - 1);
-                setbkcolor(COLOR(255, 187, 115));
-                printRow(currLeft, currRight, currLine, row, ypoz, xpoz);
+                int xMouse = mousex(), yMouse = mousey();
+                if ((xMouse >= currLeft + xpoz + 2) && (xMouse <= currRight + xpoz - 1) && (yMouse >= diagRowHeight * currLine + ypoz + 2 + 0.123 * maxH)
+                    && (yMouse <= diagRowHeight * (currLine + linesToDraw + 1) + ypoz - 1 + 0.123 * maxH)) {
+                    setfillstyle(SOLID_FILL, COLOR(247, 149, 74));
+                    bar(currLeft + xpoz + 2, diagRowHeight * currLine + ypoz + 2, currRight + xpoz - 1, diagRowHeight * (currLine + linesToDraw + 1) + ypoz - 1);
+                    setbkcolor(COLOR(247, 149, 74));
+                    printRow(currLeft, currRight, currLine, row, ypoz, xpoz);
+                }
+                else {
+                    setfillstyle(SOLID_FILL, COLOR(255, 187, 115));
+                    bar(currLeft + xpoz + 2, diagRowHeight * currLine + ypoz + 2, currRight + xpoz - 1, diagRowHeight * (currLine + linesToDraw + 1) + ypoz - 1);
+                    setbkcolor(COLOR(255, 187, 115));
+                    printRow(currLeft, currRight, currLine, row, ypoz, xpoz);
+                }
             }
 
             //recursion
@@ -405,10 +436,21 @@ void diagram() {
             if (tip >= 4 && tip <= 7) 
             {
                 rectangle(currLeft + xpoz, diagRowHeight * currLine + ypoz, currRight + xpoz, diagRowHeight * (currLine + 1) + ypoz);
-                setfillstyle(SOLID_FILL, COLOR(128, 212, 255));
-                bar(currLeft + xpoz + 2, diagRowHeight * currLine + ypoz + 2, currRight + xpoz - 1, diagRowHeight * (currLine + 1) + ypoz - 1);
-                setbkcolor(COLOR(128, 212, 255));
-                printRow(currLeft, currRight, currLine, row, ypoz, xpoz);
+                // the next if is for hover effect
+                int xMouse = mousex(), yMouse = mousey();
+                if ((xMouse >= currLeft + xpoz + 2) && (xMouse <= currRight + xpoz - 1) && (yMouse >= diagRowHeight * currLine + ypoz + 2 + 0.123 * maxH)
+                    && (yMouse <= diagRowHeight * (currLine + 1) + ypoz - 1 + 0.123 * maxH)) {
+                    setfillstyle(SOLID_FILL, COLOR(124, 171, 230));
+                    bar(currLeft + xpoz + 2, diagRowHeight * currLine + ypoz + 2, currRight + xpoz - 1, diagRowHeight * (currLine + 1) + ypoz - 1);
+                    setbkcolor(COLOR(124, 171, 230));
+                    printRow(currLeft, currRight, currLine, row, ypoz, xpoz);
+                }
+                else {
+                    setfillstyle(SOLID_FILL, COLOR(166, 252, 255));
+                    bar(currLeft + xpoz + 2, diagRowHeight * currLine + ypoz + 2, currRight + xpoz - 1, diagRowHeight * (currLine + 1) + ypoz - 1);
+                    setbkcolor(COLOR(166, 252, 255));
+                    printRow(currLeft, currRight, currLine, row, ypoz, xpoz);
+                }
                 currLine++;
             }
             else if (tip == 2 || tip == 3) 
@@ -420,18 +462,38 @@ void diagram() {
 
                 //draw
                 if (tip == 2) {
-                    setfillstyle(SOLID_FILL, COLOR(248, 255, 117));
                     rectangle(currLeft + xpoz, diagRowHeight * currLine + ypoz, currRight + xpoz, diagRowHeight * (currLine + linesToDraw + 1) + ypoz);
-                    bar(currLeft + xpoz + 2, diagRowHeight * currLine + ypoz + 2, currRight + xpoz - 1, diagRowHeight * (currLine + linesToDraw + 1) + ypoz - 1);
-                    setbkcolor(COLOR(248, 255, 117));
-                    printRow(currLeft, currRight, currLine, row, ypoz, xpoz);
+                    int xMouse = mousex(), yMouse = mousey();
+                    if ((xMouse >= currLeft + xpoz + 2) && (xMouse <= currRight + xpoz - 1) && (yMouse >= diagRowHeight * currLine + ypoz + 2 + 0.123 * maxH)
+                        && (yMouse <= diagRowHeight * (currLine + linesToDraw + 1) + ypoz - 1 + 0.123 * maxH)) {
+                        setfillstyle(SOLID_FILL, COLOR(255, 213, 0));
+                        bar(currLeft + xpoz + 2, diagRowHeight * currLine + ypoz + 2, currRight + xpoz - 1, diagRowHeight * (currLine + linesToDraw + 1) + ypoz - 1);
+                        setbkcolor(COLOR(255, 213, 0));
+                        printRow(currLeft, currRight, currLine, row, ypoz, xpoz);
+                    }
+                    else {
+                        setfillstyle(SOLID_FILL, COLOR(248, 255, 117));
+                        bar(currLeft + xpoz + 2, diagRowHeight * currLine + ypoz + 2, currRight + xpoz - 1, diagRowHeight * (currLine + linesToDraw + 1) + ypoz - 1);
+                        setbkcolor(COLOR(248, 255, 117));
+                        printRow(currLeft, currRight, currLine, row, ypoz, xpoz);
+                    }
                 }
                 else {
-                    setfillstyle(SOLID_FILL, COLOR(255, 187, 115));
                     rectangle(currLeft + xpoz, diagRowHeight * currLine + ypoz, currRight + xpoz, diagRowHeight * (currLine + linesToDraw + 1) + ypoz);
-                    bar(currLeft + xpoz + 2, diagRowHeight * currLine + ypoz + 2, currRight + xpoz - 1, diagRowHeight * (currLine + linesToDraw + 1) + ypoz - 1);
-                    setbkcolor(COLOR(255, 187, 115));
-                    printRow(currLeft, currRight, currLine, row, ypoz, xpoz);
+                    int xMouse = mousex(), yMouse = mousey();
+                    if ((xMouse >= currLeft + xpoz + 2) && (xMouse <= currRight + xpoz - 1) && (yMouse >= diagRowHeight * currLine + ypoz + 2 + 0.123 * maxH)
+                        && (yMouse <= diagRowHeight * (currLine + linesToDraw + 1) + ypoz - 1 + 0.123 * maxH)) {
+                        setfillstyle(SOLID_FILL, COLOR(247, 149, 74));
+                        bar(currLeft + xpoz + 2, diagRowHeight * currLine + ypoz + 2, currRight + xpoz - 1, diagRowHeight * (currLine + linesToDraw + 1) + ypoz - 1);
+                        setbkcolor(COLOR(247, 149, 74));
+                        printRow(currLeft, currRight, currLine, row, ypoz, xpoz);
+                    }
+                    else {
+                        setfillstyle(SOLID_FILL, COLOR(255, 187, 115));
+                        bar(currLeft + xpoz + 2, diagRowHeight * currLine + ypoz + 2, currRight + xpoz - 1, diagRowHeight * (currLine + linesToDraw + 1) + ypoz - 1);
+                        setbkcolor(COLOR(255, 187, 115));
+                        printRow(currLeft, currRight, currLine, row, ypoz, xpoz);
+                    }
                 }
 
                 //recursion
@@ -453,19 +515,23 @@ void diagram() {
                 char tru[] = "TRUE";
                 char fals[] = "FALSE";
                 int linesInRectangle = max(linesToDrawFirstB, linesToDrawSecondB);
-                setfillstyle(SOLID_FILL, COLOR(128, 212, 255));
-                bar(currLeft + xpoz + 2, diagRowHeight * currLine + ypoz + 2, currRight + xpoz - 1, diagRowHeight * (currLine + linesInRectangle + 2) + ypoz - 1);
-                setfillstyle(SOLID_FILL, COLOR(160, 255, 105));
                 int firstTriangle[6]{ currLeft + xpoz, diagRowHeight * currLine + ypoz, (currRight + currLeft) / 2 + xpoz, diagRowHeight * (currLine + 2) + ypoz,
                                       currLeft + xpoz, diagRowHeight * (currLine + 2) + ypoz };
                 int secondTriangle[6]{ (currRight + currLeft) / 2 + xpoz, diagRowHeight * (currLine + 2) + ypoz, currRight + xpoz, diagRowHeight * currLine + ypoz,
                                       currRight + xpoz, diagRowHeight * (currLine + 2) + ypoz };
+                int xMouse = mousex(), yMouse = mousey();
+                if ((xMouse >= currLeft + xpoz + 2) && (xMouse <= currRight + xpoz - 1) && (yMouse >= diagRowHeight * currLine + ypoz + 2 + 0.123 * maxH)
+                    && (yMouse <= diagRowHeight * (currLine + linesInRectangle + 2) + ypoz - 1 + 0.123 * maxH)) {
+                    
+                }
+                setfillstyle(SOLID_FILL, COLOR(128, 212, 255));
+                bar(currLeft + xpoz + 2, diagRowHeight * currLine + ypoz + 2, currRight + xpoz - 1, diagRowHeight * (currLine + linesInRectangle + 2) + ypoz - 1);
+                setfillstyle(SOLID_FILL, COLOR(160, 255, 105));
                 fillpoly(3, firstTriangle);
                 setfillstyle(SOLID_FILL, COLOR(255, 161, 161));
                 fillpoly(3, secondTriangle);
                 rectangle(currLeft + xpoz, diagRowHeight * currLine + ypoz, currRight + xpoz, diagRowHeight * (currLine + linesInRectangle + 2) + ypoz);
                 line(currLeft + xpoz, diagRowHeight * (currLine + 2) + ypoz, currRight + xpoz, diagRowHeight * (currLine + 2) + ypoz);
-                //line((currRight + currLeft) / 2 + xpoz, diagRowHeight * (currLine + 2) + ypoz, currRight + xpoz, diagRowHeight * currLine + ypoz);
                 setbkcolor(COLOR(128, 212, 255));
                 printRow(currLeft, currRight, currLine, row, ypoz, xpoz);
                 setbkcolor(COLOR(160, 255, 105));
