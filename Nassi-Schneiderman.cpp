@@ -14,7 +14,7 @@ FILE* reg = fopen("Reguli_De_Sintaxa.txt", "r");
 void start();
 void afisare();
 char Path[300], img[100];
-int maxH = getmaxheight() / 1.15, maxW = getmaxwidth() / 1.25;
+int maxH = getmaxheight() / 1.15, maxW = getmaxwidth() / 1.15;
 int diagRowHeight = 0.055 * maxH, diagWidth = 0.8 * maxW, rowsInTotal=0;
 char randuri[200][200];
 
