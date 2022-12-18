@@ -20,18 +20,6 @@ char randuri[200][200];
 
 /*Variabile-globale-folosite*/
 
-void ColorBtn(int x, int y, int xt, int yt, int c)
-{
-    setfillstyle(SOLID_FILL, c);
-    int mediumH = (yt - y) / 2;
-    for (int i = x + 3; i < xt - 5; i = i + 5)
-    {
-        floodfill(i, y + mediumH, 1);
-    }
-}
-
-/*Umplerea-unui-buton-din-mai-multe-segmente-cu-o-culoare*/
-
 void copiereRanduri() 
 {
     int cnt = 0;
@@ -697,19 +685,26 @@ void afisare()
         outtextxy(0.05 * maxW, 0.09 * maxH, word5);             //Text cu instructiuni
         //settextstyle(DEFAULT_FONT, HORIZ_DIR, 0);                                               !!! Memory Leak
         setcolor(1);
-        rectangle(maxW - 0.1 * maxW, 0.05 * maxH - 0.045 * maxH, maxW - 0.05 * maxW, 0.1 * maxH - 0.045 * maxH);           //Butonul de scroll in sus
+        setfillstyle(SOLID_FILL, COLOR(128, 212, 255));
+        rectangle(maxW - 0.1 * maxW, 0.05 * maxH - 0.045 * maxH, maxW - 0.05 * maxW, 0.1 * maxH - 0.045 * maxH);
+        bar(maxW - 0.1 * maxW + 2, 0.05 * maxH - 0.045 * maxH + 2, maxW - 0.05 * maxW - 1, 0.1 * maxH - 0.045 * maxH - 1);
+        rectangle(maxW - 0.05 * maxW, maxH - 0.1 * maxH - 0.123 * maxH, maxW - 0.1 * maxW, maxH - 0.05 * maxH - 0.123 * maxH);
+        bar(maxW - 0.1 * maxW + 2, maxH - 0.1 * maxH - 0.123 * maxH + 2, maxW - 0.05 * maxW - 1, maxH - 0.05 * maxH - 0.123 * maxH - 1);
         line(maxW - 0.075 * maxW, 0.05 * maxH - 0.045 * maxH, maxW - 0.1 * maxW, 0.1 * maxH - 0.045 * maxH);
         line(maxW - 0.075 * maxW, 0.05 * maxH - 0.045 * maxH, maxW - 0.05 * maxW, 0.1 * maxH - 0.045 * maxH);
-        rectangle(maxW - 0.1 * maxW, maxH - 0.05 * maxH - 0.123 * maxH, maxW - 0.05 * maxW, maxH - 0.1 * maxH - 0.123 * maxH);        //Butonul de scroll in jos
         line(maxW - 0.075 * maxW, maxH - 0.05 * maxH - 0.123 * maxH, maxW - 0.1 * maxW, maxH - 0.1 * maxH - 0.123 * maxH);
         line(maxW - 0.075 * maxW, maxH - 0.05 * maxH - 0.123 * maxH, maxW - 0.05 * maxW, maxH - 0.1 * maxH - 0.123 * maxH);
-        ColorBtn(maxW - 0.1 * maxW, 0.05 * maxH - 0.045 * maxH, maxW - 0.05 * maxW, 0.1 * maxH - 0.045 * maxH, COLOR(128, 212, 255));
-        ColorBtn(maxW - 0.1 * maxW, maxH - 0.1 * maxH - 0.123 * maxH, maxW - 0.05 * maxW, maxH - 0.05 * maxH - 0.123 * maxH, COLOR(128, 212, 255));  //Coloram butoanele cu functia ColorBtn
+        settextjustify(CENTER_TEXT, CENTER_TEXT);
+        setbkcolor(COLOR(128, 212, 255));
+        setfillstyle(SOLID_FILL, COLOR(128, 212, 255));
+        rectangle(0.05 * maxW, 0.85 * maxH - 0.123 * maxH, 0.15 * maxW, 0.9 * maxH - 0.123 * maxH);
+        bar(0.05 * maxW + 2, 0.85 * maxH - 0.123 * maxH + 2, 0.15 * maxW - 1, 0.9 * maxH - 0.123 * maxH - 1);
+        outtextxy((0.05 * maxW + 0.15 * maxW) / 2, (0.85 * maxH + 0.9 * maxH) / 2 + 0.005 * maxH - 0.123 * maxH, word3);
+        setbkcolor(WHITE);
         settextjustify(CENTER_TEXT, CENTER_TEXT);
         setbkcolor(COLOR(128, 212, 255));
         setfillstyle(SOLID_FILL, COLOR(128, 212, 255)); 
-        rectangle(0.05 * maxW, 0.85 * maxH-0.123*maxH, 0.15 * maxW, 0.9 * maxH-0.123*maxH);                                  //Butonul de inapoi
-        ColorBtn(0.05 * maxW, 0.85 * maxH - 0.123 * maxH, 0.15 * maxW, 0.9 * maxH - 0.123 * maxH, COLOR(128, 212, 255));                
+        rectangle(0.05 * maxW, 0.85 * maxH-0.123*maxH, 0.15 * maxW, 0.9 * maxH-0.123*maxH);                                  //Butonul de inapoi                
         outtextxy((0.05 * maxW + 0.15 * maxW) / 2, (0.85 * maxH + 0.9 * maxH) / 2 + 0.005 * maxH - 0.123 * maxH, word3);
         setbkcolor(WHITE);
         settextjustify(LEFT_TEXT,TOP_TEXT);
@@ -727,10 +722,11 @@ void afisare()
         }
         if ((xt >= 0.05 * maxW) && (xt <= 0.15 * maxW) && (yt > 0.85 * maxH) && (yt < 0.9 * maxH))
         {
-            ColorBtn(0.05 * maxW, 0.85 * maxH - 0.123 * maxH, 0.15 * maxW, 0.9 * maxH - 0.123 * maxH, COLOR(79, 129, 188));
+            setfillstyle(SOLID_FILL, COLOR(79, 129, 188));
+            floodfill(0.05 * maxW + 4, 0.85 * maxH - 0.123 * maxH + 10, 1);
             setbkcolor(COLOR(79, 129, 188));
             settextjustify(CENTER_TEXT, CENTER_TEXT);
-            outtextxy((0.05 * maxW + 0.15 * maxW) / 2, (0.85 * maxH + 0.9 * maxH) / 2 + 0.005 * maxH - 0.123 * maxH, word3);            //Coloram butonul de inpoi daca mouse-ul trece peste acesta
+            outtextxy((0.05 * maxW + 0.15 * maxW) / 2, (0.85 * maxH + 0.9 * maxH) / 2 + 0.005 * maxH - 0.123 * maxH, word3);
             setbkcolor(WHITE);
             settextjustify(LEFT_TEXT, TOP_TEXT);
         }
@@ -810,19 +806,26 @@ void reguli()
         int r = 1;
         rewind(reg);                             //Aduceam citirea fisierului inapoi la punctul (0/0)
         setcolor(1);
-        rectangle(maxW - 0.1 * maxW, 0.05 * maxH - 0.045 * maxH, maxW - 0.05 * maxW, 0.1 * maxH - 0.045 * maxH);     //Butonul de scroll in sus
+        setfillstyle(SOLID_FILL, COLOR(128, 212, 255));
+        rectangle(maxW - 0.1 * maxW, 0.05 * maxH - 0.045 * maxH, maxW - 0.05 * maxW, 0.1 * maxH - 0.045 * maxH);
+        bar(maxW - 0.1 * maxW + 2, 0.05 * maxH - 0.045 * maxH + 2, maxW - 0.05 * maxW - 1, 0.1 * maxH - 0.045 * maxH - 1);
+        rectangle(maxW - 0.05 * maxW, maxH - 0.1 * maxH - 0.123 * maxH, maxW - 0.1 * maxW, maxH - 0.05 * maxH - 0.123 * maxH);
+        bar(maxW - 0.1 * maxW + 2, maxH - 0.1 * maxH - 0.123 * maxH + 2, maxW - 0.05 * maxW - 1, maxH - 0.05 * maxH - 0.123 * maxH - 1);
         line(maxW - 0.075 * maxW, 0.05 * maxH - 0.045 * maxH, maxW - 0.1 * maxW, 0.1 * maxH - 0.045 * maxH);
         line(maxW - 0.075 * maxW, 0.05 * maxH - 0.045 * maxH, maxW - 0.05 * maxW, 0.1 * maxH - 0.045 * maxH);
-        rectangle(maxW - 0.1 * maxW, maxH - 0.05 * maxH - 0.123 * maxH, maxW - 0.05 * maxW, maxH - 0.1 * maxH - 0.123 * maxH); //Butonul de scroll in jos
         line(maxW - 0.075 * maxW, maxH - 0.05 * maxH - 0.123 * maxH, maxW - 0.1 * maxW, maxH - 0.1 * maxH - 0.123 * maxH);
         line(maxW - 0.075 * maxW, maxH - 0.05 * maxH - 0.123 * maxH, maxW - 0.05 * maxW, maxH - 0.1 * maxH - 0.123 * maxH);
-        ColorBtn(maxW - 0.1 * maxW, 0.05 * maxH - 0.045 * maxH, maxW - 0.05 * maxW, 0.1 * maxH - 0.045 * maxH, COLOR(128, 212, 255));      //Folosim functia ColorBtn pentru a colora butoanele compuse din mai multe figuri despartite de linii
-        ColorBtn(maxW - 0.1 * maxW, maxH - 0.1 * maxH - 0.123 * maxH, maxW - 0.05 * maxW, maxH - 0.05 * maxH - 0.123 * maxH, COLOR(128, 212, 255));
-        settextjustify(CENTER_TEXT, CENTER_TEXT);                  
+        settextjustify(CENTER_TEXT, CENTER_TEXT);
         setbkcolor(COLOR(128, 212, 255));
         setfillstyle(SOLID_FILL, COLOR(128, 212, 255));
-        rectangle(0.05 * maxW, 0.85 * maxH - 0.123 * maxH, 0.15 * maxW, 0.9 * maxH - 0.123 * maxH);                 //Butonul inapoi
-        ColorBtn(0.05 * maxW, 0.85 * maxH - 0.123 * maxH, 0.15 * maxW, 0.9 * maxH - 0.123 * maxH, COLOR(128, 212, 255));
+        rectangle(0.05 * maxW, 0.85 * maxH - 0.123 * maxH, 0.15 * maxW, 0.9 * maxH - 0.123 * maxH);
+        bar(0.05 * maxW + 2, 0.85 * maxH - 0.123 * maxH + 2, 0.15 * maxW - 1, 0.9 * maxH - 0.123 * maxH - 1);
+        outtextxy((0.05 * maxW + 0.15 * maxW) / 2, (0.85 * maxH + 0.9 * maxH) / 2 + 0.005 * maxH - 0.123 * maxH, word3);
+        setbkcolor(WHITE);
+        settextjustify(CENTER_TEXT, CENTER_TEXT);
+        setbkcolor(COLOR(128, 212, 255));
+        setfillstyle(SOLID_FILL, COLOR(128, 212, 255));
+        rectangle(0.05 * maxW, 0.85 * maxH - 0.123 * maxH, 0.15 * maxW, 0.9 * maxH - 0.123 * maxH);                                  //Butonul de inapoi                
         outtextxy((0.05 * maxW + 0.15 * maxW) / 2, (0.85 * maxH + 0.9 * maxH) / 2 + 0.005 * maxH - 0.123 * maxH, word3);
         setbkcolor(WHITE);
         settextjustify(LEFT_TEXT, TOP_TEXT);
@@ -840,10 +843,11 @@ void reguli()
         }
         if ((xt >= 0.05 * maxW) && (xt <= 0.15 * maxW) && (yt > 0.85 * maxH) && (yt < 0.9 * maxH))
         {
-            ColorBtn(0.05 * maxW, 0.85 * maxH - 0.123 * maxH, 0.15 * maxW, 0.9 * maxH - 0.123 * maxH, COLOR(79, 129, 188));
+            setfillstyle(SOLID_FILL, COLOR(79, 129, 188));
+            floodfill(0.05 * maxW + 4, 0.85 * maxH - 0.123 * maxH + 10, 1);
             setbkcolor(COLOR(79, 129, 188));
             settextjustify(CENTER_TEXT, CENTER_TEXT);
-            outtextxy((0.05 * maxW + 0.15 * maxW) / 2, (0.85 * maxH + 0.9 * maxH) / 2 + 0.005 * maxH - 0.123 * maxH, word3);   //Coloram tot butonul inapoi daca mouse-ul trece peste acesta
+            outtextxy((0.05 * maxW + 0.15 * maxW) / 2, (0.85 * maxH + 0.9 * maxH) / 2 + 0.005 * maxH - 0.123 * maxH, word3);
             setbkcolor(WHITE);
             settextjustify(LEFT_TEXT, TOP_TEXT);
         }
@@ -859,6 +863,10 @@ void reguli()
                 start();
             }
         }
+        if (GetAsyncKeyState(VK_UP))
+            ypoz -= 5;                             //Crestem offset-ul ypoz daca se apasa tasta sus
+        if (GetAsyncKeyState(VK_DOWN))
+            ypoz += 5;                              //Scadem offset-ul ypoz daca se apasa tasta jos
         rectangle(maxW / 2 - (maxWidthRow / 2) - maxW * 0.01 + xpoz, maxH * 0.1 + ypoz, maxW / 2 + (maxWidthRow / 2) + maxW * 0.01 + xpoz, maxH * 0.1 + (textHeight * (nrRanduri + 1)) + ypoz);   //Se genereaza casuta in care se va afla textul pe baza "offsetului" folosit la scroll, lungimea celui mai lung sir si lungimea dintre siruri
         while (fgets(rand, sizeof(rand), reg))
         {
@@ -946,6 +954,15 @@ void start()
 int main()
 {
     int page = 0;
+    cout << "Alegeti lungimea si latimea programului in pixeli. Minimul este de 900 x 500 pentru. 0 default\n" << "Lungime:";
+    cin >> maxW;
+    if (maxW == 0) {
+        maxW = getmaxwidth() / 1.15;
+    }
+    else {
+        cout << "Latime:";
+        cin >> maxH;
+    }
     initwindow(maxW, maxH, "Generator de Diagrame Nassi-Shneiderman"); //Initializarea ferestrei
     setactivepage(page);
     readimagefile("image.bmp", 0, 0, maxW, maxH);      //Afisam imaginea image.bmp pe ambele visualpage-uri pe care programul le foloseste pentru
