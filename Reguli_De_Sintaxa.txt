@@ -30,13 +30,16 @@ Return:          return(////)
 
   Aceste reguli respecta urmatoarele conditii:
 
--Dupa fiecare cuvant cheie urmeaza un set de paranteze cu 
+-Dupa fiecare cuvant cheie urmeaza un set de paranteze, cu 
 exceptia sctructurii de control For.
 
 -Nu exista spatiu intre cuvantul cheie si setul de paranteze.
 
--Fiecare instructiune trebuie sa fie una sub alta.
+-Instructiunile trebuie pozitionate una sub alta.
 
 -Nu conteaza numarul de spatii inainte de cuvantul
 cheie al instructiunii.
+
+-Variabilele nu pot incepe cu literele "for",
+de exemplu: formula<-formula + 1
 
