@@ -954,7 +954,7 @@ void start()
 int main()
 {
     int page = 0;
-    cout << "Alegeti lungimea si latimea programului in pixeli. Minimul este de 900 x 500 pentru. 0 default\n" << "Lungime:";
+    cout << "Alegeti lungimea si latimea programului in pixeli. Minimul este de 900 x 500. 0 pentru default\n" << "Lungime:";
     cin >> maxW;
     if (maxW == 0) {
         maxW = getmaxwidth() / 1.15;
