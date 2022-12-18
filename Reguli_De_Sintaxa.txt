@@ -35,3 +35,8 @@ exceptia sctructurii de control For.
 
 -Nu exista spatiu intre cuvantul cheie si setul de paranteze.
 
+-Fiecare instructiune trebuie sa fie una sub alta.
+
+-Nu conteaza numarul de spatii inainte de cuvantul
+cheie al instructiunii.
+
