@@ -24,7 +24,7 @@ void ColorBtn(int x, int y, int xt, int yt, int c)
 {
     setfillstyle(SOLID_FILL, c);
     int mediumH = (yt - y) / 2;
-    for (int i = x + 3; i < xt - 10; i = i + 10)
+    for (int i = x + 3; i < xt - 5; i = i + 5)
     {
         floodfill(i, y + mediumH, 1);
     }
