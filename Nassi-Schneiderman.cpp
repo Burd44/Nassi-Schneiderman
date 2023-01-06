@@ -958,7 +958,7 @@ void rezolutie()
     int page = 0, x, y;
     char b11[100] = "Lasa programul";                                //Textele butoanelor
     char b12[200] = "sa aleaga";
-    char b2[100] = "960 x 720";
+    char b2[100] = "960 x 500";
     char b3[100] = "1024 x 768";
     char b4[100] = "1152 x 870";
     char b5[100] = "1270 x 720";
@@ -1031,7 +1031,7 @@ void rezolutie()
             if (ismouseclick(WM_LBUTTONDOWN) == true)
             {
                 maxW = 960;
-                maxH = 720;                                               //Verificarea apasarii celui de al doilea buton
+                maxH = 500;                                               //Verificarea apasarii celui de al doilea buton
                 ok = false;
             }
         }
