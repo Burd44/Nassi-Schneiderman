@@ -956,8 +956,8 @@ void rezolutie()
     initwindow(800, 600, "Generator de Diagrame Nassi-Shneiderman");      //Initializarea ferestrei de alegere a rezolutiei
     bool ok = true;
     int page = 0, x, y;
-    char b11[100] = "Implicit:";                                //Textele butoanelor
-    char b12[200] = "maxW x maxH";
+    char b11[100] = "Lasa programul";                                //Textele butoanelor
+    char b12[200] = "sa aleaga";
     char b2[100] = "960 x 720";
     char b3[100] = "1024 x 768";
     char b4[100] = "1152 x 870";
