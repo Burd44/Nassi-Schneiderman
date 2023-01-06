@@ -6,7 +6,7 @@
 
 /*Bibliotecile-folosite*/
 
-#pragma comment(lib,"graphics.lib")   //O directiva exclusiva compiler-ului Visual c++ pentru a da link la o biblioteca de compiler
+#pragma comment(lib,"graphics.lib")   //O directiva exclusiva compiler-ului Visual c++ pentru a da link la o biblioteca din compiler
 
 using namespace std;
 
@@ -951,27 +951,189 @@ void start()
 
 /*Ecranul-Principal*/
 
+void rezolutie()
+{
+    initwindow(800, 600, "Generator de Diagrame Nassi-Shneiderman");      //Initializarea ferestrei de alegere a rezolutiei
+    bool ok = true;
+    int page = 0, x, y;
+    char b11[100] = "Implicit:";                                //Textele butoanelor
+    char b12[200] = "maxW x maxH";
+    char b2[100] = "960 x 720";
+    char b3[100] = "1024 x 768";
+    char b4[100] = "1152 x 870";
+    char b5[100] = "1270 x 720";
+    char b6[100] = "1440 x 900";
+    char b7[100] = "1600 x 900";
+    char b8[100] = "1920 x 1080";
+    setactivepage(page);
+    readimagefile("rezolutie.bmp", 0, 0, 800, 600);         //Afisarea fundalului pe primul visual page
+    setactivepage(1 - page);                           
+    readimagefile("rezolutie.bmp", 0, 0, 800, 600);        //Afisarea fundalului pe al doilea visual page
+    setvisualpage(page);
+    setlinestyle(SOLID_LINE, 1, 3);
+    setviewport(0, 50, 800, 600, 1);
+    settextjustify(CENTER_TEXT, CENTER_TEXT);
+    settextstyle(1, HORIZ_DIR, 0);
+    setusercharsize(1, 2, 1, 2);
+    setcolor(1);
+    while (ok)
+    {
+        setactivepage(page);
+        setvisualpage(1 - page);
+        clearviewport();
+        x = mousex();
+        y = mousey();
+        setbkcolor(COLOR(128, 212, 255));                                          //Desenarea butoanelor si afisarea textelor
+        setfillstyle(SOLID_FILL, COLOR(128, 212, 255));
+        rectangle(100, 25, 300, 125);
+        floodfill(103, 28, 1);
+        outtextxy(200, 75, b11);
+        outtextxy(200, 100, b12);
+        rectangle(100, 150, 300, 250);
+        floodfill(103, 153, 1);
+        outtextxy(200, 200, b2);
+        rectangle(100, 275, 300, 375);
+        floodfill(103, 278, 1);
+        outtextxy(200, 325, b3);
+        rectangle(100, 400, 300, 500);
+        floodfill(103, 403, 1);
+        outtextxy(200, 450, b4);
+        rectangle(500, 25, 700, 125); 
+        floodfill(503, 28, 1);
+        outtextxy(600, 75, b5);
+        rectangle(500, 150, 700, 250); 
+        floodfill(503, 153, 1);
+        outtextxy(600, 200, b6);
+        rectangle(500, 275, 700, 375);
+        floodfill(503, 278, 1); 
+        outtextxy(600, 325, b7);
+        rectangle(500, 400, 700, 500);
+        floodfill(503, 403, 1);
+        outtextxy(600, 450, b8);
+        if(x>=103 and x<=297 and y>=78 and y<=172)                   //Primul buton
+        { 
+            setfillstyle(SOLID_FILL, COLOR(79, 129, 188));
+            floodfill(103, 28, 1);
+            setbkcolor(COLOR(79, 129, 188));                         //Efectul de hover
+            outtextxy(200, 75, b11);
+            outtextxy(200, 100, b12);
+            if (ismouseclick(WM_LBUTTONDOWN) == true)
+            {
+                ok = false;                                           //Verificarea apasarii primului buton
+            }
+        }
+        else if(x >= 103 and x <= 297 and y >= 203 and y <= 297)           //Al doilea buton
+        {
+            setfillstyle(SOLID_FILL, COLOR(79, 129, 188));
+            floodfill(103, 153, 1);
+            setbkcolor(COLOR(79, 129, 188));                               //Efectul de hover
+            outtextxy(200, 200, b2);
+            if (ismouseclick(WM_LBUTTONDOWN) == true)
+            {
+                maxW = 960;
+                maxH = 720;                                               //Verificarea apasarii celui de al doilea buton
+                ok = false;
+            }
+        }
+        else if (x >= 103 and x <= 297 and y >= 328 and y <= 422)             //Al treilea buton
+        {
+            setfillstyle(SOLID_FILL, COLOR(79, 129, 188));
+            floodfill(103, 278, 1);
+            setbkcolor(COLOR(79, 129, 188));                            //Efectul de hover
+            outtextxy(200, 325, b3);
+            if (ismouseclick(WM_LBUTTONDOWN) == true)
+            {
+                maxW = 1024;
+                maxH = 768;                                    //Verificarea apasarii celui de al treilea buton
+                ok = false;
+            }
+        }
+        else if (x >= 103 and x <= 297 and y >= 453 and y <= 547)                    //Al patrulea buton
+        {
+            setfillstyle(SOLID_FILL, COLOR(79, 129, 188));
+            floodfill(103, 403, 1);
+            setbkcolor(COLOR(79, 129, 188));                               //Efectul de hover
+            outtextxy(200, 450, b4);
+            if (ismouseclick(WM_LBUTTONDOWN) == true)
+            {
+                maxW = 1152;
+                maxH = 870;                                                      //Verificarea apasarii celui de al patrulea buton
+                ok = false;
+            }
+        }
+        else if (x >= 503 and x <= 697 and y >= 78 and y <= 172)                     //Al cincilea buton
+        {
+            setfillstyle(SOLID_FILL, COLOR(79, 129, 188));
+            floodfill(503, 28, 1);
+            setbkcolor(COLOR(79, 129, 188));                              //Efectul de hover
+            outtextxy(600, 75, b5);
+            if (ismouseclick(WM_LBUTTONDOWN) == true)
+            {
+                maxW = 1270;
+                maxH = 720;                                             //Verificarea apasarii celui de al cincilea buton
+                ok = false;
+            }
+        }
+        else if (x >= 503 and x <= 697 and y >= 203 and y <= 297)                  //Al saselea buton
+        {
+            setfillstyle(SOLID_FILL, COLOR(79, 129, 188));
+            floodfill(503, 153, 1);
+            setbkcolor(COLOR(79, 129, 188));                               //Efectul de hover
+            outtextxy(600, 200, b6);
+            if (ismouseclick(WM_LBUTTONDOWN) == true)
+            {
+                maxW = 1440;
+                maxH = 900;                                                  //Verificarea apasarii celui de al saselea buton
+                ok = false;
+            }
+        }
+        else if (x >= 503 and x <= 697 and y >= 328 and y <= 422)                 //Al saptelea buton
+        {
+            setfillstyle(SOLID_FILL, COLOR(79, 129, 188));
+            floodfill(503, 278, 1);
+            setbkcolor(COLOR(79, 129, 188));                              //Efectul de hover
+            outtextxy(600, 325, b7);
+            if (ismouseclick(WM_LBUTTONDOWN) == true)
+            {
+                maxW = 1600;
+                maxH = 900;                                          //Verificarea apasarii celui de al saptelea buton
+                ok = false;
+            }
+        }
+        else if (x >= 503 and x <= 697 and y >= 453 and y <= 547)              //Al optelea buton
+        {
+            setfillstyle(SOLID_FILL, COLOR(79, 129, 188));
+            floodfill(503, 403, 1);
+            setbkcolor(COLOR(79, 129, 188));                                //Efectul de hover
+            outtextxy(600, 450, b8);
+            if (ismouseclick(WM_LBUTTONDOWN) == true)
+            {
+                maxW = 1920;
+                maxH = 1080;                                        //Verificarea apasarii celui de al optilea buton
+                ok = false;
+            }
+        }
+        setbkcolor(WHITE);
+        page = 1 - page;
+    }
+    closegraph();
+}
+
+/*Ecranul-De-Alegere-Al-Rezolutiei*/
+
 int main()
 {
+    rezolutie();
     int page = 0;
-    cout << "Alegeti lungimea si latimea programului in pixeli. Minimul este de 900 x 500. 0 pentru default\n" << "Lungime:";
-    cin >> maxW;
-    if (maxW == 0) {
-        maxW = getmaxwidth() / 1.15;
-    }
-    else {
-        cout << "Latime:";
-        cin >> maxH;
-    }
     initwindow(maxW, maxH, "Generator de Diagrame Nassi-Shneiderman"); //Initializarea ferestrei
     setactivepage(page);
     readimagefile("image.bmp", 0, 0, maxW, maxH);      //Afisam imaginea image.bmp pe ambele visualpage-uri pe care programul le foloseste pentru
     setactivepage(1 - page);                           //a putea reduce viewport-ul si a nu sterege anumite elemente pe care vrem sa le lasam in fundal
     readimagefile("image.bmp", 0, 0, maxW, maxH);
-    setvisualpage(1-page);
+    setvisualpage(1 - page);
     setcolor(1);
     setbkcolor(WHITE);
-    settextstyle(DEFAULT_FONT, HORIZ_DIR, 0);
+    settextstyle(1, HORIZ_DIR, 0);
     setusercharsize(1, 0.1*maxW, 1, 0.1*maxH);
     setlinestyle(SOLID_LINE, 1, 3);
     setviewport(0, 0.123 * maxH, maxW, maxH - 0.045 * maxH, 1);
